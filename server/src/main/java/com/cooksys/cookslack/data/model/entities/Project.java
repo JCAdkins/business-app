@@ -11,11 +11,13 @@ public class Project {
     @GeneratedValue
     private Long id;
     @Column
+    private Boolean deleted = false;
+    @Column
     private String name;
     @Column
     private String description;
     @Column
-    private boolean active;
+    private Boolean active;
     @ManyToOne
     private Team team;
 }

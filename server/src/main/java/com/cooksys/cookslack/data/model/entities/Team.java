@@ -11,6 +11,8 @@ public class Team {
     @GeneratedValue
     private Long id;
     @Column
+    private Boolean deleted = false;
+    @Column
     private String name;
     @Column
     private String description;

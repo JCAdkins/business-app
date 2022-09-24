@@ -1,6 +1,6 @@
 package com.cooksys.cookslack.data;
 
-import com.cooksys.cookslack.data.model.entities.User;
+import com.cooksys.cookslack.data.model.entities.*;
 import com.cooksys.cookslack.data.model.entities.embeds.Credentials;
 import com.cooksys.cookslack.data.repositories.*;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +23,37 @@ public class Seeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        // --- Company 1 ---
+        Company company1 = new Company();
+        company1.setName("Cook Systems");
+        company1.setDescription("A tech company based in Memphis, TN");
+
+        // --- Company 2 ---
+        Company company2 = new Company();
+        company2.setName("Google");
+        company2.setDescription("A tech company specializing in search and email.");
+
+        // --- Company 3 ---
+        Company company3 = new Company();
+        company3.setName("Apple");
+        company3.setDescription("A tech company based in Cupertino, CA.");
+
+        companyRepository.saveAllAndFlush(Arrays.asList(company1, company2, company3));
+
+        // --- Team 1 ---
+        Team team1 = new Team();
+        team1.setName("Team One");
+        team1.setDescription("Frontend Team");
+        team1.setCompany(company1);
+
+        // --- Team 2 ---
+        Team team2 = new Team();
+        team2.setName("Team Two");
+        team2.setDescription("Backend Team");
+        team2.setCompany(company1);
+
+        teamRepository.saveAllAndFlush(Arrays.asList(team1, team2));
+
         // --- User 1 ---
         // Credentials
         Credentials user1Cred = new Credentials();
@@ -38,6 +69,8 @@ public class Seeder implements CommandLineRunner {
         user1.setActive(true);
         user1.setAdmin(true);
         user1.setStatus("On Vacation");
+        user1.setCompany(company1);
+        user1.setTeam(team1);
 
         // --- User 2 ---
         // Credentials
@@ -54,6 +87,8 @@ public class Seeder implements CommandLineRunner {
         user2.setActive(true);
         user2.setAdmin(false);
         user2.setStatus("Working");
+        user2.setCompany(company1);
+        user2.setTeam(team2);
 
         // --- User 3 ---
         Credentials user3Cred = new Credentials();
@@ -70,6 +105,8 @@ public class Seeder implements CommandLineRunner {
         user3.setActive(true);
         user3.setAdmin(false);
         user3.setStatus("Working");
+        user3.setCompany(company1);
+        user3.setTeam(team1);
 
         // --- User 4 ---
         // Credentials
@@ -86,6 +123,7 @@ public class Seeder implements CommandLineRunner {
         user4.setActive(true);
         user4.setAdmin(false);
         user4.setStatus("Working");
+        user4.setCompany(company2);
 
         // --- User 5 ---
         // Credentials
@@ -102,9 +140,27 @@ public class Seeder implements CommandLineRunner {
         user5.setActive(true);
         user5.setAdmin(false);
         user5.setStatus("Working");
-
+        user5.setCompany(company3);
 
         userRepository.saveAllAndFlush(Arrays.asList(user1, user2, user3, user4, user5));
+
+        // --- Project 1 ---
+        Project project1 = new Project();
+        project1.setName("Cook-Slack");
+        project1.setDescription("A project management application.");
+        project1.setActive(true);
+        project1.setTeam(team1);
+
+        projectRepository.saveAllAndFlush(Arrays.asList(project1));
+
+        // --- Announcement 1 ---
+        Announcement announcement1 = new Announcement();
+        announcement1.setTitle("Our newest project!");
+        announcement1.setMessage("We are excited to announce our latest endeavour, Cook-Slack!");
+        announcement1.setCompany(company1);
+        announcement1.setAuthor(user1);
+
+        announcementRepository.saveAllAndFlush(Arrays.asList(announcement1));
 
     }
 }
