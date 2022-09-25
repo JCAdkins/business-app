@@ -3,6 +3,9 @@ import { useState } from "react";
 import CompanySelect from "./CompanySelect";
 import Login from './Login'
 
+//CSS import
+import "../components/component-Styles/main.css";
+
 const App = () => {
 
   const [userName, setUserName] = useState()
