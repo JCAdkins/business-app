@@ -1,22 +1,29 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import CompanySelect from "./CompanySelect";
-import Login from "./Login";
-import Projects from "./Projects";
-import Users from "./Users";
+
+import Login from './Login'
+import Announcements from "./Announcements";
+import CreateProjects from "./CreateProjects";
 
 const App = () => {
-  const [userName, setUserName] = useState();
-  console.log(userName);
+//username will be set here so that it can be passed to other components as well as Company for admin
+  const [userName, setUserName] = useState()
+  const [company, setCompany] = useState()
+  
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Login setUserName={setUserName} />} />
-        <Route path="/company" element={<CompanySelect />} />
-        <Route path="/projects" element={<Projects />} />
+  <Router>
+    <Routes>
+      <Route path="/" element={<Login setUserName={setUserName}/>} />
+      <Route path="/company" element={<CompanySelect company={company} setCompany={setCompany}/>} />
+      <Route path="/announcements" element={<Announcements company={company}/>} />
+      <Route path="/createproject" element={<CreateProjects />} />
+      <Route path="/projects" element={<Projects />} />
         <Route path="/users" element={<Users />} />
-      </Routes>
-    </Router>
+    </Routes>
+
+  </Router>
+
   );
 };
 
