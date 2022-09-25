@@ -5,7 +5,6 @@ import com.cooksys.cookslack.data.model.entities.embeds.Credentials;
 import com.cooksys.cookslack.data.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -59,6 +58,7 @@ public class Seeder implements CommandLineRunner {
         Credentials user1Cred = new Credentials();
         user1Cred.setUsername("therealmc");
         user1Cred.setPassword("Password");
+        user1Cred.setAdmin(true);
 
         User user1 = new User();
         user1.setCredentials(user1Cred);
@@ -67,7 +67,6 @@ public class Seeder implements CommandLineRunner {
         user1.setEmail("sierra117@email.com");
         user1.setPhoneNumber("123-456-7890");
         user1.setActive(true);
-        user1.setAdmin(true);
         user1.setStatus("On Vacation");
         user1.setCompany(company1);
         user1.setTeam(team1);
@@ -85,7 +84,6 @@ public class Seeder implements CommandLineRunner {
         user2.setEmail("mario@email.com");
         user2.setPhoneNumber("234-567-8901");
         user2.setActive(true);
-        user2.setAdmin(false);
         user2.setStatus("Working");
         user2.setCompany(company1);
         user2.setTeam(team2);
@@ -102,8 +100,7 @@ public class Seeder implements CommandLineRunner {
         user3.setLastName("Mario");
         user3.setEmail("luigi@email.com");
         user3.setPhoneNumber("345-678-9012");
-        user3.setActive(true);
-        user3.setAdmin(false);
+        user3.setActive(false);
         user3.setStatus("Working");
         user3.setCompany(company1);
         user3.setTeam(team1);
@@ -121,7 +118,6 @@ public class Seeder implements CommandLineRunner {
         user4.setEmail("nathan@email.com");
         user4.setPhoneNumber("456-789-0023");
         user4.setActive(true);
-        user4.setAdmin(false);
         user4.setStatus("Working");
         user4.setCompany(company2);
 
@@ -138,7 +134,6 @@ public class Seeder implements CommandLineRunner {
         user5.setEmail("willibecometheeldenlord@email.com");
         user5.setPhoneNumber("567-890-0034");
         user5.setActive(true);
-        user5.setAdmin(false);
         user5.setStatus("Working");
         user5.setCompany(company3);
 

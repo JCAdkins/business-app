@@ -17,7 +17,7 @@ public class Project {
     @Column
     private String description;
     @Column
-    private Boolean active;
+    private Boolean active = true;
     @ManyToOne
     private Team team;
 }

@@ -11,7 +11,4 @@ public class UserRequestDto {
     private String email;
     private String phoneNumber;
     private CredentialsRequestDto credentials;
-    private Boolean active;
-    private Boolean admin;
-    private String status;
 }

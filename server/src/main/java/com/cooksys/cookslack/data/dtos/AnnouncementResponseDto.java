@@ -14,5 +14,5 @@ public class AnnouncementResponseDto {
     private String title;
     private String message;
     private CompanyResponseDto company;
-    private UserResponseDto author;
+    private UserResponseDto user;
 }
