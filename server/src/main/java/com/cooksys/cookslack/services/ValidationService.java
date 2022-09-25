@@ -1,17 +1,18 @@
 package com.cooksys.cookslack.services;
 
-import com.cooksys.cookslack.data.model.entities.*;
+import com.cooksys.cookslack.data.dtos.*;
+import com.cooksys.cookslack.data.model.exceptions.BadRequestException;
 
 public interface ValidationService {
 
-    boolean userValidate(User user);
+    boolean newUserValidate(UserRequestDto user) throws BadRequestException;
 
-    boolean companyValidate(Company company);
+    boolean newCompanyValidate(CompanyRequestDto company) throws BadRequestException;
 
-    boolean announcementValidate(Announcement announcement);
+    boolean newAnnouncementValidate(AnnouncementRequestDto announcement) throws BadRequestException;
 
-    boolean teamValidate(Team team);
+    boolean newTeamValidate(TeamRequestDto team, Long companyId) throws BadRequestException;
 
-    boolean projectValidate(Project project);
+    boolean newProjectValidate(ProjectRequestDto project, Long teamId) throws BadRequestException;
 
 }

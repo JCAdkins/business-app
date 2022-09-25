@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class TeamRequestDto {
     private String name;
     private String description;
+    private CredentialsRequestDto credentials;
 }

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 public class ProjectRequestDto {
     private String name;
     private String description;
-    private Boolean active;
+    private CredentialsRequestDto credentials;
 }

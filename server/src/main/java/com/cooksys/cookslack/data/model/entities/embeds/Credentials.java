@@ -14,4 +14,6 @@ public class Credentials {
     private String username;
     @Column(nullable = false)
     private String password;
+    @Column
+    private Boolean admin = false;
 }

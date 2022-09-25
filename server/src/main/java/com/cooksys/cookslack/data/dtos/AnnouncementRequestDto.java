@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class AnnouncementRequestDto {
     private String title;
     private String message;
+    private CredentialsRequestDto credentials;
 }

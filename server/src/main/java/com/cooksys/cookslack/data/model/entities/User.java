@@ -2,13 +2,9 @@ package com.cooksys.cookslack.data.model.entities;
 
 import com.cooksys.cookslack.data.model.entities.embeds.Credentials;
 import lombok.Data;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
-/**
- * @author Caleb
- */
 @Table(name = "user_table")
 @Entity
 @Data
@@ -29,9 +25,7 @@ public class User {
     @Column
     private String phoneNumber;
     @Column
-    private Boolean active;
-    @Column
-    private Boolean admin;
+    private Boolean active = true;
     @Column
     private String status;
     @ManyToOne
