@@ -66,7 +66,6 @@ public class ValidationServiceImpl implements ValidationService {
                     user.getEmail() +
                             " is already in use. Please provide another email to continue.");
 
-
         // ---- Has valid password ---- See Error message for constraints
         Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
         Matcher passwordMatcher = passwordPattern.matcher(user.getCredentials().getPassword());

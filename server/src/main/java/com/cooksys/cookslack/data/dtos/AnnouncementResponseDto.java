@@ -1,5 +1,6 @@
 package com.cooksys.cookslack.data.dtos;
 
+import com.cooksys.cookslack.data.model.entities.Company;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,5 +15,5 @@ public class AnnouncementResponseDto {
     private String title;
     private String message;
     private CompanyResponseDto company;
-    private UserResponseDto user;
+    private UserResponseDto author;
 }
