@@ -152,29 +152,50 @@ const Users = props => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+              <TableCell
+                style={{ fontSize: 16, fontWeight: "bold" }}
+                align="center"
+              >
                 Name
               </TableCell>
-              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+              <TableCell
+                style={{ fontSize: 16, fontWeight: "bold" }}
+                align="center"
+              >
                 Email
               </TableCell>
-              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+              <TableCell
+                style={{ fontSize: 16, fontWeight: "bold" }}
+                align="center"
+              >
                 Team
               </TableCell>
-              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+              <TableCell
+                style={{ fontSize: 16, fontWeight: "bold" }}
+                align="center"
+              >
                 Active
               </TableCell>
-              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+              <TableCell
+                style={{ fontSize: 16, fontWeight: "bold" }}
+                align="center"
+              >
                 Admin
               </TableCell>
-              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+              <TableCell
+                style={{ fontSize: 16, fontWeight: "bold" }}
+                align="center"
+              >
                 Status
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map(user => (
-              <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableRow
+                key={user.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell component="th" scope="row" align="center">
                   {user.name}
                 </TableCell>
@@ -182,10 +203,22 @@ const Users = props => {
                   <Link href={`mailto:${user.email}`}>{user.email}</Link>
                 </TableCell>
                 <TableCell align="center">{user.team}</TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold", color: user.isActive ? "green" : "red" }}>
+                <TableCell
+                  align="center"
+                  style={{
+                    fontWeight: "bold",
+                    color: user.isActive ? "green" : "red",
+                  }}
+                >
                   {user.isActive ? "YES" : "NO"}
                 </TableCell>
-                <TableCell align="center" style={{ fontWeight: "bold", color: user.isAdmin ? "green" : "red" }}>
+                <TableCell
+                  align="center"
+                  style={{
+                    fontWeight: "bold",
+                    color: user.isAdmin ? "green" : "red",
+                  }}
+                >
                   {user.isAdmin ? "YES" : "NO"}
                 </TableCell>
                 <TableCell align="center">{user.status}</TableCell>
@@ -205,7 +238,11 @@ const Users = props => {
         </Button>
       </div>
       <div>
-        <Typography style={{ visibility: error ? "visible" : "hidden" }} component="h6" color="error">
+        <Typography
+          style={{ visibility: error ? "visible" : "hidden" }}
+          component="h6"
+          color="error"
+        >
           There was an error creating the user. Please try again.
         </Typography>
       </div>
@@ -235,21 +272,46 @@ const Users = props => {
             label="Email"
             style={{ padding: "10px 0" }}
           />
-          <TextField size="small" required type="password" label="Password" style={{ paddingRight: 10 }} />
-          <TextField size="small" required type="password" label="Confirm Password" />
+          <TextField
+            size="small"
+            required
+            type="password"
+            label="Password"
+            style={{ paddingRight: 10 }}
+          />
+          <TextField
+            size="small"
+            required
+            type="password"
+            label="Confirm Password"
+          />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Typography component="h6">Make user admin?</Typography>
-            <Select size="small" value={userAdmin} onChange={() => setUserAdmin(prev => !prev)} label="Pick an option">
+            <Select
+              size="small"
+              value={userAdmin}
+              onChange={() => setUserAdmin(prev => !prev)}
+              label="Pick an option"
+            >
               <MenuItem value={true}>True</MenuItem>
               <MenuItem value={false}>False</MenuItem>
             </Select>
           </div>
           <div style={{ textAlign: "center", marginTop: 20 }}>
-            <Button style={{ marginRight: 10 }} variant="contained" color="success" onClick={handleSubmit}>
+            <Button
+              style={{ marginRight: 10 }}
+              variant="contained"
+              color="success"
+              onClick={handleSubmit}
+            >
               {" "}
               Submit
             </Button>
-            <Button variant="contained" color="secondary" onClick={() => setModalOpen(false)}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => setModalOpen(false)}
+            >
               Cancel
             </Button>
           </div>

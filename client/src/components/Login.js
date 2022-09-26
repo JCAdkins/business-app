@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Box, Button, Paper } from "@mui/material";
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
 
-const Login = ({ setUserName }) => {
+
+const Login = ({handleLogin, setUserName, setPassword}) => {
+  
+  
+  
+
+const Login = ({handleLogin, setUserName, setPassword}) => {
 
     const container = {
         display: "flex",
@@ -26,16 +32,12 @@ const Login = ({ setUserName }) => {
     justifyContent: "center",
     alignItems: "center",
     margin: "20% 20%",
-    //    background: "rgb(6, 22, 30)"
+    // background: "rgb(6, 22, 30)"
   };
 
-  const handleLogin = () => {
-    //pass in user credentials and verify
-    //if user admin is true go to company select screen
-    //if user is not admin go to anounncments
-  };
+  
 
->>>>>>> frontend
+
   return (
     <Paper style={container}>
       <Box
@@ -58,6 +60,7 @@ const Login = ({ setUserName }) => {
           id="outlined-password-input"
           label="Password"
           type="password"
+          onChange={e => setPassword(e.target.value)}
         />
 
         <Button variant="contained" onClick={() => handleLogin()}>
