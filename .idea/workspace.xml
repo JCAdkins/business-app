@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1ebd137-be35-4e31-a683-f28baf516bf0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/group-final-sprint-8.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/data/controllers/CompanyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/CompanyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/CompanyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/CompanyService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

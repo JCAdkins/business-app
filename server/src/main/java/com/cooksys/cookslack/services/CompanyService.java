@@ -21,7 +21,7 @@ public interface CompanyService {
     AnnouncementResponseDTO getAnnouncementsById(Long id);
 
     //create a new announcement for a company
-    AnnouncementResponseDTO createAnnouncement(Long id, AnnouncementRequestDto announcementRequestDto)
+    AnnouncementResponseDTO createAnnouncement(Long id, AnnouncementRequestDto announcementRequestDto);
 
     //GET single announcement
     String getSingleAnnouncement(Long id, Long AnnouncementID);
