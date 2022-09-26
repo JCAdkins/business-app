@@ -9,10 +9,15 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Data
 public class CredentialsRequestDto {
+
     @NotBlank
     @NonNull
     private String username;
     @NotBlank
     @NonNull
     private String password;
+    @NotBlank
+    @NonNull
+    private Boolean admin;
+
 }

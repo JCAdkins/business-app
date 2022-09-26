@@ -15,6 +15,6 @@ public class AnnouncementRequestDto {
     @NotBlank
     @NonNull
     private String message;
-    @NonNull
-    private CredentialsRequestDto credentials;
+//    @NonNull
+//    private CredentialsRequestDto credentials;
 }
