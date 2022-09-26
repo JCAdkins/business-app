@@ -17,6 +17,7 @@ const AnnoucementsCard = (authorName, date, message) =>{
             </Card>
         </Box>
     );
+    
 }
 
 export default AnnoucementsCard;

@@ -13,6 +13,7 @@ const TeamCard = () => {
             </Card>
         </Box>
     );
+    
 }
 
 export default TeamCard;
