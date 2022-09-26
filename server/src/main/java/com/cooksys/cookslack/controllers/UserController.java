@@ -1,4 +1,6 @@
 package com.cooksys.cookslack.controllers;
+import com.cooksys.cookslack.data.dtos.UserRequestDto;
+import com.cooksys.cookslack.services.ValidationService;
 import lombok.RequiredArgsConstructor;
 import com.cooksys.cookslack.services.UserService;
 import com.cooksys.cookslack.data.dtos.UserResponseDto;
@@ -24,6 +26,11 @@ public class UserController {
     @GetMapping("/users/{username}")
     public UserResponseDto getUserByUsername(@PathVariable String username){
         return userService.getUserByUsername(username);
+    }
+
+    @PostMapping
+    public UserResponseDto createNewUser(@RequestBody UserRequestDto userToCreate) {
+        return userService.createNewUser(userToCreate);
     }
 
 }

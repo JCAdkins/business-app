@@ -1,7 +1,10 @@
 package com.cooksys.cookslack.services.impl;
 
+import com.cooksys.cookslack.data.dtos.UserRequestDto;
 import com.cooksys.cookslack.data.dtos.UserResponseDto;
+import com.cooksys.cookslack.data.model.exceptions.BadRequestException;
 import com.cooksys.cookslack.data.model.exceptions.NotFoundException;
+import com.cooksys.cookslack.services.ValidationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.cooksys.cookslack.services.UserService;
@@ -11,11 +14,13 @@ import com.cooksys.cookslack.data.model.entities.User;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
-    private UserMapper userMapper;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final ValidationService validationService;
 
     //==================================================================
     // =================== GET ENDPOINTS ===============================
@@ -37,6 +42,25 @@ public class UserServiceImpl implements UserService {
 
 
     //==================================================================
+    // =================== POST ENDPOINTS ==============================
+    //==================================================================
+
+    @Override
+    public UserResponseDto createNewUser(UserRequestDto userRequestDto) {
+        // Verify new user request is formatted properly
+        if (!validationService.newUserValidate(userRequestDto))
+            throw new BadRequestException("Error: Something went terribly wrong.");
+
+        // Create new user and save to database
+        User newUser = initNewUser(userRequestDto);
+        userRepository.saveAndFlush(newUser);
+
+        // Transform UserRequestDto into UserResponseDto and return
+        return userMapper.entityToResponseDto(userMapper.requestDtoToEntity(userRequestDto));
+    }
+
+
+    //==================================================================
     // =================== PATCH ENDPOINTS =============================
     //==================================================================
 
@@ -53,6 +77,7 @@ public class UserServiceImpl implements UserService {
      *         Method checks to see if we get a user back from the database
      *         If we don't then a NotFoundException is thrown, otherwise
      *         the user is returned.
+     *
      * @param username Username to be validated exists
      * @return User
      */
@@ -61,6 +86,20 @@ public class UserServiceImpl implements UserService {
         if (optionalUser.isEmpty())
             throw new NotFoundException("Error: User not found.");
         return optionalUser.get();
+    }
+
+    /**
+     *      Method initializes a new user with what's in the UserRequestDto
+     *      as well as setting active=true, team=null and company=null.
+     * @param userRequestDto The UserRequestDto we are transforming into a new user
+     * @return User The newly created user.
+     */
+    private User initNewUser(UserRequestDto userRequestDto){
+        User newUser = userMapper.requestDtoToEntity(userRequestDto);
+        newUser.setActive(true);
+        newUser.setTeam(null);
+        newUser.setCompany(null);
+        return newUser;
     }
 
 
