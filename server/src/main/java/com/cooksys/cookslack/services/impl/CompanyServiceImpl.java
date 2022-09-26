@@ -6,6 +6,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyMapper companyMapper;
 
+
 //******* END POINTS ***********************************************************************
 
     //GET all companies
@@ -28,7 +29,13 @@ public class CompanyServiceImpl implements CompanyService {
 
     //DELETE company by ID
     @Override
-    public CompanyResponseDto deleteCompany(Long id) {}
+    public CompanyResponseDto deleteCompany(Long id) {
+        //Needs to be fixed and finished!
+        Company companyToDelete = existsByNameAndDeletedFalse();
+        companyToDelete.setDeleted(true);
+        companyRepository.save(companyToDelete);
+        return companyMapper.entityToResponseDto(companyToDelete);
+    }
 
     //GET all announcements from a company by company ID
     @Override
