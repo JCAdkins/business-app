@@ -1,5 +1,8 @@
 package com.cooksys.cookslack.data.services;
 
+import java.util.List;
+
+import com.cooksys.cookslack.dtos.*;
 public interface CompanyService {
 
     //GET all companies
