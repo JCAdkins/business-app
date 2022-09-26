@@ -101,9 +101,9 @@ const handleLogin = () => {
     <Routes>
 
       <Route path="/" element={<Login handleLogin={handleLogin} setUserName={setUserName} setPassword={setPassword}/>} />
-      <Route path="/company" element={<CompanySelect userData={userData}/>/>} />
+      <Route path="/company" element={<CompanySelect userData={userData}/>} />
 
-      //Dev Routes Here please
+      
       <Route path="/TeamOverview" element={<TeamOverview />} />
 
       
