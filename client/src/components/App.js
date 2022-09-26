@@ -1,4 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
+
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate  } from "react-router-dom";
+
 import { useState } from "react";
 import CompanySelect from "./CompanySelect";
 
@@ -7,6 +10,12 @@ import Announcements from "./Announcements";
 
 import Projects from "./Projects"
 import Users from "./Users"
+
+//Dev Componenets
+import TeamOverview from './TeamOverview'
+
+//CSS import
+import "../components/component-Styles/main.css";
 
 const App = () => {
 //username will be set here so that it can be passed to other components as well as Company for admin
@@ -90,11 +99,19 @@ const handleLogin = () => {
   return (
   
     <Routes>
-      <Route path="/" element={<Login handleLogin={handleLogin} setUserName={setUserName} setPassword={setPassword} />} />
-      <Route path="/company" element={<CompanySelect userData={userData}/>} />
+
+      <Route path="/" element={<Login handleLogin={handleLogin} setUserName={setUserName} setPassword={setPassword}/>} />
+      <Route path="/company" element={<CompanySelect userData={userData}/>/>} />
+
+      //Dev Routes Here please
+      <Route path="/TeamOverview" element={<TeamOverview />} />
+
+      
       <Route path="/announcements" element={<Announcements userData={userData} />} />
+     
       <Route path="/projects" element={<Projects />} />
-      <Route path="/users" element={<Users />} />
+        <Route path="/users" element={<Users />} />
+
     </Routes>
 
  

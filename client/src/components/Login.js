@@ -5,10 +5,26 @@ import styled from "@emotion/styled";
 import { Navigate, useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
 
+
 const Login = ({handleLogin, setUserName, setPassword}) => {
   
   
   
+
+const Login = ({handleLogin, setUserName, setPassword}) => {
+
+    const container = {
+        display: "flex",
+        flexDirection: "column",
+        padding: 35,
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "20% 20%",
+    //    background: "rgb(6, 22, 30)"
+      }
+
+
+
   const container = {
     display: "flex",
     flexDirection: "column",
@@ -20,6 +36,7 @@ const Login = ({handleLogin, setUserName, setPassword}) => {
   };
 
   
+
 
   return (
     <Paper style={container}>
