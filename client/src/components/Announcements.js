@@ -5,89 +5,92 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
 
-const Announcements = ({ userData, author  }) => {
+
+
+const Announcements = ({ userData, author }) => {
   //userData will need to be set in the app.js then passed to the components that need it.
- let user = localStorage.getItem("userData")
- let userObj = JSON.parse(user)
+  let user = localStorage.getItem("userData");
+  let userObj = JSON.parse(user);
 
+  let company = 1;
 
-  let company = 1
-
-  userData = [{
-    id: 1,
-    credentials: {
-      userName: 'rboard321',
-      admin: true
-    },
-    first: 'Ricky',
-    last: 'Board',
-    email: 'testing@yahoo.com',
-    phone: '-123-234-5432',
-    active: true,
-    team: {
+  userData = [
+    {
       id: 1,
-      name: 'awesome',
-      description: 'crushing it',
+      credentials: {
+        userName: "rboard321",
+        admin: true,
+      },
+      first: "Ricky",
+      last: "Board",
+      email: "testing@yahoo.com",
+      phone: "-123-234-5432",
+      active: true,
+      team: {
+        id: 1,
+        name: "awesome",
+        description: "crushing it",
+        company: {
+          id: 3,
+          name: "Apple",
+          description: "working on products",
+        },
+      },
       company: {
         id: 3,
-        name: 'Apple',
-        description: 'working on products'
-      }
+        name: "Apple",
+        description: "working on products",
+      },
     },
-    company: {
-      id: 3,
-      name: 'Apple',
-      description: 'working on products'
-    }
-  }]
+  ];
 
-  console.log("userData from announcements", userData[0].company.id)
+  console.log("userData from announcements", userData[0].company.id);
 
   let sampleAnnouncements = [
     {
       id: 1,
       author: "Ricky",
-      date: 'November 17, 2022',
+      date: "November 17, 2022",
       description: "This is the description for project 1",
     },
     {
       id: 2,
       author: "Steven",
-      date: 'November 17, 2022',
+      date: "November 17, 2022",
       description: "This is the description for project 2",
     },
     {
       id: 3,
       author: "Harold",
-      date: 'November 17, 2022',
+      date: "November 17, 2022",
       description: "This is the description for project 3",
     },
     {
       id: 1,
       author: "Ricky",
-      date: 'November 17, 2022',
+      date: "November 17, 2022",
       description: "This is the description for project 1",
     },
     {
       id: 2,
       author: "Steven",
-      date: 'November 17, 2022',
+      date: "November 17, 2022",
       description: "This is the description for project 2",
     },
     {
       id: 3,
       author: "Harold",
-      date: 'November 17, 2022',
+      date: "November 17, 2022",
       description: "This is the description for project 3 Last one",
-    }
-  ]
+    },
+  ];
 
-  const [announcementsToSet, setAnnouncementsToSet] = useState(sampleAnnouncements)
-  const [announcementToCreate, setAnnouncementToCreate] = useState("")
+  const [announcementsToSet, setAnnouncementsToSet] =
+    useState(sampleAnnouncements);
+  const [announcementToCreate, setAnnouncementToCreate] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-console.log(">>>modal open",modalOpen)
-  console.log("announcement to create", announcementToCreate)
-  
+  console.log(">>>modal open", modalOpen);
+  console.log("announcement to create", announcementToCreate);
 
   const modalStyle = {
     position: "absolute",
@@ -121,100 +124,122 @@ console.log(">>>modal open",modalOpen)
     marginBottom: "5%",
   };
 
-  const getAnnouncements = (announcementsToSet) => {
-      return announcementsToSet
-  }
+  const getAnnouncements = announcementsToSet => {
+    return announcementsToSet;
+  };
 
-  console.log('testing getting announcments',getAnnouncements(sampleAnnouncements))
+  console.log(
+    "testing getting announcments",
+    getAnnouncements(sampleAnnouncements)
+  );
 
   //map over all announcments and set the announcments based on admin and company selected or user and company they work for
 
- 
-//    const fetchAnnouncements = () => {
-//     const announcements = getAnnouncements(sampleAnnouncements)
-//     let announcementsToSet = [] 
-//     if(admin){
-//     announcements.map((announcement) => {
-//       if(company === announcement.id){
-//         announcementsToSet.push(announcement) 
-//       }
-//       return announcementsToSet
-//     })
-//     setAnnouncementsToSet(announcementsToSet)
-//   }
-//   if(!admin){
-//     announcements.map((announcement) => {
-//       if(userData[0].company.id === announcement.id){
-//         announcementsToSet.push(announcement)
-//       }
-//       return announcementsToSet
-//     })
-//     setAnnouncementsToSet(announcementsToSet)
-//   }
-//   }
-  
-// fetchAnnouncements()
+  //    const fetchAnnouncements = () => {
+  //     const announcements = getAnnouncements(sampleAnnouncements)
+  //     let announcementsToSet = []
+  //     if(admin){
+  //     announcements.map((announcement) => {
+  //       if(company === announcement.id){
+  //         announcementsToSet.push(announcement)
+  //       }
+  //       return announcementsToSet
+  //     })
+  //     setAnnouncementsToSet(announcementsToSet)
+  //   }
+  //   if(!admin){
+  //     announcements.map((announcement) => {
+  //       if(userData[0].company.id === announcement.id){
+  //         announcementsToSet.push(announcement)
+  //       }
+  //       return announcementsToSet
+  //     })
+  //     setAnnouncementsToSet(announcementsToSet)
+  //   }
+  //   }
 
-//   useEffect(() => {
-//     fetchAnnouncements()
-//   }, [])
+  // fetchAnnouncements()
 
-  
+  //   useEffect(() => {
+  //     fetchAnnouncements()
+  //   }, [])
 
   const handleNewProject = () => {
-console.log("anouncementtocreate  Handle project",announcementToCreate)
-    setAnnouncementsToSet([...announcementsToSet, {
-      id: userData[0].company.id,
-      author: "author",
-      date: 'November 22, 2022',
-      description: announcementToCreate
-    }])
-    getAnnouncements(announcementsToSet)
+    console.log("anouncementtocreate  Handle project", announcementToCreate);
+    setAnnouncementsToSet([
+      ...announcementsToSet,
+      {
+        id: userData[0].company.id,
+        author: "author",
+        date: "November 22, 2022",
+        description: announcementToCreate,
+      },
+    ]);
+    getAnnouncements(announcementsToSet);
     // setAnnouncementToCreate('')
-    setModalOpen(false)
+    setModalOpen(false);
     // window.location.reload();
   };
 
   return (
-    <Paper style={container}>
-      {admin ? <Button onClick={() => setModalOpen(true)}
-          variant="contained"
-          size="small"
-          style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}>New Project</Button> : null}
-      <h1>Announcements</h1>
-      {announcementsToSet.map(announcement => {
-        //map over announcements and return only announcments that match the company
-       return userData[0].credentials.admin && company === announcement.id ? (
-          <Card style={cardStyle}>
-            <h1>User is admin andcompany and id match</h1>
-            <h3>{announcement.author}</h3>
-            <p>{announcement.description}</p>
-          </Card>
-        ) : null
-        })}
+  
       
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-        <Box sx={modalStyle} component="form">
-          <TextField
-            value={announcementToCreate}
-            onChange={e => setAnnouncementToCreate(e.target.value)}
+      <Paper style={container}>
+        {admin ? (
+          <Button
+            onClick={() => setModalOpen(true)}
+            variant="contained"
             size="small"
-            required
-            label="Announcement"
-            style={{ paddingRight: 10 }}
-          />
-          <div style={{ textAlign: "center", marginTop: 20 }}>
-            <Button style={{ marginRight: 10 }} variant="contained" color="success" onClick={handleNewProject}>
-              {" "}
-              Submit
-            </Button>
-            <Button variant="contained" color="secondary" onClick={() => setModalOpen(false)}>
-              Cancel
-            </Button>
-          </div>
-        </Box>
-      </Modal>
-    </Paper>
+            style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
+          >
+            New Project
+          </Button>
+        ) : null}
+        <h1>Announcements</h1>
+        {announcementsToSet.map(announcement => {
+          //map over announcements and return only announcments that match the company
+          return userData[0].credentials.admin &&
+            company === announcement.id ? (
+            <Card style={cardStyle}>
+              <h1>User is admin andcompany and id match</h1>
+              <h3>{announcement.author}</h3>
+              <p>{announcement.description}</p>
+            </Card>
+          ) : null;
+        })}
+
+        <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+          <Box sx={modalStyle} component="form">
+            <TextField
+              value={announcementToCreate}
+              onChange={e => setAnnouncementToCreate(e.target.value)}
+              size="small"
+              required
+              label="Announcement"
+              style={{ paddingRight: 10 }}
+            />
+            <div style={{ textAlign: "center", marginTop: 20 }}>
+              <Button
+                style={{ marginRight: 10 }}
+                variant="contained"
+                color="success"
+                onClick={handleNewProject}
+              >
+                {" "}
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => setModalOpen(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </Box>
+        </Modal>
+      </Paper>
+   
   );
 };
 
