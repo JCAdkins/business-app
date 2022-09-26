@@ -4,6 +4,9 @@ import com.cooksys.cookslack.data.dtos.*;
 
 import java.util.List;
 
+import java.util.List;
+
+import com.cooksys.cookslack.dtos.*;
 public interface CompanyService {
 
     //GET all companies
