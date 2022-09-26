@@ -9,7 +9,7 @@ const Announcements = ({ userData, author  }) => {
   //userData will need to be set in the app.js then passed to the components that need it.
  let user = localStorage.getItem("userData")
  let userObj = JSON.parse(user)
-console.log("from announcements", userObj)
+
 
   let company = 1
 
@@ -121,8 +121,8 @@ console.log(">>>modal open",modalOpen)
     marginBottom: "5%",
   };
 
-  const getAnnouncements = (sampleAnnouncements) => {
-      return sampleAnnouncements
+  const getAnnouncements = (announcementsToSet) => {
+      return announcementsToSet
   }
 
   console.log('testing getting announcments',getAnnouncements(sampleAnnouncements))
@@ -138,6 +138,7 @@ console.log(">>>modal open",modalOpen)
 //       if(company === announcement.id){
 //         announcementsToSet.push(announcement) 
 //       }
+//       return announcementsToSet
 //     })
 //     setAnnouncementsToSet(announcementsToSet)
 //   }
@@ -146,6 +147,7 @@ console.log(">>>modal open",modalOpen)
 //       if(userData[0].company.id === announcement.id){
 //         announcementsToSet.push(announcement)
 //       }
+//       return announcementsToSet
 //     })
 //     setAnnouncementsToSet(announcementsToSet)
 //   }
@@ -153,9 +155,9 @@ console.log(">>>modal open",modalOpen)
   
 // fetchAnnouncements()
 
-  // useEffect(() => {
-  //   fetchAnnouncements()
-  // }, [announcements])
+//   useEffect(() => {
+//     fetchAnnouncements()
+//   }, [])
 
   
 
@@ -167,9 +169,10 @@ console.log("anouncementtocreate  Handle project",announcementToCreate)
       date: 'November 22, 2022',
       description: announcementToCreate
     }])
+    getAnnouncements(announcementsToSet)
     // setAnnouncementToCreate('')
     setModalOpen(false)
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
