@@ -1,5 +1,6 @@
 package com.cooksys.cookslack.data.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Announcement {
     @ManyToOne
     private Company company;
     @ManyToOne
+    @JsonIgnoreProperties("company")
     private User author;
 
 
