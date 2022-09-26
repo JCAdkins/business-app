@@ -13,9 +13,11 @@ const Login = ({ setUserName }) => {
         padding: 35,
         justifyContent: "center",
         alignItems: "center",
-       margin: "20% 20%",
+        margin: "20% 20%",
     //    background: "rgb(6, 22, 30)"
       };
+
+
       
   return (
     <Paper style={container}>
