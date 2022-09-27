@@ -23,7 +23,7 @@ public class UserController {
         return userService.getUserByUsername(username);
     }
 
-    @GetMapping("/users/team/{teamID")
+    @GetMapping("/users/team/{teamID}")
     public List<UserResponseDto> getAllUsersByTeam(@PathVariable long teamID){
         return userService.getAllUsersByTeam(teamID);
     }
