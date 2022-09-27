@@ -15,6 +15,6 @@ public class CompanyRequestDto {
     @NotBlank
     @NonNull
     private String description;
-    @NonNull
-    private CredentialsRequestDto credentials;
+//    @NonNull
+//    private CredentialsRequestDto credentials;
 }
