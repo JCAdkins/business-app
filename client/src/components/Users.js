@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -17,79 +17,182 @@ import {
   MenuItem,
 } from "@mui/material";
 
+/**
+ * UserResponseDto
+ * {
+  id: number,
+  credentials: { //CredentialsResponseDto//}
+    username: string,
+    admin: boolean,
+  },
+  first: string,
+  last: string,
+  email: string,
+  phone: string,
+  active: boolean,
+  team: { //TeamResponseDto object//
+    id: number,
+    name: string,
+    description: string,
+  },
+  company: { //CompanyResponseDto//
+    id: number,
+    name: string,
+    description: string,
+  }
+}
+
+CredentialsRequestDto
+{
+  username: string,
+  password: string
+}
+
+UserRequestDto
+{
+  CredentialsRequestDto  
+  first: string,
+  last: string,
+  email: string,
+  phone: string,
+}
+ */
+
 const usersArray = [
   {
     id: 0,
-    name: "HAL",
+    firstName: "",
+    lastName: "HAL",
+    credentials: {
+      username: "HAL",
+      admin: true,
+    },
     email: "hal@ibm.com",
-    team: "Discovery 1",
-    isActive: false,
-    isAdmin: true,
-    status: "dead",
+    phone: "000-000-0000",
+    active: false,
+    team: {
+      id: 0,
+      name: "Jupiter Mission",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
   },
   {
     id: 1,
-    name: "Dave Bowman",
-    email: "dave@nca.com",
-    team: "Discovery 1",
-    isActive: true,
-    isAdmin: false,
-    status: "unknown",
+    firstName: "Dave",
+    lastName: "Bowman",
+    credentials: {
+      username: "DaveBowman",
+      admin: true,
+    },
+    email: "dave@nca.gov",
+    phone: "000-000-0000",
+    active: true,
+    team: {
+      id: 0,
+      name: "Jupiter Mission",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
   },
   {
     id: 2,
-    name: "Frank Poole",
-    email: "frank@nca.com",
-    team: "Discovery 1",
-    isActive: false,
-    isAdmin: false,
-    status: "dead",
+    firstName: "Frank",
+    lastName: "Poole",
+    credentials: {
+      username: "FrankPool",
+      admin: true,
+    },
+    email: "frank@nca.gov",
+    phone: "000-000-0000",
+    active: false,
+    team: {
+      id: 0,
+      name: "Jupiter Mission",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
+  },
+  {
+    id: 2,
+    firstName: "Haywood",
+    lastName: "Floyd",
+    credentials: {
+      username: "HaywoodFloyd",
+      admin: true,
+    },
+    email: "haywood@nca.gov",
+    phone: "000-000-0000",
+    active: true,
+    team: {
+      id: 1,
+      name: "Headquarters",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
   },
   {
     id: 3,
-    name: "Haywood Floyd",
-    email: "haywood@nca.com",
-    team: "National Council of Astronautics",
-    isActive: true,
-    isAdmin: true,
-    status: "Earth",
-  },
-  {
-    id: 4,
-    name: "Aliens",
-    email: "ljdlfljskl@dfdase.cdfdasfewom",
-    team: "Super Beings",
-    isActive: true,
-    isAdmin: false,
-    status: "unknown",
+    firstName: "Nasty",
+    lastName: "Aliens",
+    credentials: {
+      username: "NastyAliens",
+      isAdmin: false,
+    },
+    email: "a@a.a",
+    phone: "000-000-0000",
+    active: true,
+    team: {
+      id: 2,
+      name: "Space",
+      description: "",
+    },
+    company: {
+      id: 1,
+      name: "Unknown",
+      description: "",
+    },
   },
 ];
 
-// const emptyUser = {
-//   name: "",
-//   email: "",
-//   team: "unknown",
-//   isAdmin: false,
-//   isActive: false,
-//   status: "unknown",
-// };
-
-/**
- *
- * the individual pieces of the user will all be eventually moved into the "user" object
- */
+const emptyUserObject = {
+  firstName: "",
+  lastName: "",
+  credentials: {
+    username: "",
+    password: "",
+    admin: false,
+  },
+  email: "",
+  phone: "",
+};
 
 const Users = props => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [userAdmin, setUserAdmin] = useState(false);
-  const [error, setError] = useState(false);
-  const [users, setUsers] = useState(usersArray);
-  const [user, setUser] = useState({}); // all items below will be moved into this
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+  const [users, setUsers] = useState(usersArray); // array of user objects from the api
+  const [user, setUser] = useState(emptyUserObject); // one user object created from modal
+
+  useEffect(() => {
+    // GET call to localhost:????/users
+  }, []);
 
   const modalStyle = {
     position: "absolute",
@@ -105,38 +208,33 @@ const Users = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // setUser({
-    //   id: users.length,
-    //   name: `${firstName} ${lastName}`,
-    //   email,
-    //   team: "TBD",
-    //   isActive: false,
-    //   isAdmin: userAdmin,
-    //   status: "unknown",
-    // });
+    setUsers([...users, user]);
 
-    // error to be worked on since it's not working yet
-    if (password1 !== password2) {
-      setError(true);
+    setModalOpen(false);
+  };
+
+  const handleChange = e => {
+    if (e.target.name === "password") {
+      setUser({
+        ...user,
+        credentials: { username: user.credentials.username, admin: user.credentials.admin, password: e.target.value },
+      });
+    } else if (e.target.name === "admin") {
+      setUser({
+        ...user,
+        credentials: {
+          username: user.credentials.username,
+          password: user.credentials.password,
+          admin: e.target.value,
+        },
+      });
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
     }
-    setUsers([
-      ...users,
-      {
-        id: users.length,
-        name: `${firstName} ${lastName}`,
-        email,
-        team: "TBD",
-        isActive: false,
-        isAdmin: userAdmin,
-        status: "unknown",
-      },
-    ]);
-    // all this will be moved to the single "user" object
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword1("");
-    setPassword2("");
+  };
+
+  const cancelSubmit = user => {
+    setUser(emptyUserObject);
     setModalOpen(false);
   };
 
@@ -152,71 +250,50 @@ const Users = props => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
+              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
                 Name
               </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
+              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
                 Email
               </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
+              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
                 Team
               </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
+              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
                 Active
               </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
+              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
                 Admin
               </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
+              <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
                 Status
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map(user => (
-              <TableRow
-                key={user.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
+              <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell component="th" scope="row" align="center">
-                  {user.name}
+                  {user.firstName + " " + user.lastName}
                 </TableCell>
                 <TableCell align="center">
                   <Link href={`mailto:${user.email}`}>{user.email}</Link>
                 </TableCell>
-                <TableCell align="center">{user.team}</TableCell>
+                <TableCell align="center">{user.team.name}</TableCell>
                 <TableCell
                   align="center"
                   style={{
                     fontWeight: "bold",
-                    color: user.isActive ? "green" : "red",
+                    color: user.active ? "green" : "red",
                   }}
                 >
-                  {user.isActive ? "YES" : "NO"}
+                  {user.active ? "YES" : "NO"}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{
                     fontWeight: "bold",
-                    color: user.isAdmin ? "green" : "red",
+                    color: user.admin ? "green" : "red",
                   }}
                 >
                   {user.isAdmin ? "YES" : "NO"}
@@ -237,81 +314,70 @@ const Users = props => {
           Add User
         </Button>
       </div>
-      <div>
-        <Typography
-          style={{ visibility: error ? "visible" : "hidden" }}
-          component="h6"
-          color="error"
-        >
-          There was an error creating the user. Please try again.
-        </Typography>
-      </div>
+      <div></div>
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <Box sx={modalStyle} component="form">
           <TextField
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            value={user.firstName}
+            onChange={handleChange}
             size="small"
             required
             label="First Name"
+            name="firstName"
             style={{ paddingRight: 10 }}
           />
           <TextField
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            value={user.lastName}
+            onChange={handleChange}
+            name="lastName"
             size="small"
             required
             label="Last Name"
           />
           <TextField
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            value={user.email}
+            type="email"
+            onChange={handleChange}
             fullWidth
             size="small"
             required
             label="Email"
+            name="email"
             style={{ padding: "10px 0" }}
           />
           <TextField
+            value={user.credentials.password}
+            onChange={e => setPassword1(e.target.value)}
             size="small"
             required
             type="password"
             label="Password"
+            name="password1"
             style={{ paddingRight: 10 }}
           />
           <TextField
+            value={password2}
+            onChange={e => setPassword2(e.target.value)}
             size="small"
             required
-            type="password"
+            type="password2"
             label="Confirm Password"
+            error={password1 !== password2}
           />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Typography component="h6">Make user admin?</Typography>
-            <Select
-              size="small"
-              value={userAdmin}
-              onChange={() => setUserAdmin(prev => !prev)}
-              label="Pick an option"
-            >
+            <Select size="small" value={false} onChange={handleChange} label="Pick an option" name="admin">
               <MenuItem value={true}>True</MenuItem>
               <MenuItem value={false}>False</MenuItem>
             </Select>
           </div>
           <div style={{ textAlign: "center", marginTop: 20 }}>
-            <Button
-              style={{ marginRight: 10 }}
-              variant="contained"
-              color="success"
-              onClick={handleSubmit}
-            >
+            <Button style={{ marginRight: 10 }} variant="contained" color="success" onClick={handleSubmit}>
               {" "}
               Submit
             </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setModalOpen(false)}
-            >
+            <Button variant="contained" color="secondary" onClick={() => setModalOpen(false)}>
+              {/*<Button variant="contained" color="secondary" onClick={cancelSubmit}>*/}
               Cancel
             </Button>
           </div>

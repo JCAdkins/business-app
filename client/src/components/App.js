@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
 import { useState } from "react";
 import CompanySelect from "./CompanySelect";
@@ -16,7 +10,7 @@ import Announcements from "./Announcements";
 import Projects from "./Projects";
 import Users from "./Users";
 
-//Dev Componenets
+//Dev Components
 import TeamOverview from "./TeamOverview";
 
 //CSS import
@@ -35,10 +29,10 @@ const App = () => {
   const handleLogin = () => {
     //pass in user credentials and verify
     //if user admin is true go to company select screen
-    //if user is not admin go to anounncments
-console.log('handling login')
-    
-  setUserData([
+    //if user is not admin go to announcements
+    console.log("handling login");
+
+    setUserData([
       {
         id: 1,
         credentials: {
@@ -74,29 +68,18 @@ console.log('handling login')
 
     localStorage.setItem("userData", JSON.stringify(userData[0]));
 
-    userData[0].credentials.admin
-      ? navigate("/company")
-      : navigate("/announcements");
+    userData[0].credentials.admin ? navigate("/company") : navigate("/announcements");
   };
 
   return (
     <Routes>
       <Route
         path="/"
-        element={
-          <Login
-            handleLogin={handleLogin}
-            setUserName={setUserName}
-            setPassword={setPassword}
-          />
-        }
+        element={<Login handleLogin={handleLogin} setUserName={setUserName} setPassword={setPassword} />}
       />
       <Route path="/company" element={<CompanySelect userData={userData} />} />
       <Route path="/TeamOverview" element={<TeamOverview />} />
-      <Route
-        path="/announcements"
-        element={<Announcements userData={userData} />}
-      />
+      <Route path="/announcements" element={<Announcements userData={userData} />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/users" element={<Users />} />
     </Routes>
