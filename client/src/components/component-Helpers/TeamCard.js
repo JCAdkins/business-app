@@ -1,32 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
-
+import fetchFromCompany from '../../services/api';
 
 const TeamCard = props => {
-    
-    let teamName = props.teamName;
-    let projects = props.projects;
-    let members = props.users;
 
-    return(
-<div class="card">
-        <div class="card-header">
-        <Stack direction="horizontal" gap={2}>
-            <h2>{teamName}</h2>
-          <h3># of Projects: {projects}</h3>
-          </Stack>
+    const [teams, setTeams] = useState([]);
+    const [projects, setProjects] = useState([]);
+    const [users, setUsers] = useState([]);
+
+    const getTeams = async () => {
+        const response = await fetchFromCompany({
+            endpoint: "/{companyId}/teams",
+
+        })
+        setTeams(response)
+        return response
+    }
+    const getProjects = async () => {
+        const response = await fetchFromCompany({
+            endpoint: "/{companyId}/projects",
+
+        })
+        setProjects(response)
+        return response
+    }
+    const getUsers = async () => {
+        const response = await fetchFromCompany({
+            endpoint:     "/users/team/{teamID}",
+
+        })
+        setUsers(response)
+        return response
+    }
+    useEffect(() => {
+        getTeams();
+        getProjects();
+        getUsers()
+    }, [])
+
+    console.log("teams", teams, getTeams)
+    console.log("projects", projects, getProjects)
+    console.log("users", users, getUsers)
+
+    let teamName = getTeams.teamName;
+    let projectNum = getProjects.length;
+    let members = getUsers.username;
+
+    return (
+        <div class="card">
+            <div class="card-header">
+                <Stack direction="horizontal" gap={2}>
+                    <h2>{teamName}</h2>
+                    <h3># of Projects: {projectNum}</h3>
+                </Stack>
+            </div>
+            ___________________________________________________________________________
+            <div class="card-body">
+                <h3>Members</h3>
+                {members.length > 0 && members.map((user) => (
+                    <Button as="a" href="/users/{username}">{user}</Button>
+                ))}
+            </div>
         </div>
-        ___________________________________________________________________________
-        <div class="card-body">
-            <h3>Members</h3>
-                        {members.length > 0 && members.map((member) => (
-          <Button as="a" href="/users/{member}">{member}</Button>
-        ))}
-      </div>
-    </div>
     );
-    
+
 }
 
 export default TeamCard;

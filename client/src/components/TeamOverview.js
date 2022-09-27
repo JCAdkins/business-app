@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Modal, Button, Typography, TextField, Select, MenuItem, Avatar } from '@mui/material';
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard"
-
+import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
 
 //bring in users once the component is complete
 //import teams based on backend data
-const teamsArray = [
-    {
-        id: 0,
-        name: "TEAM HAL",
-        description: "dead",
-        members: {}
-    },
-    {
-        id: 1,
-        name: "Dave Bowman?",
-        description: "unknown",
-    },
-    {
-        id: 2,
-        name: "Team Poole",
-        description: "Earth",
-    }
-];
+// const teamsArray = [
+//     {
+//         id: 0,
+//         name: "TEAM HAL",
+//         description: "dead",
+//         members: {}
+//     },
+//     {
+//         id: 1,
+//         name: "Dave Bowman?",
+//         description: "unknown",
+//     },
+//     {
+//         id: 2,
+//         name: "Team Poole",
+//         description: "Earth",
+//     }
+// ];
 
 const TeamOverview = () => {
 
@@ -32,7 +32,7 @@ const TeamOverview = () => {
     const [teamName, setTeamName] = useState("");
     const [description, setDescription] = useState("");
     const [users, setUsers] = useState([]);
-    const [teams, setTeams] = useState(teamsArray);
+    const [teams, setTeams] = useState([]);
 
     const modalStyle = {
         position: "absolute",
@@ -45,6 +45,19 @@ const TeamOverview = () => {
         boxShadow: 24,
         p: 4,
     };
+
+    const getTeams = async () => {
+        const response = await fetchFromCompany({
+          endpoint: "/{companyId}/teams",
+          
+        })
+        setTeams(response)
+        return response
+      }
+    
+      useEffect(() => {
+        getTeams();
+      }, [])
 
     const makeTeam = e => {
         e.preventDefault();
@@ -63,12 +76,10 @@ const TeamOverview = () => {
         setModalOpen(false);
     }
 
-    // const teamCard = () => {
-    //     teams.map((team) => (
-    //         <TeamCard>{team}</TeamCard>
-    //     ))
-    // }
+    const userAdd = e => {
+        e.preventDefault();
 
+    }
 
     return (
         <div>
@@ -122,10 +133,9 @@ const TeamOverview = () => {
                                 <Select
                                     size="small"
                                     value={users}
-                                    onChange={e => setUsers(e.target.value)}
+                                    onChange={userAdd}
                                     label="Pick an option"
                                 >
-                                    <MenuItem value="" />
                                     {users.map((user) => (
                                         <MenuItem key={user} value={user}>{user}</MenuItem>
                                     ))}
