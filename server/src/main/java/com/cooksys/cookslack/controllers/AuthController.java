@@ -5,11 +5,9 @@ import com.cooksys.cookslack.data.dtos.CredentialsResponseDto;
 import com.cooksys.cookslack.data.dtos.UserResponseDto;
 import com.cooksys.cookslack.services.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
