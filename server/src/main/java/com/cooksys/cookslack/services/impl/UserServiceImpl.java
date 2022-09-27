@@ -65,8 +65,12 @@ public class UserServiceImpl implements UserService {
         User newUser = initNewUser(userRequestDto);
         userRepository.saveAndFlush(newUser);
 
-        // Transform UserRequestDto into UserResponseDto and return
-        return userMapper.entityToResponseDto(userMapper.requestDtoToEntity(userRequestDto));
+        // Get user from database, this will include the user id with it, and return
+        Optional<User> returnUser = userRepository.findByCredentialsUsername(newUser.getCredentials().getUsername());
+        if (returnUser.isEmpty())
+            throw new NotFoundException("Error: New user not found.");
+        else
+        return userMapper.entityToResponseDto(newUser);
     }
 
 
@@ -74,6 +78,10 @@ public class UserServiceImpl implements UserService {
     // =================== PATCH ENDPOINTS =============================
     //==================================================================
 
+    @Override
+    public UserResponseDto updateUser(String username, UserRequestDto userRequestDto) {
+        return null;
+    }
 
     //==================================================================
     // =================== DELETE ENDPOINTS ============================
@@ -123,13 +131,14 @@ public class UserServiceImpl implements UserService {
 
     /**
      *      Method initializes a new user with what's in the UserRequestDto
-     *      as well as setting active=true, team=null and company=null.
+     *      as well as setting active=true, deleted=false, team=null and company=null.
      * @param userRequestDto The UserRequestDto we are transforming into a new user
      * @return User The newly created user.
      */
     private User initNewUser(UserRequestDto userRequestDto){
         User newUser = userMapper.requestDtoToEntity(userRequestDto);
         newUser.setActive(true);
+        newUser.setDeleted(false);
         newUser.setTeam(null);
         newUser.setCompany(null);
         return newUser;
