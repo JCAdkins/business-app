@@ -16,4 +16,6 @@ public interface UserService {
     UserResponseDto deleteUser(String username);
 
     List<UserResponseDto> getAllUsersByTeam(long teamID);
+
+    UserResponseDto updateUser(String username, UserRequestDto userRequestDto);
 }

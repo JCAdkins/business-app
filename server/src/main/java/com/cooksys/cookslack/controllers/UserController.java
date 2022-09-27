@@ -33,6 +33,11 @@ public class UserController {
         return userService.createNewUser(userToCreate);
     }
 
+    @PatchMapping("/users/{username}")
+    public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserRequestDto userRequestDto){
+        return userService.updateUser(username, userRequestDto);
+    }
+
     @DeleteMapping("/users/{username}")
     public UserResponseDto deleteUser(@PathVariable String username){
         return userService.deleteUser(username);
