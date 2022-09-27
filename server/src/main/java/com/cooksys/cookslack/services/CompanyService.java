@@ -1,4 +1,8 @@
-package com.cooksys.cookslack.data.services;
+package com.cooksys.cookslack.services;
+
+import com.cooksys.cookslack.data.dtos.*;
+
+import java.util.List;
 
 public interface CompanyService {
 
@@ -12,54 +16,54 @@ public interface CompanyService {
     CompanyResponseDto getCompanyById(Long id);
 
     //PATCH company by ID
-    CompanyResponseDto updateCompany(Long id, CompanyRequestDto companyRequestDto);
+    CompanyResponseDto updateCompany(Long id, CompanyPatchRequestDto companyPatchRequestDto);
 
     //DELETE company by ID
-    CompanyResponseDto deleteCompany(Long id);
+    CompanyResponseDto deleteCompany(Long companyId);
 
     //GET all announcements from a company by company ID
-    AnnouncementResponseDTO getAnnouncementsById(Long id);
+    List<AnnouncementResponseDto> getAnnouncementsByCompany(Long companyId);
 
     //create a new announcement for a company
-    AnnouncementResponseDTO createAnnouncement(Long id, AnnouncementRequestDto announcementRequestDto)
+    AnnouncementResponseDto createAnnouncement(Long companyId, Long authorId, AnnouncementRequestDto announcementRequestDto);
 
     //GET single announcement
-    String getSingleAnnouncement(Long id, Long AnnouncementID);
+    AnnouncementResponseDto getAnnouncementById(Long id, Long announcementId);
 
-    //PATCH to update an announcement using company ID and annoucnement ID
-    AnnouncementResponseDTO updateAnnouncement(Long id, Long AnnouncementID, AnnouncementRequestDto announcementRequestDto);
+    //PATCH to update an announcement using company ID and announcement ID
+    AnnouncementResponseDto updateAnnouncement(Long id, Long announcementId, AnnouncementPatchRequestDto announcementPatchRequestDto);
 
     //DELETE a specific announcement by company ID and announcement ID
-    AnnouncementResponseDto deleteAnnouncement(Long id, Long AnnouncementID);
+    AnnouncementResponseDto deleteAnnouncementById(Long companyId, Long announcementId);
 
     //GET all teams from a company by company ID
-    List<TeamResponseDto> getAllTeams(Long id)
+    List<TeamResponseDto> getAllTeamsAtCompany(Long id);
 
     //POST to create a team using company ID
-    TeamResponseDTO createTeam(Long id, TeamRequestDto teamRequestDto);
+    TeamResponseDto createTeam(Long id, TeamRequestDto teamRequestDto);
 
     //GET single team by id from company using company ID
-    TeamResponseDTO getSingleTeam(Long id, Long TeamID);
+    TeamResponseDto getTeamById(Long companyId, Long teamId);
 
     //PATCH a team by team ID and company ID
-    TeamResponseDTO updateTeam(Long id, Long TeamID);
+    TeamResponseDto updateTeam(Long companyId, Long teamId, TeamPatchRequestDto teamPatchRequestDto);
 
     //DELETE a team using team ID and company ID
-    TeamResponseDto deleteTeam(Long id, Long TeamID);
+    TeamResponseDto deleteTeamById(Long companyId, Long teamId);
 
     //GET all projects from a specific company using company ID
-    List<ProjectResponseDto> getAllProjects(Long id);
+    List<ProjectResponseDto> getAllProjectsAtCompany(Long companyId);
 
     //POST to create a project using company ID
-    ProjectResponseDTO createProject(Long id, ProjectRequestDto projectRequestDto);
+    ProjectResponseDto createProject(Long companyId, Long teamId, ProjectRequestDto projectRequestDto);
 
     //GET a specific project using the project ID and the company ID
-    ProjectResponseDTO getSingleProject(Long id, Long ProjectID);
+    ProjectResponseDto getProjectById(Long companyId, Long projectId);
 
     //PATCH a project using project ID and company ID
-    ProjectResponseDTO updateProject(Long id, Long ProjectID, ProjectRequestDto projectRequestDto);
+    ProjectResponseDto updateProject(Long teamId, Long projectId, ProjectPatchRequestDto projectPatchRequestDto);
 
     //DELETE a project using project ID and company ID
-    ProjectResponseDTO deleteProject(Long id, Long ProjectID);
+    ProjectResponseDto deleteProject(Long companyId, Long projectId);
 
 }
