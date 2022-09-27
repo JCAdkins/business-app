@@ -2,12 +2,17 @@ package com.cooksys.cookslack.data.model.entities;
 
 import com.cooksys.cookslack.data.model.entities.embeds.Credentials;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Table(name = "user_table")
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue

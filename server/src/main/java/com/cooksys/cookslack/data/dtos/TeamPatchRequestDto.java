@@ -1,11 +1,11 @@
 package com.cooksys.cookslack.data.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
-public class ErrorDto {
-    private String message;
+public class TeamPatchRequestDto {
+    private String name;
+    private String description;
 }

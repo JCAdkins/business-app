@@ -56,16 +56,16 @@ public class Seeder implements CommandLineRunner {
         // --- User 1 ---
         // Credentials
         Credentials user1Cred = new Credentials();
-        user1Cred.setUsername("therealmc");
-        user1Cred.setPassword("Password");
+        user1Cred.setUsername("username1");
+        user1Cred.setPassword("password");
         user1Cred.setAdmin(true);
 
         User user1 = new User();
         user1.setCredentials(user1Cred);
-        user1.setFirstName("Master");
-        user1.setLastName("Chief");
-        user1.setEmail("sierra117@email.com");
-        user1.setPhoneNumber("123-456-7890");
+        user1.setFirstName("First");
+        user1.setLastName("last");
+        user1.setEmail("email@test.com");
+        user1.setPhoneNumber("1234567890");
         user1.setActive(true);
         user1.setStatus("On Vacation");
         user1.setCompany(company1);
@@ -74,15 +74,15 @@ public class Seeder implements CommandLineRunner {
         // --- User 2 ---
         // Credentials
         Credentials user2Cred = new Credentials();
-        user2Cred.setUsername("mario");
+        user2Cred.setUsername("username2");
         user2Cred.setPassword("password");
 
         User user2 = new User();
         user2.setCredentials(user2Cred);
-        user2.setFirstName("Mario");
-        user2.setLastName("Mario");
-        user2.setEmail("mario@email.com");
-        user2.setPhoneNumber("234-567-8901");
+        user2.setFirstName("John");
+        user2.setLastName("Smith");
+        user2.setEmail("example@test.com");
+        user2.setPhoneNumber("1234567890");
         user2.setActive(true);
         user2.setStatus("Working");
         user2.setCompany(company1);
@@ -92,14 +92,14 @@ public class Seeder implements CommandLineRunner {
         Credentials user3Cred = new Credentials();
         // Credentials
         user3Cred.setUsername("Luigi");
-        user3Cred.setPassword("Password");
+        user3Cred.setPassword("zpQUv5$96!@dDn");
 
         User user3 = new User();
         user3.setCredentials(user3Cred);
         user3.setFirstName("Luigi");
         user3.setLastName("Mario");
         user3.setEmail("luigi@email.com");
-        user3.setPhoneNumber("345-678-9012");
+        user3.setPhoneNumber("1234567890");
         user3.setActive(false);
         user3.setStatus("Working");
         user3.setCompany(company1);
@@ -109,14 +109,14 @@ public class Seeder implements CommandLineRunner {
         // Credentials
         Credentials user4Cred = new Credentials();
         user4Cred.setUsername("Nathan");
-        user4Cred.setPassword("Password");
+        user4Cred.setPassword("^4a3L8VM4N5eRd");
 
         User user4 = new User();
         user4.setCredentials(user4Cred);
         user4.setFirstName("Nathan");
         user4.setLastName("Drake");
         user4.setEmail("nathan@email.com");
-        user4.setPhoneNumber("456-789-0023");
+        user4.setPhoneNumber("1234567890");
         user4.setActive(true);
         user4.setStatus("Working");
         user4.setCompany(company2);
@@ -125,14 +125,14 @@ public class Seeder implements CommandLineRunner {
         // Credentials
         Credentials user5Cred = new Credentials();
         user5Cred.setUsername("Tarnished");
-        user5Cred.setPassword("Password");
+        user5Cred.setPassword("1R37#wo9JP3of^");
 
         User user5 = new User();
         user5.setCredentials(user5Cred);
         user5.setFirstName("The");
         user5.setLastName("Tarnished");
         user5.setEmail("willibecometheeldenlord@email.com");
-        user5.setPhoneNumber("567-890-0034");
+        user5.setPhoneNumber("1234567890");
         user5.setActive(true);
         user5.setStatus("Working");
         user5.setCompany(company3);
