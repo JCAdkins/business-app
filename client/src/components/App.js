@@ -29,7 +29,7 @@ const App = () => {
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState();
 
-  console.log("from app userdata",userData);s
+  console.log("from app userdata",userData);
   let navigate = useNavigate();
 
   const loginAuth = async () => {
