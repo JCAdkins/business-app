@@ -1,13 +1,18 @@
 import toPairs from 'lodash/toPairs'
-const COMPANY_ROOT = 'https://localhost:8080'
+const COMPANY_ROOT = 'http://localhost:8080'
 
 export const request = async (url, options) => {
+  console.log("options", options)
   const response = await fetch(url, options)
+  // if (!response.ok) {
+	// 	throw new Error(`HTTP error! status: ${response.status}`);
+	// }
   const data = await response.json()
     return data
+   
   }
 
-  const fetchFromCompany = ({ token, endpoint, params }) => {
+const fetchFromCompany = ({ token, endpoint, params }) => {
     let url = [COMPANY_ROOT, endpoint].join('/')
     if (params) {
       const paramString = toPairs(params)
@@ -16,7 +21,8 @@ export const request = async (url, options) => {
       url += `?${paramString}`
     }
     const options = { headers: { Authorization: `Bearer ${token}` } }
+    console.log("API>>>",url)
     return request(url, options)
   }
-
+  
   export default fetchFromCompany

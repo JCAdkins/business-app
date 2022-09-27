@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import TextField from "@mui/material/TextField";
+import TextField from "@mui/material/TextField";
 import {
   Box,
-  // Button,
+  Button,
   Paper,
   FormControl,
   InputLabel,
@@ -10,7 +10,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import fetchFromCompany, { request } from "../services/api";
-// import styled from "@emotion/styled";
+import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 
@@ -34,12 +34,17 @@ const CompanySelect = ({ userData}) => {
   };
 
   const getCompanies = async () => {
+    console.log("calling get companies")
     const response = await fetchFromCompany({
       endpoint: "companies",
+      
     }).then((data) => {
       console.log(data)
         setCompanies(data)
+
     })
+
+  
   }
 
   useEffect(() => {
@@ -80,6 +85,7 @@ const CompanySelect = ({ userData}) => {
   };
 
   return (
+    companies ?
     <Paper style={container}>
       <Box component="form" noValidate autoComplete="off" style={container}>
         <h1>Select Company</h1>
@@ -100,7 +106,7 @@ const CompanySelect = ({ userData}) => {
         </FormControl>
       </Box>
     </Paper>
-  );
+  : null);
 };
 
 export default CompanySelect;

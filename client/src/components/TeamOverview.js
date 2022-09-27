@@ -86,9 +86,8 @@ const TeamOverview = () => {
             <h1>Teams</h1>
             <div className="body-content">
                 {teams.length > 0 && teams.map((team) => (
-            <TeamCard>{team}</TeamCard>
+            <TeamCard key={team.id}>{team.name}</TeamCard>
         ))}
-        <TeamCard/>
                 <Button
                     onClick={() => setModalOpen(true)}
                     variant="outlined"
