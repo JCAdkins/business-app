@@ -5,8 +5,9 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
 import Menu from "./NavBar";
+import fetchFromCompany, { request } from "../services/api";
 
-const Announcements = ({ userData, author }) => {
+const Announcements = ({ userData, author, companyId }) => {
   //userData will need to be set in the app.js then passed to the components that need it.
   let user = localStorage.getItem("userData");
   let userObj = JSON.parse(user);
@@ -84,8 +85,7 @@ const Announcements = ({ userData, author }) => {
     },
   ];
 
-  const [announcementsToSet, setAnnouncementsToSet] =
-    useState(sampleAnnouncements);
+  const [announcementsToSet, setAnnouncementsToSet] = useState(sampleAnnouncements);
   const [announcementToCreate, setAnnouncementToCreate] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   console.log(">>>modal open", modalOpen);
@@ -123,14 +123,25 @@ const Announcements = ({ userData, author }) => {
     marginBottom: "5%",
   };
 
-  const getAnnouncements = announcementsToSet => {
-    return announcementsToSet;
-  };
+  const getAnnouncements = async () => {
+    const response = await fetchFromCompany({
+      endpoint: `/companies/${companyId}/announcements`,
+      
+    })
+    setAnnouncementsToSet(response)
+    return response
+  }
 
-  console.log(
-    "testing getting announcments",
-    getAnnouncements(sampleAnnouncements)
-  );
+
+
+  // const getAnnouncements = announcementsToSet => {
+  //   return announcementsToSet;
+  // };
+
+  // console.log(
+  //   "testing getting announcments",
+  //   getAnnouncements(sampleAnnouncements)
+  // );
 
   //map over all announcments and set the announcments based on admin and company selected or user and company they work for
 
