@@ -1,9 +1,9 @@
 package com.cooksys.cookslack.data.dtos;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class ErrorDto {
     private String message;
