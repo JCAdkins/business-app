@@ -11,4 +11,8 @@ public interface UserService {
     UserResponseDto getUserByUsername(String username);
 
     UserResponseDto createNewUser(UserRequestDto userToCreate);
+
+    UserResponseDto deleteUser(String username);
+
+    List<UserResponseDto> getAllUsersByTeam(long teamID);
 }

@@ -2,8 +2,10 @@ package com.cooksys.cookslack.services.impl;
 
 import com.cooksys.cookslack.data.dtos.UserRequestDto;
 import com.cooksys.cookslack.data.dtos.UserResponseDto;
+import com.cooksys.cookslack.data.model.entities.Team;
 import com.cooksys.cookslack.data.model.exceptions.BadRequestException;
 import com.cooksys.cookslack.data.model.exceptions.NotFoundException;
+import com.cooksys.cookslack.data.repositories.TeamRepository;
 import com.cooksys.cookslack.services.ValidationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final ValidationService validationService;
+    private final TeamRepository teamRepository;
 
     //==================================================================
     // =================== GET ENDPOINTS ===============================
@@ -28,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponseDto> getAllUsers() {
-        // Get a list of all users and remove the ones no long active
+        // Get a list of all users and remove the ones that have been deleted
         List<User> users = userRepository.findAll();
         users.removeIf(User::getDeleted);
         return userMapper.entitiesToResponseDtos(users);
@@ -38,6 +41,13 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto getUserByUsername(String username) {
         User user = checkIfUserExistsThenGet(username);
         return userMapper.entityToResponseDto(user);
+    }
+
+    @Override
+    public List<UserResponseDto> getAllUsersByTeam(long teamID) {
+        Team team = checkIfTeamExistsThenGet(teamID);
+        List<User> userList = userRepository.findAllByTeamAndDeletedFalse(team);
+        return userMapper.entitiesToResponseDtos(userList);
     }
 
 
@@ -69,6 +79,17 @@ public class UserServiceImpl implements UserService {
     // =================== DELETE ENDPOINTS ============================
     //==================================================================
 
+    @Override
+    public UserResponseDto deleteUser(String username) {
+        User user = checkIfUserExistsThenGet(username);
+
+        // Update and save user
+        user.setDeleted(true);
+        user.setActive(false);
+        userRepository.saveAndFlush(user);
+
+        return userMapper.entityToResponseDto(user);
+    }
 
 
     // =================== HELPER METHODS ============================
@@ -86,6 +107,18 @@ public class UserServiceImpl implements UserService {
         if (optionalUser.isEmpty())
             throw new NotFoundException("Error: User not found.");
         return optionalUser.get();
+    }
+
+    /**
+     *      Method to check if a team exists and if it does return that team.
+     * @param teamID The team ID we wish to check and grab.
+     * @return  Team returns the team associated with the ID
+     */
+    private Team checkIfTeamExistsThenGet(long teamID) {
+        Optional<Team> optionalTeam = teamRepository.findById(teamID);
+        if (optionalTeam.isEmpty())
+            throw new NotFoundException("Error: Team not found.");
+        return optionalTeam.get();
     }
 
     /**
