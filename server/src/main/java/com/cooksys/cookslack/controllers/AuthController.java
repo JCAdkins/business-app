@@ -17,13 +17,18 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @GetMapping("/ping")
+    public String healthCheck() {
+        return authService.healthCheck();
+    }
+
     @GetMapping("/login")
     public UserResponseDto login(@RequestBody CredentialsRequestDto credentialsRequestDto) {
         return authService.login(credentialsRequestDto);
     }
 
     @GetMapping("/admin")
-    public CredentialsResponseDto checkAdmin(@RequestBody CredentialsRequestDto credentialsRequestDto) {
+    public boolean checkAdmin(@RequestBody CredentialsRequestDto credentialsRequestDto) {
         return authService.checkAdmin(credentialsRequestDto);
     }
 }
