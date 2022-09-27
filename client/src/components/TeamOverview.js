@@ -12,6 +12,7 @@ const teamsArray = [
         id: 0,
         name: "TEAM HAL",
         description: "dead",
+        members: {}
     },
     {
         id: 1,
@@ -62,18 +63,21 @@ const TeamOverview = () => {
         setModalOpen(false);
     }
 
-    const teamCard = () => {
-        teams.map((team) => (
-            <TeamCard>{team}</TeamCard>
-        ))
-    }
+    // const teamCard = () => {
+    //     teams.map((team) => (
+    //         <TeamCard>{team}</TeamCard>
+    //     ))
+    // }
 
 
     return (
         <div>
             <h1>Teams</h1>
             <div className="body-content">
-                {teams.length > 0 && {teamCard}}
+                {teams.length > 0 && teams.map((team) => (
+            <TeamCard>{team}</TeamCard>
+        ))}
+        <TeamCard/>
                 <Button
                     onClick={() => setModalOpen(true)}
                     variant="outlined"

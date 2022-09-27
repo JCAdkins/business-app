@@ -1,5 +1,6 @@
 import React from 'react';
-import {Card, CardContent, Typography, CardActions, Button, CardHeader} from '@mui/material';
+import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
 
 
 const TeamCard = props => {
@@ -9,25 +10,20 @@ const TeamCard = props => {
     let members = props.users;
 
     return(
-        <div style={{}}>
-        <Card
-          style={{
-            width: 400,
-            backgroundColor: "#0B2D45"
-          }}
-        ><CardHeader>
-                    <h2>{teamName}</h2>
-        <h3># of Projects: {projects.length}</h3>
-        </CardHeader>
-            <CardContent>
-          <Typography variant="h5" component="h2">
-            Members
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button>{members}</Button>
-        </CardActions>
-      </Card>
+<div class="card">
+        <div class="card-header">
+        <Stack direction="horizontal" gap={2}>
+            <h2>{teamName}</h2>
+          <h3># of Projects: {projects}</h3>
+          </Stack>
+        </div>
+        ___________________________________________________________________________
+        <div class="card-body">
+            <h3>Members</h3>
+                        {members.length > 0 && members.map((member) => (
+          <Button as="a" href="/users/{member}">{member}</Button>
+        ))}
+      </div>
     </div>
     );
     
