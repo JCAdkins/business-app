@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
     /**
      *      Method to check if a team exists and if it does return that team.
      * @param teamID The team ID we wish to check and grab.
-     * @return  Team returns the team associated with the ID
+     * @return  Team returns the team associated with the id
      */
     private Team checkIfTeamExistsThenGet(long teamID) {
         Optional<Team> optionalTeam = teamRepository.findById(teamID);

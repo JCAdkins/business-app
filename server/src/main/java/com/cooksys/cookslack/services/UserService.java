@@ -4,6 +4,7 @@ import com.cooksys.cookslack.data.dtos.UserRequestDto;
 import com.cooksys.cookslack.data.dtos.UserResponseDto;
 import java.util.List;
 
+
 public interface UserService {
 
     List<UserResponseDto> getAllUsers();
