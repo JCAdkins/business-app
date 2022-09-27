@@ -43,8 +43,6 @@ const CompanySelect = ({ userData}) => {
         setCompanies(data)
 
     })
-
-  
   }
 
   useEffect(() => {
