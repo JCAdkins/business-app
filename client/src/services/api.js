@@ -1,5 +1,5 @@
 import toPairs from 'lodash/toPairs'
-const COMPANY_ROOT = 'https://localhost:3000'
+const COMPANY_ROOT = 'https://localhost:5432/cook-slack'
 
 const parseJSON = response => {
     if (response.status === 204 || response.status === 205) {

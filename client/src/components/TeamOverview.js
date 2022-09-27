@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Modal, Button, Typography, TextField, Select, MenuItem } from '@mui/material';
+import { Box, Modal, Button, Typography, TextField, Select, MenuItem, Avatar } from '@mui/material';
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard"
 
@@ -7,6 +7,23 @@ import "../components/component-Styles/main.css";
 
 //bring in users once the component is complete
 //import teams based on backend data
+const teamsArray = [
+    {
+        id: 0,
+        name: "TEAM HAL",
+        description: "dead",
+    },
+    {
+        id: 1,
+        name: "Dave Bowman?",
+        description: "unknown",
+    },
+    {
+        id: 2,
+        name: "Team Poole",
+        description: "Earth",
+    }
+];
 
 const TeamOverview = () => {
 
@@ -14,6 +31,7 @@ const TeamOverview = () => {
     const [teamName, setTeamName] = useState("");
     const [description, setDescription] = useState("");
     const [users, setUsers] = useState([]);
+    const [teams, setTeams] = useState(teamsArray);
 
     const modalStyle = {
         position: "absolute",
@@ -29,32 +47,37 @@ const TeamOverview = () => {
 
     const makeTeam = e => {
         e.preventDefault();
+        setTeams([
+            ...teams,
+            {
+                id: teams.length,
+                name: `${teamName}`,
+                description: `${description}`,
+                members: `${users}`
+            }
+        ])
         setTeamName(teamName);
         setUsers(users);
         setDescription(description);
         setModalOpen(false);
     }
 
+    const teamCard = () => {
+        teams.map((team) => (
+            <TeamCard>{team}</TeamCard>
+        ))
+    }
 
-    // const container = {
-    //     display: "flex",
-    //     flexDirection: "row",
-    //     padding: 35,
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     margin: "20% 20%",
-    //     //    background: "rgb(6, 22, 30)"
-    // };
 
     return (
         <div>
             <h1>Teams</h1>
             <div className="body-content">
-                {/* {teams.length == 0 ? "" : <TeamCard></TeamCard>} */}
+                {teams.length > 0 && {teamCard}}
                 <Button
                     onClick={() => setModalOpen(true)}
                     variant="outlined"
-                    size="small"
+                    // size="small"
                     style={{ backgroundColor: "##B3B3B3", color: "#DEB992", marginTop: 20 }}
                 >+<br />
                     New Team
@@ -69,7 +92,11 @@ const TeamOverview = () => {
                     </Typography> */}
 
                     <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-                        <Box sx={modalStyle} component="form">
+                        <Box sx={modalStyle} component="form" avatar={
+                            <Avatar>
+                                X
+                            </Avatar>
+                        }>
                             <TextField
                                 value={teamName}
                                 onChange={e => setTeamName(e.target.value)}

@@ -1,17 +1,33 @@
 import React from 'react';
-import {Card, CardContent, Typography, Box} from '@mui/material';
+import {Card, CardContent, Typography, CardActions, Button} from '@mui/material';
 
-const TeamCard = () => {
+
+const TeamCard = props => {
+    
+    let teamName = props.teamName;
+    let projects = props.projects;
+    let members = props.users;
+
     return(
-        <Box sx={{ width: 313, height: 241,}}>
-            <Card>
-                <CardContent>
-                    <Typography>
-                        This is test text.
-                    </Typography>
-                </CardContent>
-            </Card>
-        </Box>
+        <div style={{}}>
+        <Card
+          style={{
+            width: 400,
+            backgroundColor: "#0B2D45"
+          }}
+        >
+                    <h2>{teamName}</h2>
+        <h3># of Projects: {projects.length}</h3>
+            <CardContent>
+          <Typography variant="h5" component="h2">
+            Members
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button>{members}</Button>
+        </CardActions>
+      </Card>
+    </div>
     );
     
 }
