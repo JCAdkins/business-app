@@ -17,47 +17,6 @@ import {
   MenuItem,
 } from "@mui/material";
 
-/**
- * UserResponseDto
- * {
-  id: number,
-  credentials: { //CredentialsResponseDto//}
-    username: string,
-    admin: boolean,
-  },
-  first: string,
-  last: string,
-  email: string,
-  phone: string,
-  active: boolean,
-  team: { //TeamResponseDto object//
-    id: number,
-    name: string,
-    description: string,
-  },
-  company: { //CompanyResponseDto//
-    id: number,
-    name: string,
-    description: string,
-  }
-}
-
-CredentialsRequestDto
-{
-  username: string,
-  password: string
-}
-
-UserRequestDto
-{
-  CredentialsRequestDto  
-  first: string,
-  last: string,
-  email: string,
-  phone: string,
-}
- */
-
 const usersArray = [
   {
     id: 0,
@@ -126,7 +85,7 @@ const usersArray = [
     },
   },
   {
-    id: 2,
+    id: 3,
     firstName: "Haywood",
     lastName: "Floyd",
     credentials: {
@@ -148,7 +107,7 @@ const usersArray = [
     },
   },
   {
-    id: 3,
+    id: 4,
     firstName: "Nasty",
     lastName: "Aliens",
     credentials: {
@@ -181,18 +140,39 @@ const emptyUserObject = {
   },
   email: "",
   phone: "",
+  team: {
+    id: 0,
+    name: "",
+    description: "",
+  },
+  company: {
+    id: 0,
+    name: "",
+    description: "",
+  },
 };
 
+/**
+ *
+ * PROPS:
+ *   -- array of users from GET /users
+ *   -- new user object to POST /users
+ */
 const Users = props => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [users, setUsers] = useState(usersArray); // array of user objects from the api
-  const [user, setUser] = useState(emptyUserObject); // one user object created from modal
+  const [users, setUsers] = useState(usersArray);
+  const [newUser, setUser] = useState(emptyUserObject);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [isValidated, setIsValidated] = useState(false);
 
   useEffect(() => {
     // GET call to localhost:????/users
   }, []);
+
+  useEffect(() => {
+    if (validateForm()) setIsValidated(true);
+    else setIsValidated(false);
+  }, [newUser, passwordCheck]);
 
   const modalStyle = {
     position: "absolute",
@@ -208,34 +188,67 @@ const Users = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setUsers([...users, user]);
-
-    setModalOpen(false);
+    setUsers([...users, newUser]);
+    setUser(emptyUserObject);
+    setPasswordCheck("");
+    setIsModalOpen(false);
+    setIsValidated(false);
+    // props.postUser(postNewUser()) // send new newUser object to App component to be POSTed to API
   };
 
   const handleChange = e => {
     if (e.target.name === "password") {
       setUser({
-        ...user,
-        credentials: { username: user.credentials.username, admin: user.credentials.admin, password: e.target.value },
+        ...newUser,
+        credentials: {
+          username: newUser.credentials.username,
+          admin: newUser.credentials.admin,
+          password: e.target.value,
+        },
       });
     } else if (e.target.name === "admin") {
       setUser({
-        ...user,
+        ...newUser,
         credentials: {
-          username: user.credentials.username,
-          password: user.credentials.password,
+          username: newUser.credentials.username,
+          password: newUser.credentials.password,
           admin: e.target.value,
         },
       });
     } else {
-      setUser({ ...user, [e.target.name]: e.target.value });
+      setUser({ ...newUser, [e.target.name]: e.target.value });
     }
   };
 
-  const cancelSubmit = user => {
+  const cancelSubmit = newUser => {
     setUser(emptyUserObject);
-    setModalOpen(false);
+    setPasswordCheck("");
+    setIsModalOpen(false);
+    setIsValidated(false);
+  };
+
+  const validateForm = () => {
+    return (
+      newUser.firstName.trim() &&
+      newUser.lastName.trim() &&
+      newUser.email.trim() &&
+      newUser.credentials.password.trim() &&
+      newUser.credentials.password.trim() === passwordCheck
+    );
+  };
+
+  const postNewUser = () => {
+    return {
+      credentials: {
+        username: newUser.firstName + newUser.lastName,
+        password: newUser.credentials.password,
+        admin: newUser.credentials.admin,
+      },
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      phone: "000-000-0000",
+    };
   };
 
   return (
@@ -271,34 +284,34 @@ const Users = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map(user => (
-              <TableRow key={user.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+            {users.map(newUser => (
+              <TableRow key={newUser.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell component="th" scope="row" align="center">
-                  {user.firstName + " " + user.lastName}
+                  {newUser.firstName + " " + newUser.lastName}
                 </TableCell>
                 <TableCell align="center">
-                  <Link href={`mailto:${user.email}`}>{user.email}</Link>
+                  <Link href={`mailto:${newUser.email}`}>{newUser.email}</Link>
                 </TableCell>
-                <TableCell align="center">{user.team.name}</TableCell>
+                <TableCell align="center">{newUser.team.name}</TableCell>
                 <TableCell
                   align="center"
                   style={{
                     fontWeight: "bold",
-                    color: user.active ? "green" : "red",
+                    color: newUser.active ? "green" : "red",
                   }}
                 >
-                  {user.active ? "YES" : "NO"}
+                  {newUser.active ? "YES" : "NO"}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{
                     fontWeight: "bold",
-                    color: user.admin ? "green" : "red",
+                    color: newUser.credentials.admin ? "green" : "red",
                   }}
                 >
-                  {user.isAdmin ? "YES" : "NO"}
+                  {newUser.credentials.admin ? "YES" : "NO"}
                 </TableCell>
-                <TableCell align="center">{user.status}</TableCell>
+                <TableCell align="center">{newUser.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -306,7 +319,7 @@ const Users = props => {
       </TableContainer>
       <div style={{ textAlign: "left" }}>
         <Button
-          onClick={() => setModalOpen(true)}
+          onClick={() => setIsModalOpen(true)}
           variant="contained"
           size="small"
           style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
@@ -314,20 +327,19 @@ const Users = props => {
           Add User
         </Button>
       </div>
-      <div></div>
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Box sx={modalStyle} component="form">
           <TextField
-            value={user.firstName}
+            value={newUser.firstName}
             onChange={handleChange}
             size="small"
             required
             label="First Name"
             name="firstName"
-            style={{ paddingRight: 10 }}
+            style={{ paddingBottom: 20 }}
           />
           <TextField
-            value={user.lastName}
+            value={newUser.lastName}
             onChange={handleChange}
             name="lastName"
             size="small"
@@ -335,7 +347,7 @@ const Users = props => {
             label="Last Name"
           />
           <TextField
-            value={user.email}
+            value={newUser.email}
             type="email"
             onChange={handleChange}
             fullWidth
@@ -343,41 +355,44 @@ const Users = props => {
             required
             label="Email"
             name="email"
-            style={{ padding: "10px 0" }}
+            style={{ paddingBottom: 20 }}
           />
           <TextField
-            value={user.credentials.password}
-            onChange={e => setPassword1(e.target.value)}
+            value={newUser.credentials.password}
+            onChange={handleChange}
             size="small"
             required
             type="password"
             label="Password"
-            name="password1"
-            style={{ paddingRight: 10 }}
+            name="password"
           />
           <TextField
-            value={password2}
-            onChange={e => setPassword2(e.target.value)}
+            value={passwordCheck}
+            onChange={e => setPasswordCheck(e.target.value)}
             size="small"
             required
-            type="password2"
+            type="password"
             label="Confirm Password"
-            error={password1 !== password2}
+            error={newUser.credentials.password !== passwordCheck}
           />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Typography component="h6">Make user admin?</Typography>
+            <Typography component="h6">Make newUser admin?</Typography>
             <Select size="small" value={false} onChange={handleChange} label="Pick an option" name="admin">
               <MenuItem value={true}>True</MenuItem>
               <MenuItem value={false}>False</MenuItem>
             </Select>
           </div>
           <div style={{ textAlign: "center", marginTop: 20 }}>
-            <Button style={{ marginRight: 10 }} variant="contained" color="success" onClick={handleSubmit}>
-              {" "}
+            <Button
+              style={{ marginRight: 10 }}
+              variant="contained"
+              color="success"
+              disabled={!isValidated}
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
-            <Button variant="contained" color="secondary" onClick={() => setModalOpen(false)}>
-              {/*<Button variant="contained" color="secondary" onClick={cancelSubmit}>*/}
+            <Button variant="contained" color="secondary" onClick={cancelSubmit}>
               Cancel
             </Button>
           </div>
