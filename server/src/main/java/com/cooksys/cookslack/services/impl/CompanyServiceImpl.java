@@ -15,12 +15,14 @@ public class CompanyServiceImpl implements CompanyService {
 
     //create a company
     @Override
-    public CompanyResponseDto createCompany(CompanyRequestDto companyRequestDto) { }
+    public CompanyResponseDto createCompany(CompanyRequestDto companyRequestDto) {
+
+    }
 
     //GET company by ID
     @Override
     public CompanyResponseDto getCompanyById(Long id) {
-        return companyMapper.entityToResponseDto(id)
+        return companyMapper.entityToResponseDto(id);
     }
 
     //PATCH company by ID
