@@ -18,6 +18,7 @@ import Users from "./Users";
 
 //Dev Componenets
 import TeamOverview from "./TeamOverview";
+import AnnouncementsTest from "./AnnouncementsTest";
 
 //CSS import
 import "../components/component-Styles/main.css";
@@ -106,6 +107,9 @@ const App = () => {
       />
       <Route path="/projects" element={<Projects />} />
       <Route path="/users" element={<Users />} />
+
+      //Test Routes
+      <Route path="/announcementsTest" element={<AnnouncementsTest />} />
     </Routes>
   );
 };
