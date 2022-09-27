@@ -1,11 +1,16 @@
 package com.cooksys.cookslack.data.model.entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class Team {
     @Id
     @GeneratedValue

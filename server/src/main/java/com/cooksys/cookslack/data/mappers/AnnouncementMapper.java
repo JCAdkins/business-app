@@ -1,7 +1,6 @@
 package com.cooksys.cookslack.data.mappers;
 
-import com.cooksys.cookslack.data.dtos.AnnouncementRequestDto;
-import com.cooksys.cookslack.data.dtos.AnnouncementResponseDto;
+import com.cooksys.cookslack.data.dtos.*;
 import com.cooksys.cookslack.data.model.entities.Announcement;
 import org.mapstruct.Mapper;
 
@@ -11,6 +10,10 @@ import java.util.List;
 public interface AnnouncementMapper {
 
     Announcement requestDtoToEntity(AnnouncementRequestDto announcementRequestDto);
+
+    Announcement patchRequestToEntity(AnnouncementPatchRequestDto announcementPatchRequestDto);
+
+    AnnouncementRequestDto entityToRequestDto(Announcement announcement);
 
     AnnouncementResponseDto entityToResponseDto(Announcement announcement);
 

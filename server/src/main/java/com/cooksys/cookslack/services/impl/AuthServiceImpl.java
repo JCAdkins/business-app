@@ -25,16 +25,16 @@ public class AuthServiceImpl implements AuthService {
 
     //******* END POINTS ***********************************************************************
 
-//    @Override
-//    public UserResponseDto login(CredentialsRequestDto credentialsRequestDto){
-//        Credentials userToFind = credentialsMapper.requestDtoToEntity(credentialsRequestDto);
-//        Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndDeletedFalse(userToFind.getUsername())
-//        if(optionalUser.isEmpty()) {
-//            throw new NotFoundException()
-//        }
-//
-//        return userMapper.entityToResponseDto(credentialsRequestDto);
-//    }
+    @Override
+    public UserResponseDto login(CredentialsRequestDto credentialsRequestDto){
+        Credentials userToFind = credentialsMapper.requestDtoToEntity(credentialsRequestDto);
+        Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndDeletedFalse(userToFind.getUsername())
+        if(optionalUser.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        return userMapper.entityToResponseDto(credentialsRequestDto);
+    }
 
     @Override
     public CredentialsResponseDto checkAdmin(CredentialsRequestDto credentialsRequestDto){
