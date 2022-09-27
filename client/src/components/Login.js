@@ -17,7 +17,6 @@ const Login = ({ handleLogin, setUserName, setPassword }) => {
     //    background: "rgb(6, 22, 30)"
   };
 
-  
 
   return (
     <Paper style={container}>
@@ -41,6 +40,7 @@ const Login = ({ handleLogin, setUserName, setPassword }) => {
           id="outlined-password-input"
           label="Password"
           type="password"
+          onChange={e => setPassword(e.target.value)}
         />
 
         <Button variant="contained" onClick={() => handleLogin()}>
