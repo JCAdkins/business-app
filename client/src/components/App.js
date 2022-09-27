@@ -6,7 +6,7 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-
+import fetchFromCompany, { request } from "../services/api";
 import { useState } from "react";
 import CompanySelect from "./CompanySelect";
 
@@ -36,8 +36,15 @@ const App = () => {
     //pass in user credentials and verify
     //if user admin is true go to company select screen
     //if user is not admin go to anounncments
-console.log('handling login')
+    const loginAuth = async () => {
+      const response = await fetchFromCompany({
+        endpoint: "getusers"
+      })
+      return response
+    }
     
+    loginAuth()
+
   setUserData([
       {
         id: 1,
