@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Button, Card, CardActions, CardContent, Typography, Box} from '@mui/material';
+import {Card, CardContent, Typography, Box} from '@mui/material';
 
 const TeamCard = () => {
     return(
@@ -17,3 +17,11 @@ const TeamCard = () => {
 }
 
 export default TeamCard;
+
+
+//TO DO:
+//Set modal to return a team
+//Import user data
+//Set up conditionally rendered cards
+//Look up top of card in MUI (team name left, # of projects: right)
+//Set up member links
