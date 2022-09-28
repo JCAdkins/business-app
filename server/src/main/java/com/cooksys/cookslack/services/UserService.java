@@ -1,7 +1,6 @@
 package com.cooksys.cookslack.services;
 
-import com.cooksys.cookslack.data.dtos.UserRequestDto;
-import com.cooksys.cookslack.data.dtos.UserResponseDto;
+import com.cooksys.cookslack.data.dtos.*;
 import java.util.List;
 
 
@@ -17,5 +16,7 @@ public interface UserService {
 
     List<UserResponseDto> getAllUsersByTeam(long teamID);
 
-    UserResponseDto updateUser(String username, UserRequestDto userRequestDto);
+    UserResponseDto updateUser(String username, UserPatchRequestDto userPatchRequestDto);
+
+    UserResponseDto addUserToTeam(String username, long teamID);
 }
