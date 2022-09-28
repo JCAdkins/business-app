@@ -35,57 +35,19 @@ const App = () => {
   const loginAuth = async () => {
     const response = await fetchFromCompany({
       endpoint: "auth/login",
-      params: {
+      method: "POST",
+      body: {
         username: userName,
         password: password,
       },
     })
+    console.log("response", response)
     setUserData(response)
     return response
   }
 
   const handleLogin = () => {
-    //pass in user credentials and verify
-    //if user admin is true go to company select screen
-    //if user is not admin go to anounncments
     loginAuth()
-  
-  // setUserData([
-  //     {
-  //       id: 1,
-  //       credentials: {
-  //         userName: userName,
-  //         admin: false,
-  //       },
-  //       first: "Ricky",
-  //       last: "Board",
-  //       email: "testing@yahoo.com",
-  //       phone: "-123-234-5432",
-  //       active: true,
-  //       team: {
-  //         id: 1,
-  //         name: "awesome",
-  //         description: "crushing it",
-  //         company: {
-  //           id: 3,
-  //           name: "Apple",
-  //           description: "working on products",
-  //         },
-  //       },
-  //       company: {
-  //         id: 3,
-  //         name: "Apple",
-  //         description: "working on products",
-  //       },
-  //     },
-  //   ]);
-
-    // if(userData.credentials.admin === true){
-    //   navigate("/company")
-    // }
-
-    localStorage.setItem("userData", JSON.stringify(userData));
-
     userData.credentials.admin
       ? navigate("/company")
       : navigate("/announcements");

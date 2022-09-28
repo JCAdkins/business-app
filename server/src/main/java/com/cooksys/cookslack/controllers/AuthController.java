@@ -20,7 +20,7 @@ public class AuthController {
         return authService.healthCheck();
     }
 
-    @GetMapping("/login")
+    @PostMapping ("/login")
     public UserResponseDto login(@RequestBody CredentialsRequestDto credentialsRequestDto) {
         return authService.login(credentialsRequestDto);
     }

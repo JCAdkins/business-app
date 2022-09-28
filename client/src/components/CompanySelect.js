@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const CompanySelect = ({ userData}) => {
-  
+  console.log("company select",userData)
   const navigate = useNavigate();
   const [company, setCompany] = useState()
   const [companies, setCompanies] = useState()
@@ -34,7 +34,7 @@ const CompanySelect = ({ userData}) => {
   };
 
   const getCompanies = async () => {
-    console.log("calling get companies")
+    
     const response = await fetchFromCompany({
       endpoint: "companies",
       
