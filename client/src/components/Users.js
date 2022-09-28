@@ -143,7 +143,7 @@ const emptyUserObject = {
   },
   status: "Unknown",
   email: "",
-  phone: "000-000-0000",
+  phoneNumber: "0000000000",
   team: {
     id: 0,
     name: "",
@@ -158,7 +158,7 @@ const emptyUserObject = {
 
 const Users = props => {
   const [users, setUsers] = useState(null);
-  const [newUser, setUser] = useState(emptyUserObject);
+  const [newUser, setNewUser] = useState(emptyUserObject);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isValidated, setIsValidated] = useState(false);
@@ -187,41 +187,48 @@ const Users = props => {
   };
 
   const handleSubmit = e => {
+    console.log(newUser);
     e.preventDefault();
-    setUsers([...users, newUser]);
-    setUser(emptyUserObject);
+    setNewUser({
+      ...newUser,
+      credentials: {
+        username: newUser.firstName + newUser.lastName,
+        admin: newUser.credentials.admin,
+        password: newUser.credentials.password,
+      },
+    });
+    postNewUser();
     setPasswordCheck("");
     setIsModalOpen(false);
     setIsValidated(false);
-    // props.postUser(postNewUser()) // send new newUser object to App component to be POSTed to API
   };
 
   const handleChange = e => {
     if (e.target.name === "password") {
-      setUser({
+      setNewUser({
         ...newUser,
         credentials: {
-          username: newUser.credentials.username,
+          username: newUser.firstName + newUser.lastName,
           admin: newUser.credentials.admin,
           password: e.target.value,
         },
       });
     } else if (e.target.name === "admin") {
-      setUser({
+      setNewUser({
         ...newUser,
         credentials: {
-          username: newUser.credentials.username,
+          username: newUser.firstName + newUser.lastName,
           password: newUser.credentials.password,
           admin: e.target.value,
         },
       });
     } else {
-      setUser({ ...newUser, [e.target.name]: e.target.value });
+      setNewUser({ ...newUser, [e.target.name]: e.target.value });
     }
   };
 
   const cancelSubmit = newUser => {
-    setUser(emptyUserObject);
+    setNewUser(emptyUserObject);
     setPasswordCheck("");
     setIsModalOpen(false);
     setIsValidated(false);
@@ -237,19 +244,29 @@ const Users = props => {
     );
   };
 
-  const postNewUser = () => {
-    return {
-      credentials: {
-        username: newUser.firstName + newUser.lastName,
-        password: newUser.credentials.password,
-        admin: newUser.credentials.admin,
-      },
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      email: newUser.email,
-      phone: "000-000-0000",
-    };
+  const postNewUser = async () => {
+    const returnedUser = await fetchFromCompany({
+      method: "POST",
+      endpoint: "users",
+      body: newUser,
+    });
+    console.log("Added New User: ", returnedUser);
+    setNewUser(emptyUserObject);
+    window.location.reload(false);
   };
+
+  /**
+   * const response = fetchFromCompany({
+      method: "POST",
+      endpoint: `companies/${company}/users/${userData.id}/announcements`,
+      body: {
+        title: "New announcement",
+        message: announcementToCreate,
+        userId: userData.id,
+        companyId: company 
+      }
+    })
+   */
 
   return (
     <div>
@@ -379,8 +396,14 @@ const Users = props => {
                 error={newUser.credentials.password !== passwordCheck}
               />
               <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <Typography component="h6">Make newUser admin?</Typography>
-                <Select size="small" value={false} onChange={handleChange} label="Pick an option" name="admin">
+                <Typography component="h6">Make User Admin?</Typography>
+                <Select
+                  size="small"
+                  value={newUser.credentials.admin}
+                  onChange={handleChange}
+                  label="Pick an option"
+                  name="admin"
+                >
                   <MenuItem value={true}>True</MenuItem>
                   <MenuItem value={false}>False</MenuItem>
                 </Select>
