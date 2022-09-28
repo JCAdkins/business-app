@@ -15,6 +15,5 @@ public class TeamRequestDto {
     @NotBlank
     @NonNull
     private String description;
-//    @NonNull
-//    private CredentialsRequestDto credentials;
+
 }

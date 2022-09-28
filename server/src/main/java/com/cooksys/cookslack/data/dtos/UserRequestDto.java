@@ -20,6 +20,6 @@ public class UserRequestDto {
     private String email;
     @NonNull
     private String phoneNumber;
-    @NonNull
+
     private CredentialsRequestDto credentials;
 }
