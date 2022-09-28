@@ -16,8 +16,8 @@ public class CredentialsRequestDto {
     @NotBlank
     @NonNull
     private String password;
-    @NotBlank
-    @NonNull
+    //@NotBlank
+    //@NonNull
     private Boolean admin;
 
 }

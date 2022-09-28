@@ -126,7 +126,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         Optional<Company> company = companyRepository.findById(companyId);
         if (company.isEmpty()) throw new NotFoundException("Provided Company not found.");
-        Optional<User> author = userRepository.findById(companyId);
+        Optional<User> author = userRepository.findById(authorId);
         if (author.isEmpty()) throw new NotFoundException("Provided Author not found.");
 
         newAnnouncement.setCompany(company.get());
