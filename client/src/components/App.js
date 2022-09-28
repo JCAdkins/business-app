@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -17,7 +18,7 @@ import Announcements from "./Announcements";
 import Projects from "./Projects";
 import Users from "./Users";
 
-//Dev Componenets
+//Dev Components
 import TeamOverview from "./TeamOverview";
 
 //CSS import
@@ -31,6 +32,7 @@ const App = () => {
 
   console.log("from app userdata",userData);
   let navigate = useNavigate();
+
 
   const loginAuth = async () => {
     const response = await fetchFromCompany({
@@ -46,6 +48,7 @@ const App = () => {
     return response
   }
 
+
   const handleLogin = () => {
     loginAuth()
     userData.credentials.admin
@@ -57,20 +60,11 @@ const App = () => {
     <Routes>
       <Route
         path="/"
-        element={
-          <Login
-            handleLogin={handleLogin}
-            setUserName={setUserName}
-            setPassword={setPassword}
-          />
-        }
+        element={<Login handleLogin={handleLogin} setUserName={setUserName} setPassword={setPassword} />}
       />
       <Route path="/company" element={<CompanySelect userData={userData} />} />
       <Route path="/TeamOverview" element={<TeamOverview />} />
-      <Route
-        path="/announcements"
-        element={<Announcements userData={userData} />}
-      />
+      <Route path="/announcements" element={<Announcements userData={userData} />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/users" element={<Users />} />
     </Routes>
