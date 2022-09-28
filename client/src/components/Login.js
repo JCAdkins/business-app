@@ -4,6 +4,7 @@ import { Box, Button, Paper } from "@mui/material";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
+import fetchFromCompany, { request } from "../services/api";
 
 const Login = ({ handleLogin, setUserName, setPassword }) => {
   const container = {
@@ -16,7 +17,6 @@ const Login = ({ handleLogin, setUserName, setPassword }) => {
     //    background: "rgb(6, 22, 30)"
   };
 
-  
 
   return (
     <Paper style={container}>
@@ -40,6 +40,7 @@ const Login = ({ handleLogin, setUserName, setPassword }) => {
           id="outlined-password-input"
           label="Password"
           type="password"
+          onChange={e => setPassword(e.target.value)}
         />
 
         <Button variant="contained" onClick={() => handleLogin()}>
