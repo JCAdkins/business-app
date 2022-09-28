@@ -30,6 +30,7 @@ const App = () => {
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState();
   const [company, setCompany] = useState();
+ console.log("from app", userData)
   
   let navigate = useNavigate();
 
@@ -43,17 +44,20 @@ const App = () => {
         password: password,
       },
     })
-    
+    console.log(response)
     setUserData(response)
+    localStorage.setItem("userData", JSON.stringify(userData))
+    //this seems to be trying to read credentials before it's there. That's why you have to clcik twice
+    userData.credentials.admin
+      ? navigate("/company")
+      : navigate("/announcements");
     return response
   }
 
 
   const handleLogin = () => {
     loginAuth()
-    userData.credentials.admin
-      ? navigate("/company")
-      : navigate("/announcements");
+   
   };
 
   return (

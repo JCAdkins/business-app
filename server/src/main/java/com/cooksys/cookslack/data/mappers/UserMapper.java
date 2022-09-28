@@ -14,7 +14,9 @@ public interface UserMapper {
 
     UserRequestDto entityToRequestDto(User user);
 
+
     List<UserResponseDto> entitiesToResponseDtos(List<User> users);
+    List<TeamMemberResponseDto> teamEntitiesToResponseDtos(List<User> users);
 
     /**
      * <code>Credentials</code> only contains <code>username</code> and <code>admin</code>, <code>password</code> is removed on the response.
@@ -22,5 +24,7 @@ public interface UserMapper {
      * @return a <code>UserResponseDto</code>
      */
     UserResponseDto entityToResponseDto(User user);
+
+    TeamMemberResponseDto teamEntityToResponseDto(User user);
 
 }
