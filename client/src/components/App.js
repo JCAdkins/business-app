@@ -46,17 +46,18 @@ const App = () => {
     })
     console.log(response)
     setUserData(response)
+    localStorage.setItem("userData", JSON.stringify(userData))
+    //this seems to be trying to read credentials before it's there. That's why you have to clcik twice
+    userData.credentials.admin
+      ? navigate("/company")
+      : navigate("/announcements");
     return response
   }
 
 
   const handleLogin = () => {
     loginAuth()
-    localStorage.setItem("userData", JSON.stringify(userData))
-    console.log(JSON.parse(localStorage.getItem("userData")))
-    userData.credentials.admin
-      ? navigate("/company")
-      : navigate("/announcements");
+   
   };
 
   return (
