@@ -8,15 +8,15 @@ import {
   Select,
   MenuItem,
   Avatar,
-  Link,
-  Card,
+//   Link,
+//   Card,
   Paper
 } from "@mui/material";
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard";
 import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
-import Stack from "react-bootstrap/Stack";
+// import Stack from "react-bootstrap/Stack";
 
 
 const TeamOverview = () => {
@@ -39,14 +39,15 @@ const TeamOverview = () => {
     p: 4,
   };
 
-  const cardStyle = {
-    display: "flex",
-    flexDirection: "column",
-    padding: 25,
-    minWidth: "50%",
-    marginBottom: "5%",
-  };
-
+//   const cardStyle = {
+//     display: "flex",
+//     flexDirection: "column",
+//     padding: 25,
+//     margin: 10,
+//     minWidth: "10%",
+//     maxWidth: "50%",
+//     marginBottom: "5%",
+//   };
 
   const getTeams = async () => {
     let company = localStorage.getItem("company");
@@ -60,6 +61,14 @@ const TeamOverview = () => {
   useEffect(() => {
     getTeams();
   }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/users")
+      .then(response => response.json())
+      .then(data => setUsers(data));
+  }, []);
+
+  console.log("users", users)
 
   const makeTeam = e => {
     e.preventDefault();
@@ -84,19 +93,7 @@ const TeamOverview = () => {
 
   return  (
    <Paper>
-   {teams.map((team, idx) => 
-    (
-   <Card style={cardStyle}  key={idx}>
-     <h3>{team.name}</h3>
-     <h1>Members</h1>
-     {team.members.map((member, name) => (
-        <h3>{member}</h3>
-     )
-
-     )}
-   </Card>
-) 
-  )}
+<TeamCard/>
 <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
                 <Box sx={modalStyle} component="form" avatar={<Avatar>
                     
@@ -124,7 +121,7 @@ const TeamOverview = () => {
                             label="Pick an option"
                         >
                             {users.map((user) => (
-                                <MenuItem key={user} value={user}>{user}</MenuItem>
+                                <MenuItem key={user} value={user.firstName}>{user.firstName}</MenuItem>
                             ))}
                         </Select>
                     </div>
