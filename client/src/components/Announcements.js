@@ -12,7 +12,7 @@ const Announcements = ({ userData, author, companyId }) => {
   let user = localStorage.getItem("userData");
   let userObj = JSON.parse(user);
 
-  let company = 1;
+ companyId = 1;
 
   userData = [
     {
@@ -127,10 +127,16 @@ const Announcements = ({ userData, author, companyId }) => {
     const response = await fetchFromCompany({
       endpoint: `/companies/${companyId}/announcements`,
       
+    }).then((data) => {
+      setAnnouncementsToSet(data)
     })
-    setAnnouncementsToSet(response)
-    return response
+
+    
   }
+
+  useEffect(() => {
+    getAnnouncements()
+  }, [])
 
 
 
@@ -205,18 +211,19 @@ const Announcements = ({ userData, author, companyId }) => {
             New Project
           </Button>
         ) : null}
+
         <h1>Announcements</h1>
-        {announcementsToSet.map(announcement => {
+        {/* { announcementsToSet.map(announcement => {
           //map over announcements and return only announcments that match the company
-          return userData[0].credentials.admin &&
-            company === announcement.id ? (
+          return
+             (
             <Card style={cardStyle}>
               <h1>User is admin andcompany and id match</h1>
               <h3>{announcement.author}</h3>
               <p>{announcement.description}</p>
             </Card>
-          ) : null;
-        })}
+        ) } */}
+             
 
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
           <Box sx={modalStyle} component="form">

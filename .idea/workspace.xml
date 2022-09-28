@@ -4,19 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="e1ebd137-be35-4e31-a683-f28baf516bf0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/cook-slack.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/group-final-sprint-8.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/data/controllers/CompanyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/CompanyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+    <list default="true" id="e1ebd137-be35-4e31-a683-f28baf516bf0" name="Changes" comment="Endpoint DELETE /users/{username} implemented.&#10;Endpoing GET /users/team/{teamID} implemented.">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/impl/CompanyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/impl/CompanyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/cooksys/cookslack/services/impl/UserServiceImpl.java" afterDir="false" />
+>>>>>>> a73e402aa426d72393622587aa0ded3c37c59f39
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +24,22 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -37,6 +52,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -44,12 +60,18 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/sarah/Desktop/projects/COOK/group-final-sprint-8",
+    "last_opened_file_path": "C:/Users/prima/Documents/primscode/3-fastTrack/group-final-sprint-8/server/pom.xml",
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
+=======
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+  </component>
+>>>>>>> a73e402aa426d72393622587aa0ded3c37c59f39
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -59,6 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1663959583577</updated>
       <workItem from="1663959584988" duration="607000" />
+      <workItem from="1664231018833" duration="303000" />
     </task>
     <servers />
   </component>
@@ -75,5 +98,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Endpoint POST /users implemented." />
+    <MESSAGE value="Endpoint DELETE /users/{username} implemented.&#10;Endpoing GET /users/team/{teamID} implemented." />
+    <option name="LAST_COMMIT_MESSAGE" value="Endpoint DELETE /users/{username} implemented.&#10;Endpoing GET /users/team/{teamID} implemented." />
   </component>
 </project>

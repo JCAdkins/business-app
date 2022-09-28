@@ -34,12 +34,15 @@ const CompanySelect = ({ userData}) => {
   };
 
   const getCompanies = async () => {
+    console.log("calling get companies")
     const response = await fetchFromCompany({
-      endpoint: "/companies",
+      endpoint: "companies",
       
+    }).then((data) => {
+      console.log(data)
+        setCompanies(data)
+
     })
-    setCompanies(response)
-    return response
   }
 
   useEffect(() => {
@@ -80,6 +83,7 @@ const CompanySelect = ({ userData}) => {
   };
 
   return (
+    companies ?
     <Paper style={container}>
       <Box component="form" noValidate autoComplete="off" style={container}>
         <h1>Select Company</h1>
@@ -100,7 +104,7 @@ const CompanySelect = ({ userData}) => {
         </FormControl>
       </Box>
     </Paper>
-  );
+  : null);
 };
 
 export default CompanySelect;

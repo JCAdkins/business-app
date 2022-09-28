@@ -1,26 +1,13 @@
 import toPairs from 'lodash/toPairs'
-const COMPANY_ROOT = 'https://localhost:8080'
+const COMPANY_ROOT = 'http://localhost:8080'
 
-const parseJSON = response => {
-    if (response.status === 204 || response.status === 205) {
-      return null
-    }
-    return response.json()
-  }
 
-const checkStatus = response => {
-    if (response.status >= 200 && response.status < 300) {
-      return response
-    }
-    const error = new Error(response.statusText)
-    error.response = response
-    throw error
-  }
-
-export const request = (url, options) => {
-    return fetch(url, options)
-      .then(checkStatus)
-      .then(parseJSON)
+export const request = async (url, options) => {
+  console.log("request", url)
+  const response = await fetch(url, options)
+  const data = await response.json()
+    return data
+   
   }
 
 const fetchFromCompany = ({ token, endpoint, params }) => {
