@@ -1,8 +1,7 @@
 package com.cooksys.cookslack.controllers;
-import com.cooksys.cookslack.data.dtos.UserRequestDto;
+import com.cooksys.cookslack.data.dtos.*;
 import lombok.RequiredArgsConstructor;
 import com.cooksys.cookslack.services.UserService;
-import com.cooksys.cookslack.data.dtos.UserResponseDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +18,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/users/{username}")
+    @GetMapping("/{username}")
     public UserResponseDto getUserByUsername(@PathVariable String username){
         return userService.getUserByUsername(username);
     }
 
-    @GetMapping("/users/team/{teamID}")
+    @GetMapping("/team/{teamID}")
     public List<UserResponseDto> getAllUsersByTeam(@PathVariable long teamID){
         return userService.getAllUsersByTeam(teamID);
     }
@@ -34,12 +33,17 @@ public class UserController {
         return userService.createNewUser(userToCreate);
     }
 
-    @PatchMapping("/users/{username}")
-    public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserRequestDto userRequestDto){
-        return userService.updateUser(username, userRequestDto);
+    @PatchMapping("/{username}")
+    public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserPatchRequestDto userPatchRequestDto){
+        return userService.updateUser(username, userPatchRequestDto);
     }
 
-    @DeleteMapping("/users/{username}")
+    @PatchMapping("/{username}/{teamID}")
+    public UserResponseDto addUserToTeam(@PathVariable String username, @PathVariable long teamID){
+        return userService.addUserToTeam(username, teamID);
+    }
+
+    @DeleteMapping("/{username}")
     public UserResponseDto deleteUser(@PathVariable String username){
         return userService.deleteUser(username);
     }
