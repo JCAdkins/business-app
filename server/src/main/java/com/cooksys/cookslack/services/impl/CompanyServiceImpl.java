@@ -104,16 +104,12 @@ public class CompanyServiceImpl implements CompanyService {
     //GET all announcements from a company by company ID
     @Override
     public List<AnnouncementResponseDto> getAnnouncementsByCompany(Long companyId) {
-
         Optional<Company> parentCompany = companyRepository.findById(companyId);
         if (parentCompany.isEmpty())
             throw new NotFoundException("Company not found by id: " + companyId);
-
         List<Announcement> announcements = announcementRepository.findAllByCompanyAndDeletedFalse(parentCompany.get());
         if (announcements.isEmpty())
             throw new NotFoundException("No announcements were found for " + parentCompany.get().getName());
-
-
         return announcementMapper.entitiesToResponseDtos(announcements);
     }
 
@@ -121,19 +117,17 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public AnnouncementResponseDto createAnnouncement(Long companyId, Long authorId, AnnouncementRequestDto announcementRequestDto) {
         validationService.newAnnouncementValidate(announcementRequestDto);
-
         Announcement newAnnouncement = announcementMapper.requestDtoToEntity(announcementRequestDto);
-
         Optional<Company> company = companyRepository.findById(companyId);
+
         if (company.isEmpty()) throw new NotFoundException("Provided Company not found.");
-        Optional<User> author = userRepository.findById(companyId);
+        Optional<User> author = userRepository.findById(authorId);
         if (author.isEmpty()) throw new NotFoundException("Provided Author not found.");
 
         newAnnouncement.setCompany(company.get());
         newAnnouncement.setAuthor(author.get());
 
         Announcement savedAnnouncement = announcementRepository.saveAndFlush(newAnnouncement);
-
         return announcementMapper.entityToResponseDto(savedAnnouncement);
     }
 

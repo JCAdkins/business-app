@@ -8,20 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 @RequiredArgsConstructor
 @RequestMapping("/companies")
 public class CompanyController {
 
     private final CompanyService companyService;
 
-
     @GetMapping
     public List<CompanyResponseDto> getAllCompanies() {
         return companyService.getAllCompanies();
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -29,18 +28,15 @@ public class CompanyController {
         return companyService.createCompany(companyRequestDto);
     }
 
-
     @GetMapping("/{companyId}")
     public CompanyResponseDto getCompanyById(@PathVariable Long companyId) {
         return companyService.getCompanyById(companyId);
     }
 
-
     @PatchMapping("/{companyId}")
     public CompanyResponseDto updateCompany(@PathVariable Long companyId, @RequestBody CompanyPatchRequestDto companyPatchRequestDto) {
         return companyService.updateCompany(companyId, companyPatchRequestDto);
     }
-
 
     @DeleteMapping("/{companyId}")
     public CompanyResponseDto deleteCompany(@PathVariable Long companyId) {
@@ -65,12 +61,10 @@ public class CompanyController {
         return companyService.createAnnouncement(companyId, authorId, announcementRequestDto);
     }
 
-
     @GetMapping("/{companyId}/announcements/{announcementId}")
     public AnnouncementResponseDto getAnnouncementById(@PathVariable Long companyId, @PathVariable Long announcementId) {
         return companyService.getAnnouncementById(companyId, announcementId);
     }
-
 
     @PatchMapping("/{companyId}/announcements/{announcementId}")
     public AnnouncementResponseDto updateAnnouncement(
@@ -86,12 +80,10 @@ public class CompanyController {
         return companyService.deleteAnnouncementById(companyId, announcementId);
     }
 
-
     @GetMapping("/{companyId}/teams")
     public List<TeamResponseDto> getAllTeamsAtCompany(@PathVariable Long companyId) {
         return companyService.getAllTeamsAtCompany(companyId);
     }
-
 
     @PostMapping("/{companyId}/teams")
     @ResponseStatus(HttpStatus.CREATED)
@@ -99,12 +91,10 @@ public class CompanyController {
         return companyService.createTeam(companyId, teamRequestDto);
     }
 
-
     @GetMapping("/{companyId}/teams/{teamId}")
     public TeamResponseDto getTeamById(@PathVariable Long companyId, @PathVariable Long teamId) {
         return companyService.getTeamById(companyId, teamId);
     }
-
 
     @PatchMapping("/{companyId}/teams/{teamId}")
     public TeamResponseDto updateTeam(
@@ -115,12 +105,10 @@ public class CompanyController {
         return companyService.updateTeam(companyId, teamId, teamPatchRequestDto);
     }
 
-
     @DeleteMapping("/{companyId}/teams/{teamId}")
     public TeamResponseDto deleteTeamById(@PathVariable Long companyId, @PathVariable Long teamId) {
         return companyService.deleteTeamById(companyId, teamId);
     }
-
 
     @GetMapping("/{companyId}/projects")
     public List<ProjectResponseDto> getAllProjectsAtCompany(@PathVariable Long companyId) {
@@ -138,12 +126,10 @@ public class CompanyController {
         return companyService.createProject(companyId, teamId, projectRequestDto);
     }
 
-
     @GetMapping("/{companyId}/projects/{projectId}")
     public ProjectResponseDto getProjectById(@PathVariable Long companyId, @PathVariable Long projectId) {
         return companyService.getProjectById(companyId, projectId);
     }
-
 
     // FIXME: Update endpoint in Wiki. Previously was: PATCH /companies/{companyId}/projects/{projectId}
     @PatchMapping("/{companyId}/teams/{teamId}/projects/{projectId}")

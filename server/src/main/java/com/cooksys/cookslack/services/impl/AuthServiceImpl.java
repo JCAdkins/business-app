@@ -31,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
         Credentials userToFind = credentialsMapper.requestDtoToEntity(credentialsRequestDto);
         Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndDeletedFalse(userToFind.getUsername());
         if(optionalUser.isEmpty()) {
-            throw new NotFoundException();
+            throw new NotFoundException("User does not exist!");
         }
         return optionalUser.get();
     }
@@ -41,18 +41,18 @@ public class AuthServiceImpl implements AuthService {
     //check api
     @Override
     public String healthCheck(){
-
-        return "backend is running on PORT 3000";
+        return "backend is running on PORT 8080";
     }
 
     //Login user - check if user exists and correct password
     @Override
     public UserResponseDto login(CredentialsRequestDto credentialsRequestDto){
         User foundUser = doesUserExist(credentialsRequestDto);
-        if(foundUser.getCredentials().getPassword() != credentialsRequestDto.getPassword()){
-            throw new NotAuthorizedException();
+        if(foundUser.getCredentials().getPassword().equals(credentialsRequestDto.getPassword())){
+            return userMapper.entityToResponseDto(foundUser);
+        } else {
+            throw new NotAuthorizedException("Incorrect username or password.");
         }
-        return userMapper.entityToResponseDto(foundUser);
     }
 
     //check user's admin status
@@ -62,5 +62,4 @@ public class AuthServiceImpl implements AuthService {
         boolean adminStatus = foundUser.getCredentials().getAdmin();
         return adminStatus;
     }
-
 }
