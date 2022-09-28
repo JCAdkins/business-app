@@ -1,7 +1,15 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
+
+import fetchFromCompany, { request } from "../services/api";
+
 import CompanySelect from "./CompanySelect";
 
 import Login from "./Login";
@@ -19,56 +27,33 @@ import "../components/component-Styles/main.css";
 const App = () => {
   //username will be set here so that it can be passed to other components as well as Company for admin
   const [userName, setUserName] = useState();
-
+  const [password, setPassword] = useState();
   const [userData, setUserData] = useState();
 
-  const [password, setPassword] = useState();
-  console.log(userData);
+  console.log("from app userdata",userData);
   let navigate = useNavigate();
 
-  const handleLogin = () => {
-    //pass in user credentials and verify
-    //if user admin is true go to company select screen
-    //if user is not admin go to announcements
-    console.log("handling login");
 
-    setUserData([
-      {
-        id: 1,
-        credentials: {
-          userName: userName,
-          admin: false,
-        },
-        first: "Ricky",
-        last: "Board",
-        email: "testing@yahoo.com",
-        phone: "-123-234-5432",
-        active: true,
-        team: {
-          id: 1,
-          name: "awesome",
-          description: "crushing it",
-          company: {
-            id: 3,
-            name: "Apple",
-            description: "working on products",
-          },
-        },
-        company: {
-          id: 3,
-          name: "Apple",
-          description: "working on products",
-        },
+  const loginAuth = async () => {
+    const response = await fetchFromCompany({
+      endpoint: "auth/login",
+      method: "POST",
+      body: {
+        username: userName,
+        password: password,
       },
-    ]);
+    })
+    console.log("response", response)
+    setUserData(response)
+    return response
+  }
 
-    // if(userData.credentials.admin === true){
-    //   navigate("/company")
-    // }
 
-    localStorage.setItem("userData", JSON.stringify(userData[0]));
-
-    userData[0].credentials.admin ? navigate("/company") : navigate("/announcements");
+  const handleLogin = () => {
+    loginAuth()
+    userData.credentials.admin
+      ? navigate("/company")
+      : navigate("/announcements");
   };
 
   return (

@@ -9,14 +9,17 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import fetchFromCompany, { request } from "../services/api";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 
 const CompanySelect = ({ userData}) => {
-  
+  console.log("company select",userData)
   const navigate = useNavigate();
   const [company, setCompany] = useState()
+  const [companies, setCompanies] = useState()
+
   const container = {
     display: "flex",
     flexDirection: "column",
@@ -30,32 +33,48 @@ const CompanySelect = ({ userData}) => {
     width: "400px",
   };
 
-  let companies = [
-    {
-      id: 1,
-      name: "FedEx",
-    },
-    {
-      id: 2,
-      name: "Apple",
-    },
-    {
-      id: 3,
-      name: "Google",
-    },
-    {
-      id: 1,
-      name: "FedEx",
-    },
-    {
-      id: 2,
-      name: "Apple",
-    },
-    {
-      id: 3,
-      name: "Google",
-    },
-  ];
+  const getCompanies = async () => {
+    
+    const response = await fetchFromCompany({
+      endpoint: "companies",
+      
+    }).then((data) => {
+      console.log(data)
+        setCompanies(data)
+
+    })
+  }
+
+  useEffect(() => {
+    getCompanies()
+  }, [])
+
+  // let companies = [
+  //   {
+  //     id: 1,
+  //     name: "FedEx",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Apple",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Google",
+  //   },
+  //   {
+  //     id: 1,
+  //     name: "FedEx",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Apple",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Google",
+  //   },
+  // ];
   // handle setting company for admin and sending them to announcments page for their company
   const handleChange = event => {
     console.log("event" , event.target.value)
@@ -64,6 +83,7 @@ const CompanySelect = ({ userData}) => {
   };
 
   return (
+    companies ?
     <Paper style={container}>
       <Box component="form" noValidate autoComplete="off" style={container}>
         <h1>Select Company</h1>
@@ -84,7 +104,7 @@ const CompanySelect = ({ userData}) => {
         </FormControl>
       </Box>
     </Paper>
-  );
+  : null);
 };
 
 export default CompanySelect;
