@@ -14,10 +14,10 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 
-const CompanySelect = ({ userData}) => {
-  
+const CompanySelect = ({ userData, setCompany}) => {
+  console.log("company select",userData)
   const navigate = useNavigate();
-  const [company, setCompany] = useState()
+ 
   const [companies, setCompanies] = useState()
 
   const container = {
@@ -34,53 +34,38 @@ const CompanySelect = ({ userData}) => {
   };
 
   const getCompanies = async () => {
+<<<<<<< HEAD
     console.log("calling get companies")
+=======
+    
+>>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
     const response = await fetchFromCompany({
       endpoint: "companies",
       
     }).then((data) => {
+<<<<<<< HEAD
       console.log(data)
         setCompanies(data)
 
     })
 
   
+=======
+     
+        setCompanies(data)
+
+    })
+>>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
   }
 
   useEffect(() => {
     getCompanies()
   }, [])
 
-  // let companies = [
-  //   {
-  //     id: 1,
-  //     name: "FedEx",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Apple",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Google",
-  //   },
-  //   {
-  //     id: 1,
-  //     name: "FedEx",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Apple",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Google",
-  //   },
-  // ];
   // handle setting company for admin and sending them to announcments page for their company
   const handleChange = event => {
-    console.log("event" , event.target.value)
-    setCompany(event.target.value);
+    localStorage.removeItem("company")
+    localStorage.setItem("company", event.target.value);
     navigate("/announcements");
   };
 

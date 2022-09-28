@@ -11,24 +11,42 @@ const TeamCard = props => {
     const [users, setUsers] = useState([]);
 
     const getTeams = async () => {
+<<<<<<< HEAD
         const response = await fetchFromCompany({
             endpoint: "/{companyId}/teams",
+=======
+        let company = localStorage.getItem("company")
+        const response = await fetchFromCompany({
+            endpoint: `/${company}/teams`,
+>>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
 
         })
         setTeams(response)
         return response
     }
     const getProjects = async () => {
+<<<<<<< HEAD
         const response = await fetchFromCompany({
             endpoint: "/{companyId}/projects",
+=======
+        let company = localStorage.getItem("company")
+        const response = await fetchFromCompany({
+            endpoint: `/${company}/projects`,
+>>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
 
         })
         setProjects(response)
         return response
     }
     const getUsers = async () => {
+<<<<<<< HEAD
         const response = await fetchFromCompany({
             endpoint:     "/users/team/{teamID}",
+=======
+        let teamId = 1
+        const response = await fetchFromCompany({
+            endpoint:     `/users/team/${teamId}`,
+>>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
 
         })
         setUsers(response)
@@ -76,4 +94,8 @@ export default TeamCard;
 //Set modal to return a team
 //Import user data
 //Set up conditionally rendered cards
+<<<<<<< HEAD
 //Set up member links
+=======
+//Set up member links
+>>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
