@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
 import {
   Box,
-  Button,
+  // Button,
   Paper,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
 } from "@mui/material";
+// eslint-disable-next-line
 import fetchFromCompany, { request } from "../services/api";
-import styled from "@emotion/styled";
+// import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 
 
@@ -34,7 +35,7 @@ const CompanySelect = ({ userData, setCompany}) => {
   };
 
   const getCompanies = async () => {
-    
+    // eslint-disable-next-line
     const response = await fetchFromCompany({
       endpoint: "companies",
       

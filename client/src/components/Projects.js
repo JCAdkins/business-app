@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Project from "./Project";
-import { Card, CardContent, Typography, Button, Container, Modal, TextField, Box } from "@mui/material";
+import { Typography, Button, Container, Modal, TextField, Box } from "@mui/material";
 
 const projectsArray = [
   {

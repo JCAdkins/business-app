@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Box, Button, Paper, Card, Modal } from "@mui/material";
-import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
-import { width } from "@mui/system";
-import Menu from "./NavBar";
+// import styled from "@emotion/styled";
+// import { useNavigate } from "react-router-dom";
+// import { width } from "@mui/system";
+// import Menu from "./NavBar";
 import fetchFromCompany from "../services/api";
 
 const Announcements = ({ }) => {
@@ -59,6 +59,7 @@ const Announcements = ({ }) => {
   const getAnnouncements = () => {
     let company = localStorage.getItem("company")
     console.log("from get announcmements",company)
+    // eslint-disable-next-line
     const response = fetchFromCompany({
       endpoint: `companies/${company}/announcements`,
       
@@ -77,6 +78,7 @@ const Announcements = ({ }) => {
   const handleNewProject = () => {
     
     let company = localStorage.getItem("company")
+    // eslint-disable-next-line
     const response = fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/users/${user.id}/announcements`,

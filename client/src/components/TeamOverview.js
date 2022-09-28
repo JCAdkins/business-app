@@ -5,26 +5,6 @@ import TeamCard from "../components/component-Helpers/TeamCard"
 import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
 
-//bring in users once the component is complete
-//import teams based on backend data
-// const teamsArray = [
-//     {
-//         id: 0,
-//         name: "TEAM HAL",
-//         description: "dead",
-//         members: {}
-//     },
-//     {
-//         id: 1,
-//         name: "Dave Bowman?",
-//         description: "unknown",
-//     },
-//     {
-//         id: 2,
-//         name: "Team Poole",
-//         description: "Earth",
-//     }
-// ];
 
 const TeamOverview = () => {
 
@@ -33,6 +13,7 @@ const TeamOverview = () => {
     const [description, setDescription] = useState("");
     const [users, setUsers] = useState([]);
     const [teams, setTeams] = useState([]);
+    const [team, setTeam] = useState([]);
 
     const modalStyle = {
         position: "absolute",
@@ -46,35 +27,58 @@ const TeamOverview = () => {
         p: 4,
     };
 
-    const getTeams = async () => {
-        const response = await fetchFromCompany({
-          endpoint: "/{companyId}/teams",
-          
-        })
-        setTeams(response)
-        return response
-      }
-    
-      useEffect(() => {
-        getTeams();
-      }, [])
+    useEffect(() => {
+        const getTeams = () => {
+            let company = localStorage.getItem("company")
+            // eslint-disable-next-line
+            const response = fetchFromCompany({
+                endpoint: `${company}/teams`,
 
-    const makeTeam = e => {
-        e.preventDefault();
-        setTeams([
-            ...teams,
-            {
-                id: teams.length,
-                name: `${teamName}`,
-                description: `${description}`,
-                members: `${users}`
-            }
-        ])
-        setTeamName(teamName);
-        setUsers(users);
-        setDescription(description);
+            }).then((data) => {
+                console.log(data)
+                setTeams(data)
+            })
+
+        }
+        getTeams()
+    }, [])
+
+
+    // const makeTeam = e => {
+    //     e.preventDefault();
+    //     setTeams([
+    //         ...teams,
+    //         {
+    //             // id: 1,
+    //             name: `${teamName}`,
+    //             description: `${description}`,
+    //             members: `${users}`
+    //         }
+    //     ])
+    //     setTeamName(teamName);
+    //     setUsers(users);
+    //     setDescription(description);
+    //     setModalOpen(false);
+    // }
+
+        const makeTeam = e => {
+        let company = localStorage.getItem("company")
+        // eslint-disable-next-line
+        const response = fetchFromCompany({
+          method: "POST",
+          endpoint: `companies/${company}/teams`,
+          body: {
+            name: teamName,
+            description: description,
+            companyId: company 
+          }
+        })
+
+        setTeam('')
         setModalOpen(false);
-    }
+        window.location.reload();
+
+    };
 
     const userAdd = e => {
         e.preventDefault();
@@ -85,9 +89,10 @@ const TeamOverview = () => {
         <div>
             <h1>Teams</h1>
             <div className="body-content">
-                {teams.length > 0 && teams.map((team) => (
-            <TeamCard key={team.id}>{team.name}</TeamCard>
-        ))}
+                {/* {teams.length > 0 && teams.map((team) => ( */}
+                {teams > 0 && teams.map((team) => (
+                    <TeamCard key={team.id}>{team.name}</TeamCard>
+                ))}
                 <Button
                     onClick={() => setModalOpen(true)}
                     variant="outlined"
