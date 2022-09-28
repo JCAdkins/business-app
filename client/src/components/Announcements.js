@@ -9,87 +9,86 @@ import fetchFromCompany, { request } from "../services/api";
 
 const Announcements = ({ userData, author, companyId }) => {
   //userData will need to be set in the app.js then passed to the components that need it.
-  let user = localStorage.getItem("userData");
-  let userObj = JSON.parse(user);
+  console.log('from announcements',userData)
+  
 
  companyId = 1;
 
-  userData = [
-    {
-      id: 1,
-      credentials: {
-        userName: "rboard321",
-        admin: true,
-      },
-      first: "Ricky",
-      last: "Board",
-      email: "testing@yahoo.com",
-      phone: "-123-234-5432",
-      active: true,
-      team: {
-        id: 1,
-        name: "awesome",
-        description: "crushing it",
-        company: {
-          id: 3,
-          name: "Apple",
-          description: "working on products",
-        },
-      },
-      company: {
-        id: 3,
-        name: "Apple",
-        description: "working on products",
-      },
-    },
-  ];
+  // userData = [
+  //   {
+  //     id: 1,
+  //     credentials: {
+  //       userName: "rboard321",
+  //       admin: true,
+  //     },
+  //     first: "Ricky",
+  //     last: "Board",
+  //     email: "testing@yahoo.com",
+  //     phone: "-123-234-5432",
+  //     active: true,
+  //     team: {
+  //       id: 1,
+  //       name: "awesome",
+  //       description: "crushing it",
+  //       company: {
+  //         id: 3,
+  //         name: "Apple",
+  //         description: "working on products",
+  //       },
+  //     },
+  //     company: {
+  //       id: 3,
+  //       name: "Apple",
+  //       description: "working on products",
+  //     },
+  //   },
+  // ];
 
-  console.log("userData from announcements", userData[0].company.id);
+  
 
-  let sampleAnnouncements = [
-    {
-      id: 1,
-      author: "Ricky",
-      date: "November 17, 2022",
-      description: "This is the description for project 1",
-    },
-    {
-      id: 2,
-      author: "Steven",
-      date: "November 17, 2022",
-      description: "This is the description for project 2",
-    },
-    {
-      id: 3,
-      author: "Harold",
-      date: "November 17, 2022",
-      description: "This is the description for project 3",
-    },
-    {
-      id: 1,
-      author: "Ricky",
-      date: "November 17, 2022",
-      description: "This is the description for project 1",
-    },
-    {
-      id: 2,
-      author: "Steven",
-      date: "November 17, 2022",
-      description: "This is the description for project 2",
-    },
-    {
-      id: 3,
-      author: "Harold",
-      date: "November 17, 2022",
-      description: "This is the description for project 3 Last one",
-    },
-  ];
+  // let sampleAnnouncements = [
+  //   {
+  //     id: 1,
+  //     author: "Ricky",
+  //     date: "November 17, 2022",
+  //     description: "This is the description for project 1",
+  //   },
+  //   {
+  //     id: 2,
+  //     author: "Steven",
+  //     date: "November 17, 2022",
+  //     description: "This is the description for project 2",
+  //   },
+  //   {
+  //     id: 3,
+  //     author: "Harold",
+  //     date: "November 17, 2022",
+  //     description: "This is the description for project 3",
+  //   },
+  //   {
+  //     id: 1,
+  //     author: "Ricky",
+  //     date: "November 17, 2022",
+  //     description: "This is the description for project 1",
+  //   },
+  //   {
+  //     id: 2,
+  //     author: "Steven",
+  //     date: "November 17, 2022",
+  //     description: "This is the description for project 2",
+  //   },
+  //   {
+  //     id: 3,
+  //     author: "Harold",
+  //     date: "November 17, 2022",
+  //     description: "This is the description for project 3 Last one",
+  //   },
+  // ];
 
-  const [announcementsToSet, setAnnouncementsToSet] = useState(sampleAnnouncements);
+  const [announcementsToSet, setAnnouncementsToSet] = useState();
   const [announcementToCreate, setAnnouncementToCreate] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  console.log(">>>modal open", modalOpen);
-  console.log("announcement to create", announcementToCreate);
+  
 
   const modalStyle = {
     position: "absolute",
@@ -123,63 +122,23 @@ const Announcements = ({ userData, author, companyId }) => {
     marginBottom: "5%",
   };
 
-  const getAnnouncements = async () => {
+  async function getAnnouncements() {
+    console.log("calling get announcements")
     const response = await fetchFromCompany({
-      endpoint: `/companies/${companyId}/announcements`,
+      endpoint: `companies/${companyId}/announcements`,
       
     }).then((data) => {
+      console.log(data)
       setAnnouncementsToSet(data)
     })
 
     
   }
+   
 
-  useEffect(() => {
-    getAnnouncements()
-  }, [])
-
-
-
-  // const getAnnouncements = announcementsToSet => {
-  //   return announcementsToSet;
-  // };
-
-  // console.log(
-  //   "testing getting announcments",
-  //   getAnnouncements(sampleAnnouncements)
-  // );
-
-  //map over all announcments and set the announcments based on admin and company selected or user and company they work for
-
-  //    const fetchAnnouncements = () => {
-  //     const announcements = getAnnouncements(sampleAnnouncements)
-  //     let announcementsToSet = []
-  //     if(admin){
-  //     announcements.map((announcement) => {
-  //       if(company === announcement.id){
-  //         announcementsToSet.push(announcement)
-  //       }
-  //       return announcementsToSet
-  //     })
-  //     setAnnouncementsToSet(announcementsToSet)
-  //   }
-  //   if(!admin){
-  //     announcements.map((announcement) => {
-  //       if(userData[0].company.id === announcement.id){
-  //         announcementsToSet.push(announcement)
-  //       }
-  //       return announcementsToSet
-  //     })
-  //     setAnnouncementsToSet(announcementsToSet)
-  //   }
-  //   }
-
-  // fetchAnnouncements()
-
-  //   useEffect(() => {
-  //     fetchAnnouncements()
-  //   }, [])
-
+      getAnnouncements()
+    
+ 
   const handleNewProject = () => {
     console.log("anouncementtocreate  Handle project", announcementToCreate);
     setAnnouncementsToSet([
@@ -197,8 +156,9 @@ const Announcements = ({ userData, author, companyId }) => {
     // window.location.reload();
   };
 
-  return (
+  return announcementsToSet ? (
     <>
+    
       <Menu />
       <Paper style={container}>
         {admin ? (
@@ -213,17 +173,16 @@ const Announcements = ({ userData, author, companyId }) => {
         ) : null}
 
         <h1>Announcements</h1>
-        {/* { announcementsToSet.map(announcement => {
-          //map over announcements and return only announcments that match the company
-          return
-             (
-            <Card style={cardStyle}>
-              <h1>User is admin andcompany and id match</h1>
-              <h3>{announcement.author}</h3>
-              <p>{announcement.description}</p>
-            </Card>
-        ) } */}
-             
+        { announcementsToSet.map(announcement => 
+          (
+         <Card style={cardStyle}>
+           <h1>User is admin andcompany and id match</h1>
+           <h3>{announcement.author}</h3>
+           <p>{announcement.description}</p>
+         </Card>
+     ) 
+        )}
+       
 
         <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
           <Box sx={modalStyle} component="form">
@@ -257,7 +216,7 @@ const Announcements = ({ userData, author, companyId }) => {
         </Modal>
       </Paper>
     </>
-  );
+  ) : <h1>Loading...</h1>;
 };
 
 export default Announcements;
