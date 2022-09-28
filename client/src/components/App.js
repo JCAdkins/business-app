@@ -30,6 +30,7 @@ const App = () => {
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState();
   const [company, setCompany] = useState();
+ console.log("from app", userData)
   
   let navigate = useNavigate();
 
@@ -43,7 +44,7 @@ const App = () => {
         password: password,
       },
     })
-    
+    console.log(response)
     setUserData(response)
     return response
   }
@@ -51,6 +52,8 @@ const App = () => {
 
   const handleLogin = () => {
     loginAuth()
+    localStorage.setItem("userData", JSON.stringify(userData))
+    console.log(JSON.parse(localStorage.getItem("userData")))
     userData.credentials.admin
       ? navigate("/company")
       : navigate("/announcements");
