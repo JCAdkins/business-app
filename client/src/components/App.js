@@ -1,13 +1,14 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
-  Navigate,
+  // Navigate,
 } from "react-router-dom";
 
+// eslint-disable-next-line
 import fetchFromCompany, { request } from "../services/api";
 
 import CompanySelect from "./CompanySelect";

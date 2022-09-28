@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
 import { Box, Button, Paper } from "@mui/material";
-import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
-import { width } from "@mui/system";
-import fetchFromCompany, { request } from "../services/api";
+// import styled from "@emotion/styled";
+// import { useNavigate } from "react-router-dom";
+// import { width } from "@mui/system";
+// import fetchFromCompany, { request } from "../services/api";
 
 const Login = ({ handleLogin, setUserName, setPassword }) => {
   const container = {

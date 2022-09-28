@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import { Card, Button } from "@mui/material";
 
 const Project = ({ project, handleClick }) => {
   const millisecondsInDay = 86400000;

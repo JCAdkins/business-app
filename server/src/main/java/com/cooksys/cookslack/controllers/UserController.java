@@ -19,12 +19,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/users/{username}")
+    @GetMapping("/{username}")
     public UserResponseDto getUserByUsername(@PathVariable String username){
         return userService.getUserByUsername(username);
     }
 
-    @GetMapping("/users/team/{teamID}")
+    @GetMapping("/team/{teamID}")
     public List<UserResponseDto> getAllUsersByTeam(@PathVariable long teamID){
         return userService.getAllUsersByTeam(teamID);
     }
@@ -34,12 +34,12 @@ public class UserController {
         return userService.createNewUser(userToCreate);
     }
 
-    @PatchMapping("/users/{username}")
+    @PatchMapping("/{username}")
     public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserRequestDto userRequestDto){
         return userService.updateUser(username, userRequestDto);
     }
 
-    @DeleteMapping("/users/{username}")
+    @DeleteMapping("/{username}")
     public UserResponseDto deleteUser(@PathVariable String username){
         return userService.deleteUser(username);
     }
