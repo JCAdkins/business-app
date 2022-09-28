@@ -7,88 +7,19 @@ import { width } from "@mui/system";
 import Menu from "./NavBar";
 import fetchFromCompany, { request } from "../services/api";
 
-const Announcements = ({ userData, author, companyId }) => {
+const Announcements = ({ userData, author }) => {
   //userData will need to be set in the app.js then passed to the components that need it.
   console.log('from announcements',userData)
-  
-
- companyId = 1;
-
-  // userData = [
-  //   {
-  //     id: 1,
-  //     credentials: {
-  //       userName: "rboard321",
-  //       admin: true,
-  //     },
-  //     first: "Ricky",
-  //     last: "Board",
-  //     email: "testing@yahoo.com",
-  //     phone: "-123-234-5432",
-  //     active: true,
-  //     team: {
-  //       id: 1,
-  //       name: "awesome",
-  //       description: "crushing it",
-  //       company: {
-  //         id: 3,
-  //         name: "Apple",
-  //         description: "working on products",
-  //       },
-  //     },
-  //     company: {
-  //       id: 3,
-  //       name: "Apple",
-  //       description: "working on products",
-  //     },
-  //   },
-  // ];
 
   
 
-  // let sampleAnnouncements = [
-  //   {
-  //     id: 1,
-  //     author: "Ricky",
-  //     date: "November 17, 2022",
-  //     description: "This is the description for project 1",
-  //   },
-  //   {
-  //     id: 2,
-  //     author: "Steven",
-  //     date: "November 17, 2022",
-  //     description: "This is the description for project 2",
-  //   },
-  //   {
-  //     id: 3,
-  //     author: "Harold",
-  //     date: "November 17, 2022",
-  //     description: "This is the description for project 3",
-  //   },
-  //   {
-  //     id: 1,
-  //     author: "Ricky",
-  //     date: "November 17, 2022",
-  //     description: "This is the description for project 1",
-  //   },
-  //   {
-  //     id: 2,
-  //     author: "Steven",
-  //     date: "November 17, 2022",
-  //     description: "This is the description for project 2",
-  //   },
-  //   {
-  //     id: 3,
-  //     author: "Harold",
-  //     date: "November 17, 2022",
-  //     description: "This is the description for project 3 Last one",
-  //   },
-  // ];
-
+ 
+  
   const [announcementsToSet, setAnnouncementsToSet] = useState();
   const [announcementToCreate, setAnnouncementToCreate] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   
+  console.log("announcements to set", announcementsToSet)
 
   const modalStyle = {
     position: "absolute",
@@ -122,36 +53,41 @@ const Announcements = ({ userData, author, companyId }) => {
     marginBottom: "5%",
   };
 
-  async function getAnnouncements() {
-    console.log("calling get announcements")
-    const response = await fetchFromCompany({
-      endpoint: `companies/${companyId}/announcements`,
-      
-    }).then((data) => {
-      console.log(data)
-      setAnnouncementsToSet(data)
-    })
-
-    
-  }
+  
+  useEffect(() => {
+    const getAnnouncements = () => {
+      let company = localStorage.getItem("company")
+      console.log("from get announcmements",company)
+      const response = fetchFromCompany({
+        endpoint: `companies/${company}/announcements`,
+        
+      }).then((data) => {
+        console.log(data)
+        setAnnouncementsToSet(data)
+      })
+  
+    }
+    getAnnouncements()
+  }, [])
    
 
-      getAnnouncements()
     
  
   const handleNewProject = () => {
-    console.log("anouncementtocreate  Handle project", announcementToCreate);
-    setAnnouncementsToSet([
-      ...announcementsToSet,
-      {
-        id: userData[0].company.id,
-        author: "author",
-        date: "November 22, 2022",
-        description: announcementToCreate,
-      },
-    ]);
-    getAnnouncements(announcementsToSet);
-    // setAnnouncementToCreate('')
+    
+    let company = localStorage.getItem("company")
+    const response = fetchFromCompany({
+      method: "POST",
+      endpoint: `companies/${company}/users/${userData.id}/announcements`,
+      body: {
+        title: "New announcement",
+        message: announcementToCreate,
+        userId: userData.id,
+        companyId: company 
+      }
+    })
+  
+    setAnnouncementToCreate('')
     setModalOpen(false);
     // window.location.reload();
   };
@@ -159,7 +95,7 @@ const Announcements = ({ userData, author, companyId }) => {
   return announcementsToSet ? (
     <>
     
-      <Menu />
+      {/* <Menu /> */}
       <Paper style={container}>
         {admin ? (
           <Button
@@ -176,9 +112,9 @@ const Announcements = ({ userData, author, companyId }) => {
         { announcementsToSet.map(announcement => 
           (
          <Card style={cardStyle}>
-           <h1>User is admin andcompany and id match</h1>
-           <h3>{announcement.author}</h3>
-           <p>{announcement.description}</p>
+           <h3>{announcement.author.firstName}</h3>
+           <h1>{announcement.title}</h1>
+           <p>{announcement.message}</p>
          </Card>
      ) 
         )}
