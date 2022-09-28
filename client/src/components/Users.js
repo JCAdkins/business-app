@@ -256,7 +256,7 @@ const Users = props => {
       <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">
         User Registry
       </Typography>
-      <Typography style={{ marginBottom: 20 }} component="p">
+      <Typography style={{ marginBottom: 20, color: "white" }} component="p">
         A general view of all your members in your organization.
       </Typography>
       <TableContainer component={Paper} elevation={4}>
