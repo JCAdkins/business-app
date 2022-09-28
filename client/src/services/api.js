@@ -25,7 +25,7 @@ const COMPANY_ROOT = 'http://localhost:8080/'
 //   }
 
 export const fetchFromCompany = async ({ endpoint, method, body }) => {
-
+console.log('url',`${COMPANY_ROOT}${endpoint}` )
   try {
     const options = {
       method: method ? method.toUpperCase() : "GET",

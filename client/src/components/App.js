@@ -29,8 +29,8 @@ const App = () => {
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState();
-
-  console.log("from app userdata",userData);
+  const [company, setCompany] = useState();
+  
   let navigate = useNavigate();
 
 
@@ -43,7 +43,7 @@ const App = () => {
         password: password,
       },
     })
-    console.log("response", response)
+    
     setUserData(response)
     return response
   }
@@ -62,9 +62,14 @@ const App = () => {
         path="/"
         element={<Login handleLogin={handleLogin} setUserName={setUserName} setPassword={setPassword} />}
       />
-      <Route path="/company" element={<CompanySelect userData={userData} />} />
+      <Route path="/company" element={<CompanySelect userData={userData} setCompany={setCompany} />} />
       <Route path="/TeamOverview" element={<TeamOverview />} />
-      <Route path="/announcements" element={<Announcements userData={userData} />} />
+
+      <Route
+        path="/announcements"
+        element={<Announcements userData={userData} company={company}/>}
+      />
+
       <Route path="/projects" element={<Projects />} />
       <Route path="/users" element={<Users />} />
     </Routes>
