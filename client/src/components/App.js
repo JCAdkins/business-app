@@ -29,14 +29,9 @@ const App = () => {
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState();
-<<<<<<< HEAD
-
-  console.log("from app userdata",userData);
-=======
   const [company, setCompany] = useState();
  console.log("from app", userData)
   
->>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
   let navigate = useNavigate();
 
 

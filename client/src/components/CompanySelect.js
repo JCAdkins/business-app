@@ -34,28 +34,15 @@ const CompanySelect = ({ userData, setCompany}) => {
   };
 
   const getCompanies = async () => {
-<<<<<<< HEAD
-    console.log("calling get companies")
-=======
     
->>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
     const response = await fetchFromCompany({
       endpoint: "companies",
       
     }).then((data) => {
-<<<<<<< HEAD
-      console.log(data)
-        setCompanies(data)
-
-    })
-
-  
-=======
      
         setCompanies(data)
 
     })
->>>>>>> 7a06208b15baeb16e889d86c608b5c4842cdf8c4
   }
 
   useEffect(() => {
