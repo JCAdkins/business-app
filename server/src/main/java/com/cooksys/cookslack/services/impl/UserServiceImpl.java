@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponseDto> getAllUsersByTeam(long teamID) {
+    public List<UserResponseDto> getAllUsersByTeam(Long teamID) {
         Team team = checkIfTeamExistsThenGet(teamID);
         List<User> userList = userRepository.findAllByTeamAndDeletedFalse(team);
         return userMapper.entitiesToResponseDtos(userList);
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto addUserToTeam(String username, long teamID) {
+    public UserResponseDto addUserToTeam(String username, Long teamID) {
         User user = checkIfUserExistsThenGet(username);
         Team team = checkIfTeamExistsThenGet(teamID);
 
