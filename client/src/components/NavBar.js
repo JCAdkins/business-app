@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-import * as React from 'react';
-import { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-// import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-// import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import BusinessIcon from '@mui/icons-material/Business';
-import { MenuItem } from '@mui/material';
-
-const Menu = () => {
-    const [anchorEl, setAnchorEl] = useState(null)
-    const open = Boolean(anchorEl)
-    const handleClick = (e) => {
-        setAnchorEl(e.currentTarget)
-    }
-    const handleClose = (e) => {
-        setAnchorEl(null)
-    }
-=======
 import * as React from "react";
 
 import { useNavigate, Link } from "react-router-dom";
@@ -29,10 +6,10 @@ import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import BusinessIcon from "@mui/icons-material/Business";
 import { MenuItem } from "@mui/material";
@@ -40,7 +17,7 @@ import { MenuItem } from "@mui/material";
 const NavBar = () => {
   let userData = localStorage.getItem("userData");
   let user = JSON.parse(userData);
-
+// eslint-disable-next-line
   const navigate = useNavigate();
 
 
@@ -53,7 +30,6 @@ const NavBar = () => {
   const handleClose = e => {
     setAnchorEl(null);
   };
->>>>>>> 522da81986b0c6c77dc4cf6e0d509b8b15321086
 
   return (
     <Box>
