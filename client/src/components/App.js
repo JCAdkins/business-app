@@ -14,13 +14,10 @@ import CompanySelect from "./CompanySelect";
 
 import Login from "./Login";
 import Announcements from "./Announcements";
-
+import TeamOverview from "./TeamOverview";
 import Projects from "./Projects";
 import Users from "./Users";
 
-//Dev Components
-import TeamOverview from "./TeamOverview";
-import AnnouncementsTest from "./AnnouncementsTest";
 
 //CSS import
 import "../components/component-Styles/main.css";
@@ -78,8 +75,6 @@ const App = () => {
       <Route path="/projects" element={<Projects />} />
       <Route path="/users" element={<Users />} />
 
-      //Test Routes
-      <Route path="/announcementsTest" element={<AnnouncementsTest />} />
     </Routes>
   );
 };
