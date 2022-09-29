@@ -7,7 +7,7 @@ import { width } from "@mui/system";
 import NavBar from "./NavBar";
 import fetchFromCompany from "../services/api";
 
-const Announcements = ({ }) => {
+const Announcements = () => {
   //userData will need to be set in the app.js then passed to the components that need it.
   let userData = localStorage.getItem("userData")
   let user = JSON.parse(userData)
