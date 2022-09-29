@@ -35,6 +35,11 @@ public class UserController {
         return userService.createNewUser(userToCreate);
     }
 
+    @PatchMapping("/{username}/{teamId}")
+    public UserResponseDto addUserToTeam(@PathVariable String username, @PathVariable Long teamId){
+        return userService.addUserToTeam(username, teamId);
+    }
+
     @PatchMapping("/{username}")
     public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserPatchRequestDto userPatchRequestDto){
         return userService.updateUser(username, userPatchRequestDto);
