@@ -9,16 +9,20 @@ const Project = ({ project, handleClick }) => {
   );
 
   return (
-    <>
-      <NavBar />
-      <Card
-        style={{
-          color: "white",
-          backgroundColor: "transparent",
-          fontFamily: "helvetica",
-        }}
-        sx={{ boxShadow: 0, borderRadius: 0 }}
-      >
+    <Card
+      style={{ color: "white", backgroundColor: "transparent", fontFamily: "helvetica" }}
+      sx={{ boxShadow: 0, borderRadius: 0 }}
+    >
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", textAlign: "left" }}>
+        <div style={{ width: "80%", margin: "20px 0" }}>
+          <p style={{ fontSize: 24, fontWeight: "bold", lineHeight: 0 }}>
+            {project.name}{" "}
+            {/* <span style={{ fontSize: 13 }}>
+              Last edited {elapsedDays} day{elapsedDays === 1 ? "" : "s"} ago
+            </span> */}
+          </p>
+          <p style={{ fontSize: 13 }}>{project.description}</p>
+        </div>
         <div
           style={{
             display: "flex",
