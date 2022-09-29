@@ -15,9 +15,10 @@ import {
   TextField,
   Select,
   MenuItem,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
+import NavBar from "./NavBar";
 
 // const usersArray = [
 //   {
@@ -140,8 +141,9 @@ const emptyUserObject = {
     password: "",
     admin: false,
   },
+  status: "Unknown",
   email: "",
-  phone: "",
+  phoneNumber: "0000000000",
   team: {
     id: 0,
     name: "",
@@ -154,13 +156,7 @@ const emptyUserObject = {
   },
 };
 
-/**
- *
- * PROPS:
- *   -- array of users from GET /users
- *   -- new user object to POST /users
- */
- const Users = props => {
+const Users = props => {
   const [users, setUsers] = useState(null);
   const [newUser, setNewUser] = useState(emptyUserObject);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -259,9 +255,22 @@ const emptyUserObject = {
     window.location.reload(false);
   };
 
+  /**
+   * const response = fetchFromCompany({
+      method: "POST",
+      endpoint: `companies/${company}/users/${userData.id}/announcements`,
+      body: {
+        title: "New announcement",
+        message: announcementToCreate,
+        userId: userData.id,
+        companyId: company 
+      }
+    })
+   */
+
   return (
     <div>
-      {/* <NavBar /> */}
+      <NavBar />
       {users ? (
         <div style={{ textAlign: "center", width: "80%", margin: "0 auto" }}>
           <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">

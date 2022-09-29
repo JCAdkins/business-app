@@ -10,7 +10,7 @@ import {
   Avatar,
 //   Link,
 //   Card,
-  Paper
+//   Paper
 } from "@mui/material";
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard";
@@ -25,7 +25,11 @@ const TeamOverview = () => {
   const [description, setDescription] = useState("");
   const [users, setUsers] = useState([]);
   const [teams, setTeams] = useState([]);
-  console.log("from team overview", teams);
+
+  let userData = localStorage.getItem("userData")
+  // eslint-disable-next-line
+  let user = JSON.parse(userData)
+  
 
   const modalStyle = {
     position: "absolute",
@@ -38,16 +42,6 @@ const TeamOverview = () => {
     boxShadow: 24,
     p: 4,
   };
-
-//   const cardStyle = {
-//     display: "flex",
-//     flexDirection: "column",
-//     padding: 25,
-//     margin: 10,
-//     minWidth: "10%",
-//     maxWidth: "50%",
-//     marginBottom: "5%",
-//   };
 
   const getTeams = async () => {
     let company = localStorage.getItem("company");
@@ -92,8 +86,13 @@ const TeamOverview = () => {
   };
 
   return  (
-   <Paper>
-<TeamCard/>
+   <>
+{/* {user.credentials.admin ? <Button onClick={setModalOpen(true)}>Create New Team</Button> : null} */}
+   {teams.map((team, idx) => 
+    (
+      <TeamCard team={team}/>  
+) 
+  )}
 <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
                 <Box sx={modalStyle} component="form" avatar={<Avatar>
                     
@@ -136,10 +135,10 @@ const TeamOverview = () => {
                     </Button>
                 </Box>
             </Modal>
-            </Paper>
-
-
+           
+  </>
   )
+  
 };
 
 export default TeamOverview;
