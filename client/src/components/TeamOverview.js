@@ -12,10 +12,10 @@ import {
   Card,
   Paper,
   FormControl,
-  ListItemText,
-  Checkbox,
-  SelectChangeEvent
+  InputLabel,
+  Input,
 } from "@mui/material";
+// import MultipleSelect from 'material-ui-multiple-select'
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard";
 import NavBar from "./NavBar"
@@ -34,7 +34,7 @@ const TeamOverview = () => {
   const [userIds, setUserIds] = useState()
   const [newTeamId, setNewTeamId] = useState()
   // const [membersToAdd, setMembersToAdd] = useState([])
-  const [membersToAdd, setMembersToAdd] = React.useState([]);
+  const [membersToAdd, setMembersToAdd] = useState([]);
 console.log("memberstoadd>>>>", membersToAdd)
   let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
@@ -101,7 +101,6 @@ console.log("memberstoadd>>>>", membersToAdd)
   setModalOpen(false);
   setNewTeamId(response.id)
   for(let i = 0; i < membersToAdd.length; i++){
-
     addNewMembers(response.id, membersToAdd[i])
   }
   
@@ -117,31 +116,12 @@ console.log("memberstoadd>>>>", membersToAdd)
     getTeams()
   }, [])
 
-  
-  // const handleChange = e => {
+  const handleChange = e => {
+    setMembersToAdd(e.target.value);
+  }
 
-  //   console.log('are you working', e)
-  //   const {
-  //     target: { value }
-  //   } = e;
-  //   console.log("value",value)
-  //     setMembersToAdd(
-  //       value
-  //     )
-  // };
-
-  const handleChange = () => {
-//   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    // const {
-    //   target: { value },
-    // } = event;
-    setMembersToAdd(
-      // On autofill we get a stringified value.
-    //   typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
-
+  const members = users.filter(user => user.team == null);
+  console.log("these are memebers", members)
 
   return teams ? (
     <>
@@ -171,22 +151,21 @@ console.log("memberstoadd>>>>", membersToAdd)
             style={{ paddingRight: 10 }}
           />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Typography component="h6">Select Members</Typography>
-            
-            <Select
-              size="small"
-              multiple
-              value={users}
-              onClick={handleChange}
-              // renderValue={(selected) => selected.join(', ')}
-              label="Pick an option"
-            >
-              {users.map(user => (
-                user.team ? null :
-                <MenuItem key={user.id}  value={user.userName}>{user.firstName}</MenuItem>
-              ))}
-            </Select>
-           
+            <FormControl>
+                  <InputLabel htmlFor="multi"><Typography component="h6">Select Members</Typography></InputLabel>
+                  <Select
+                    multiple
+                    value={membersToAdd}
+                    onChange={handleChange}
+                    input={<Input id="multi" />}
+                  >
+                    {members.map(option => (
+                      <MenuItem key={option.id} value={option.credentials.username}>
+                        {option.firstName}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>           
           </div>
           <Button
             style={{ marginRight: 10 }}
