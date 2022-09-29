@@ -20,118 +20,118 @@ import {
 import fetchFromCompany from "../services/api";
 import NavBar from "./NavBar";
 
-const usersArray = [
-  {
-    id: 0,
-    firstName: "",
-    lastName: "HAL",
-    credentials: {
-      username: "HAL",
-      admin: true,
-    },
-    email: "hal@ibm.com",
-    phone: "000-000-0000",
-    active: false,
-    team: {
-      id: 0,
-      name: "Jupiter Mission",
-      description: "",
-    },
-    company: {
-      id: 0,
-      name: "NCA",
-      description: "",
-    },
-  },
-  {
-    id: 1,
-    firstName: "Dave",
-    lastName: "Bowman",
-    credentials: {
-      username: "DaveBowman",
-      admin: true,
-    },
-    email: "dave@nca.gov",
-    phone: "000-000-0000",
-    active: true,
-    team: {
-      id: 0,
-      name: "Jupiter Mission",
-      description: "",
-    },
-    company: {
-      id: 0,
-      name: "NCA",
-      description: "",
-    },
-  },
-  {
-    id: 2,
-    firstName: "Frank",
-    lastName: "Poole",
-    credentials: {
-      username: "FrankPool",
-      admin: true,
-    },
-    email: "frank@nca.gov",
-    phone: "000-000-0000",
-    active: false,
-    team: {
-      id: 0,
-      name: "Jupiter Mission",
-      description: "",
-    },
-    company: {
-      id: 0,
-      name: "NCA",
-      description: "",
-    },
-  },
-  {
-    id: 3,
-    firstName: "Haywood",
-    lastName: "Floyd",
-    credentials: {
-      username: "HaywoodFloyd",
-      admin: true,
-    },
-    email: "haywood@nca.gov",
-    phone: "000-000-0000",
-    active: true,
-    team: {
-      id: 1,
-      name: "Headquarters",
-      description: "",
-    },
-    company: {
-      id: 0,
-      name: "NCA",
-      description: "",
-    },
-  },
-  {
-    id: 4,
-    firstName: "Nasty",
-    lastName: "Aliens",
-    credentials: {
-      username: "NastyAliens",
-      isAdmin: false,
-    },
-    email: "a@a.a",
-    phone: "000-000-0000",
-    active: true,
-    team: {
-      id: 2,
-      name: "Space",
-      description: "",
-    },
-    company: {
-      id: 1,
-      name: "Unknown",
-      description: "",
-    },
-  },
-];
+// const usersArray = [
+//   {
+//     id: 0,
+//     firstName: "",
+//     lastName: "HAL",
+//     credentials: {
+//       username: "HAL",
+//       admin: true,
+//     },
+//     email: "hal@ibm.com",
+//     phone: "000-000-0000",
+//     active: false,
+//     team: {
+//       id: 0,
+//       name: "Jupiter Mission",
+//       description: "",
+//     },
+//     company: {
+//       id: 0,
+//       name: "NCA",
+//       description: "",
+//     },
+//   },
+//   {
+//     id: 1,
+//     firstName: "Dave",
+//     lastName: "Bowman",
+//     credentials: {
+//       username: "DaveBowman",
+//       admin: true,
+//     },
+//     email: "dave@nca.gov",
+//     phone: "000-000-0000",
+//     active: true,
+//     team: {
+//       id: 0,
+//       name: "Jupiter Mission",
+//       description: "",
+//     },
+//     company: {
+//       id: 0,
+//       name: "NCA",
+//       description: "",
+//     },
+//   },
+//   {
+//     id: 2,
+//     firstName: "Frank",
+//     lastName: "Poole",
+//     credentials: {
+//       username: "FrankPool",
+//       admin: true,
+//     },
+//     email: "frank@nca.gov",
+//     phone: "000-000-0000",
+//     active: false,
+//     team: {
+//       id: 0,
+//       name: "Jupiter Mission",
+//       description: "",
+//     },
+//     company: {
+//       id: 0,
+//       name: "NCA",
+//       description: "",
+//     },
+//   },
+//   {
+//     id: 3,
+//     firstName: "Haywood",
+//     lastName: "Floyd",
+//     credentials: {
+//       username: "HaywoodFloyd",
+//       admin: true,
+//     },
+//     email: "haywood@nca.gov",
+//     phone: "000-000-0000",
+//     active: true,
+//     team: {
+//       id: 1,
+//       name: "Headquarters",
+//       description: "",
+//     },
+//     company: {
+//       id: 0,
+//       name: "NCA",
+//       description: "",
+//     },
+//   },
+//   {
+//     id: 4,
+//     firstName: "Nasty",
+//     lastName: "Aliens",
+//     credentials: {
+//       username: "NastyAliens",
+//       isAdmin: false,
+//     },
+//     email: "a@a.a",
+//     phone: "000-000-0000",
+//     active: true,
+//     team: {
+//       id: 2,
+//       name: "Space",
+//       description: "",
+//     },
+//     company: {
+//       id: 1,
+//       name: "Unknown",
+//       description: "",
+//     },
+//   },
+// ];
 
 const emptyUserObject = {
   firstName: "",
@@ -254,19 +254,6 @@ const Users = props => {
     setNewUser(emptyUserObject);
     window.location.reload(false);
   };
-
-  /**
-   * const response = fetchFromCompany({
-      method: "POST",
-      endpoint: `companies/${company}/users/${userData.id}/announcements`,
-      body: {
-        title: "New announcement",
-        message: announcementToCreate,
-        userId: userData.id,
-        companyId: company 
-      }
-    })
-   */
 
   return (
     <div>
