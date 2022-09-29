@@ -19,7 +19,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
-import NavBar from "./NavBar";
 
 // const usersArray = [
 //   {
