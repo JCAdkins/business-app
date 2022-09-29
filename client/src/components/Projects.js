@@ -16,36 +16,31 @@ const projectsArray = [
     id: 0,
     name: "Project 1",
     "last-edited": new Date("2022-09-15"),
-    description:
-      "This is a description of project 1. Not much to see yet. Check back later.",
+    description: "This is a description of project 1. Not much to see yet. Check back later.",
   },
   {
     id: 1,
     name: "Project 2",
     "last-edited": new Date("2022-09-05"),
-    description:
-      "This is a description of project 2. Not much to see yet. Check back later.",
+    description: "This is a description of project 2. Not much to see yet. Check back later.",
   },
   {
     id: 2,
     name: "Project 3",
     "last-edited": new Date("2022-09-20"),
-    description:
-      "This is a description of project 3. Not much to see yet. Check back later.",
+    description: "This is a description of project 3. Not much to see yet. Check back later.",
   },
   {
     id: 3,
     name: "Project 4",
     "last-edited": new Date("2022-09-08"),
-    description:
-      "This is a description of project 4. Not much to see yet. Check back later. I mean, really later.",
+    description: "This is a description of project 4. Not much to see yet. Check back later. I mean, really later.",
   },
   {
     id: 4,
     name: "Project 5",
     "last-edited": new Date("2022-09-23"),
-    description:
-      "This is a description of project 5. Not much to see yet. Check back later.",
+    description: "This is a description of project 5. Not much to see yet. Check back later.",
   },
 ];
 
@@ -153,14 +148,10 @@ const Projects = props => {
   };
 
   return (
-    <>
-      {/* <NavBar /> */}
+    <div>
+      <NavBar />
       <Container sx={{ width: "75%", textAlign: "center" }}>
-        <Typography
-          style={{ margin: "20px 0", color: "white" }}
-          variant="h3"
-          component="h1"
-        >
+        <Typography style={{ margin: "20px 0", color: "white" }} variant="h3" component="h1">
           {user ? user.team.name : "Team"} Projects
         </Typography>
 
@@ -185,12 +176,7 @@ const Projects = props => {
           <hr />
           {projects.map(p =>
             p.team.id === user.team.id && p.active ? (
-              <Project
-                key={p.id}
-                project={p}
-                isAdmin={false}
-                handleClick={editProject}
-              />
+              <Project key={p.id} project={p} isAdmin={false} handleClick={editProject} />
             ) : null
           )}
         </div>
@@ -225,18 +211,16 @@ const Projects = props => {
               >
                 Submit
               </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={cancelSubmit}
-              >
+              <Button variant="contained" color="secondary" onClick={cancelSubmit}>
+
                 Cancel
               </Button>
             </div>
           </Box>
         </Modal>
       </Container>
-    </>
+    </div>
+
   );
 };
 
