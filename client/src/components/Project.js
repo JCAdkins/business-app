@@ -1,12 +1,10 @@
 import React from "react";
-import NavBar from "./NavBar"
+import NavBar from "./NavBar";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 
 const Project = ({ project, handleClick }) => {
   const millisecondsInDay = 86400000;
-  const elapsedDays = Math.floor(
-    (Date.now() - project["last-edited"]) / millisecondsInDay
-  );
+  const elapsedDays = Math.floor((Date.now() - project["last-edited"]) / millisecondsInDay);
 
   return (
     <Card
@@ -65,8 +63,8 @@ const Project = ({ project, handleClick }) => {
           </div>
         </div>
         <hr />
-      </Card>
-    </>
+      </div>
+    </Card>
   );
 };
 
