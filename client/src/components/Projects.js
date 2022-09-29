@@ -2,54 +2,43 @@ import React, { useState, useEffect } from "react";
 import Project from "./Project";
 import { Typography, Button, Container, Modal, TextField, Box } from "@mui/material";
 import fetchFromCompany from "../services/api";
-
-/**
- *
- * active: true
- * description: "A project management application."
- * id: 11
- * name: "Cook-Slack"
- * team {
- *    company: {
- *      id: 1,
- *      name: 'Cook Systems',
- *      description: 'A tech company based in Memphis, TN'
- *    }
- *    description: "Frontend Team"
- *    id: 4
- *    name: "Team One"
- */
+import NavBar from "./NavBar"
 
 const projectsArray = [
   {
     id: 0,
     name: "Project 1",
     "last-edited": new Date("2022-09-15"),
-    description: "This is a description of project 1. Not much to see yet. Check back later.",
+    description:
+      "This is a description of project 1. Not much to see yet. Check back later.",
   },
   {
     id: 1,
     name: "Project 2",
     "last-edited": new Date("2022-09-05"),
-    description: "This is a description of project 2. Not much to see yet. Check back later.",
+    description:
+      "This is a description of project 2. Not much to see yet. Check back later.",
   },
   {
     id: 2,
     name: "Project 3",
     "last-edited": new Date("2022-09-20"),
-    description: "This is a description of project 3. Not much to see yet. Check back later.",
+    description:
+      "This is a description of project 3. Not much to see yet. Check back later.",
   },
   {
     id: 3,
     name: "Project 4",
     "last-edited": new Date("2022-09-08"),
-    description: "This is a description of project 4. Not much to see yet. Check back later. I mean, really later.",
+    description:
+      "This is a description of project 4. Not much to see yet. Check back later. I mean, really later.",
   },
   {
     id: 4,
     name: "Project 5",
     "last-edited": new Date("2022-09-23"),
-    description: "This is a description of project 5. Not much to see yet. Check back later.",
+    description:
+      "This is a description of project 5. Not much to see yet. Check back later.",
   },
 ];
 
@@ -225,6 +214,7 @@ const Projects = props => {
         </Box>
       </Modal>
     </Container>
+
   );
 };
 
