@@ -31,7 +31,6 @@ public class Announcement {
     @JsonIgnoreProperties("company")
     private User author;
 
-
     public Announcement() {
         Instant now = Instant.now();
         date = Timestamp.from(now);

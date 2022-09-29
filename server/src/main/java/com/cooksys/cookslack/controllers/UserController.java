@@ -3,7 +3,6 @@ import com.cooksys.cookslack.data.dtos.UserPatchRequestDto;
 import com.cooksys.cookslack.data.dtos.UserRequestDto;
 import lombok.RequiredArgsConstructor;
 import com.cooksys.cookslack.services.UserService;
-import com.cooksys.cookslack.data.dtos.UserResponseDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +42,7 @@ public class UserController {
     @PatchMapping("/{username}")
     public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserPatchRequestDto userPatchRequestDto){
         return userService.updateUser(username, userPatchRequestDto);
+
     }
 
     @DeleteMapping("/{username}")

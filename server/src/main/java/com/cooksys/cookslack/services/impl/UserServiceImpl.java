@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
 
         // Get user from database, this will include the user id with it, and return
         User returnUser = checkIfUserExistsThenGet(newUser.getCredentials().getUsername());
+        
         return userMapper.entityToResponseDto(returnUser);
     }
 
