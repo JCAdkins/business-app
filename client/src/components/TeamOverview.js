@@ -26,6 +26,8 @@ const TeamOverview = () => {
   const [users, setUsers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [userIds, setUserIds] = useState()
+  const [newTeamId, setNewTeamId] = useState()
+
   let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
   let user = JSON.parse(userData);
@@ -68,45 +70,56 @@ const TeamOverview = () => {
     return response;
   };
 
-  useEffect(() => {
-    getUsers();
-    getTeams();
-  }, []);
+  const addNewMembers = async () => {
+    let username = 'newMemeber'
+    const response = await fetchFromCompany({
+      method: "PATCH",
+      enpoint: `users/${username}/${newTeamId}`
+    })
+  }
 
-  const makeTeam = e => {
-    e.preventDefault();
-    setTeams([
-      ...teams,
-      {
-        id: teams.length,
-        name: `${teamName}`,
-        description: `${description}`,
-        members: `${users}`,
-      },
-    ]);
-    setTeamName(teamName);
-    setUsers(users);
-    setDescription(description);
-    setModalOpen(false);
-
-    const response = fetchFromCompany({
+  const createTeam = async () => {
+    // makeTeam()
+    let company = localStorage.getItem("company");
+    const response = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/teams`,
       body: {
         name: teamName,
         description: description,
       },
-    });
-  };
+  })
+  setModalOpen(false);
+  setNewTeamId(response.id)
+  addNewMembers()
+  getTeams()
+  console.log("New team",response)
+}
 
-  let username = 'username1'
-  let teamId = 6
-  const response = fetchFromCompany({
-    method: "PATCH",
-    endpoint: `users/${username}/${teamId}`
-    
-  });
+  useEffect(() => {
+    getUsers();
+  }, [teams]);
 
+  useEffect(() => {
+    getTeams()
+  }, [])
+
+  // const makeTeam = () => {
+  
+  //   setTeams([
+  //     ...teams,
+  //     {
+  //       id: teams.length,
+  //       name: teamName,
+  //       description: description,
+  //       members: users,
+  //     },
+  //   ]);
+  //   setTeamName(teamName);
+  //   // setUsers(users);
+  //   setDescription(description);
+  //   setModalOpen(false);
+  // };
 
   const userAdd = e => {
     const {
@@ -119,7 +132,7 @@ const TeamOverview = () => {
       console.log("userids",userIds)
   };
 
-  return (
+  return teams ? (
     <>
     <NavBar />
       {user.credentials.admin ? (
@@ -164,7 +177,7 @@ const TeamOverview = () => {
             style={{ marginRight: 10 }}
             variant="contained"
             // color="#1BA098"
-            onClick={makeTeam}
+            onClick={createTeam}
           >
             {" "}
             Submit
@@ -172,7 +185,7 @@ const TeamOverview = () => {
         </Box>
       </Modal>
     </>
-  );
+  ) : null;
 };
 
 export default TeamOverview;

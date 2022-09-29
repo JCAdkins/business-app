@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Project from "./Project";
-import { Typography, Button, Container, Modal, TextField, Box } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Container,
+  Modal,
+  TextField,
+  Box,
+} from "@mui/material";
 import fetchFromCompany from "../services/api";
-import NavBar from "./NavBar"
+import NavBar from "./NavBar";
 
 const projectsArray = [
   {
@@ -146,75 +153,90 @@ const Projects = props => {
   };
 
   return (
-    <Container sx={{ width: "75%", textAlign: "center" }}>
-      <Typography style={{ margin: "20px 0", color: "white" }} variant="h3" component="h1">
-        {user ? user.team.name : "Team"} Projects
-      </Typography>
-
-      <div style={{ textAlign: "right" }}>
-        <Button
-          style={{
-            textTransform: "none",
-            fontSize: 13,
-            width: "80px",
-            height: "25px",
-            backgroundColor: "teal",
-            color: "white",
-            borderRadius: 8,
-            marginBottom: 20,
-          }}
-          onClick={() => setIsModalOpen(true)}
+    <>
+      {/* <NavBar /> */}
+      <Container sx={{ width: "75%", textAlign: "center" }}>
+        <Typography
+          style={{ margin: "20px 0", color: "white" }}
+          variant="h3"
+          component="h1"
         >
-          New
-        </Button>
-      </div>
-      <div>
-        <hr />
-        {projects.map(p =>
-          p.team.id === user.team.id && p.active ? (
-            <Project key={p.id} project={p} isAdmin={false} handleClick={editProject} />
-          ) : null
-        )}
-      </div>
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <Box sx={modalStyle} component="form">
-          <TextField
-            value={project.name}
-            onChange={handleChange}
-            size="small"
-            required
-            name="name"
-            label="Project Name"
-            fullWidth
-            style={{ paddingBottom: 20 }}
-          />
-          <TextField
-            value={project.description}
-            onChange={handleChange}
-            size="small"
-            required
-            name="description"
-            label="description"
-            fullWidth
-          />
-          <div style={{ textAlign: "center", marginTop: 20 }}>
-            <Button
-              style={{ marginRight: 10 }}
-              variant="contained"
-              color="success"
-              disabled={!isValidated}
-              onClick={handleSubmitProject}
-            >
-              Submit
-            </Button>
-            <Button variant="contained" color="secondary" onClick={cancelSubmit}>
-              Cancel
-            </Button>
-          </div>
-        </Box>
-      </Modal>
-    </Container>
+          {user ? user.team.name : "Team"} Projects
+        </Typography>
 
+        <div style={{ textAlign: "right" }}>
+          <Button
+            style={{
+              textTransform: "none",
+              fontSize: 13,
+              width: "80px",
+              height: "25px",
+              backgroundColor: "teal",
+              color: "white",
+              borderRadius: 8,
+              marginBottom: 20,
+            }}
+            onClick={() => setIsModalOpen(true)}
+          >
+            New
+          </Button>
+        </div>
+        <div>
+          <hr />
+          {projects.map(p =>
+            p.team.id === user.team.id && p.active ? (
+              <Project
+                key={p.id}
+                project={p}
+                isAdmin={false}
+                handleClick={editProject}
+              />
+            ) : null
+          )}
+        </div>
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <Box sx={modalStyle} component="form">
+            <TextField
+              value={project.name}
+              onChange={handleChange}
+              size="small"
+              required
+              name="name"
+              label="Project Name"
+              fullWidth
+              style={{ paddingBottom: 20 }}
+            />
+            <TextField
+              value={project.description}
+              onChange={handleChange}
+              size="small"
+              required
+              name="description"
+              label="description"
+              fullWidth
+            />
+            <div style={{ textAlign: "center", marginTop: 20 }}>
+              <Button
+                style={{ marginRight: 10 }}
+                variant="contained"
+                color="success"
+                disabled={!isValidated}
+                onClick={handleSubmitProject}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={cancelSubmit}
+              >
+                Cancel
+              </Button>
+            </div>
+          </Box>
+        </Modal>
+      </Container>
+    </>
   );
 };
 
