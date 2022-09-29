@@ -13,7 +13,8 @@ import {
   Paper,
   FormControl,
   ListItemText,
-  Checkbox
+  Checkbox,
+  SelectChangeEvent
 } from "@mui/material";
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard";
@@ -22,6 +23,7 @@ import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
 import Stack from "react-bootstrap/Stack";
 
+// import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const TeamOverview = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,7 +33,8 @@ const TeamOverview = () => {
   const [teams, setTeams] = useState([]);
   const [userIds, setUserIds] = useState()
   const [newTeamId, setNewTeamId] = useState()
-  const [membersToAdd, setMembersToAdd] = useState([])
+  // const [membersToAdd, setMembersToAdd] = useState([])
+  const [membersToAdd, setMembersToAdd] = React.useState([]);
 console.log("memberstoadd>>>>", membersToAdd)
   let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
@@ -105,6 +108,7 @@ console.log("memberstoadd>>>>", membersToAdd)
   console.log("New team",response)
 }
 
+
   useEffect(() => {
     getUsers();
   }, [teams]);
@@ -114,17 +118,29 @@ console.log("memberstoadd>>>>", membersToAdd)
   }, [])
 
   
-  const handleChange = e => {
+  // const handleChange = e => {
 
-    console.log('are you working', e)
+  //   console.log('are you working', e)
+  //   const {
+  //     target: { value }
+  //   } = e;
+  //   console.log("value",value)
+  //     setMembersToAdd(
+  //       value
+  //     )
+  // };
+
+  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
-      target: { value }
-    } = e;
-    console.log("value",value)
-      setMembersToAdd(
-        value
-      )
+      target: { value },
+    } = event;
+    setMembersToAdd(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
   };
+
+
 
   return teams ? (
     <>
@@ -139,7 +155,7 @@ console.log("memberstoadd>>>>", membersToAdd)
         <Box sx={modalStyle} component="form" avatar={<Avatar></Avatar>}>
           <TextField
             value={teamName}
-            onChange={e => setTeamName(e.target.value)}
+            onChange={e => setTeamName()}
             size="small"
             required
             label="team name"
@@ -160,7 +176,7 @@ console.log("memberstoadd>>>>", membersToAdd)
               size="small"
               multiple
               value={users}
-              onClick={(event) => handleChange(event.target.value)}
+              onClick={handleChange}
               // renderValue={(selected) => selected.join(', ')}
               label="Pick an option"
             >
