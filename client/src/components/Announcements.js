@@ -7,14 +7,13 @@ import { Box, Button, Paper, Card, Modal } from "@mui/material";
 import NavBar from "./NavBar";
 import fetchFromCompany from "../services/api";
 
-const Announcements = ({ }) => {
+const Announcements = () => {
   //userData will need to be set in the app.js then passed to the components that need it.
   let userData = localStorage.getItem("userData")
   let user = JSON.parse(userData)
   
   console.log('from announcements', user)
 
- 
   
   const [announcementsToSet, setAnnouncementsToSet] = useState();
   const [announcementToCreate, setAnnouncementToCreate] = useState("");
@@ -72,29 +71,24 @@ const Announcements = ({ }) => {
     getAnnouncements()
   }, [])
    
-
     
- 
-  const handleNewProject = () => {
-    
-    let company = localStorage.getItem("company")
-    // eslint-disable-next-line
-    const response = fetchFromCompany({
-      method: "POST",
+  const handleNewAnnouncement = () => {
+    let company = localStorage.getItem('company')
+    fetchFromCompany({
+      method: 'POST',
       endpoint: `companies/${company}/users/${user.id}/announcements`,
       body: {
-        title: "New announcement",
+        title: 'New announcement',
         message: announcementToCreate,
         userId: userData.id,
-        companyId: company 
+        companyId: company
       }
+    }).then(newAnnouncement => {
+      setAnnouncementsToSet([...announcementsToSet, newAnnouncement])
+      setAnnouncementToCreate('')
+      setModalOpen(false)
     })
-   
-    setAnnouncementToCreate('')
-    setModalOpen(false);
-    window.location.reload();
-    
-  };
+  }
 
   return announcementsToSet ? (
     <>
@@ -108,7 +102,7 @@ const Announcements = ({ }) => {
             size="small"
             style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
           >
-            New Project
+            New Announcement
           </Button>
         ) : null}
 
@@ -116,7 +110,7 @@ const Announcements = ({ }) => {
         { announcementsToSet.map((announcement, idx) => 
           (
          <Card style={cardStyle}  key={idx}>
-           <h3>{announcement.author.firstName}</h3>
+           <h3>{user.firstName}</h3>
            <h1>{announcement.title}</h1>
            <p>{announcement.message}</p>
          </Card>
@@ -139,7 +133,7 @@ const Announcements = ({ }) => {
                 style={{ marginRight: 10 }}
                 variant="contained"
                 color="success"
-                onClick={handleNewProject}
+                onClick={handleNewAnnouncement}
               >
                 {" "}
                 Submit

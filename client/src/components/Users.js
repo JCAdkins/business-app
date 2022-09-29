@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import NavBar from "./NavBar";
 import {
   Table,
   TableBody,
@@ -18,7 +19,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
-import NavBar from "./NavBar";
+
+
 
 // const usersArray = [
 //   {

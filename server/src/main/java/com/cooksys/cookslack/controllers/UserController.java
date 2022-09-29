@@ -1,8 +1,9 @@
 package com.cooksys.cookslack.controllers;
+import com.cooksys.cookslack.data.dtos.UserPatchRequestDto;
 import com.cooksys.cookslack.data.dtos.UserRequestDto;
+import com.cooksys.cookslack.data.dtos.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import com.cooksys.cookslack.services.UserService;
-import com.cooksys.cookslack.data.dtos.UserResponseDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,9 +35,15 @@ public class UserController {
         return userService.createNewUser(userToCreate);
     }
 
+    @PatchMapping("/{username}/{teamId}")
+    public UserResponseDto addUserToTeam(@PathVariable String username, @PathVariable Long teamId){
+        return userService.addUserToTeam(username, teamId);
+    }
+
     @PatchMapping("/{username}")
-    public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserRequestDto userRequestDto){
-        return userService.updateUser(username, userRequestDto);
+    public UserResponseDto updateUser(@PathVariable String username, @RequestBody UserPatchRequestDto userPatchRequestDto){
+        return userService.updateUser(username, userPatchRequestDto);
+
     }
 
     @DeleteMapping("/{username}")
