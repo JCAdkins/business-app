@@ -74,10 +74,10 @@ const Announcements = () => {
 
     
  
-  const handleNewProject = () => {
+  const handleNewProject = async () => {
     
     let company = localStorage.getItem("company")
-    const response = fetchFromCompany({
+    const response = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/users/${user.id}/announcements`,
       body: {

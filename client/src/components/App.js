@@ -28,7 +28,7 @@ const App = () => {
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState();
   const [company, setCompany] = useState();
- console.log("from app", userData)
+//  console.log("from app", userData)
   
   let navigate = useNavigate();
 
