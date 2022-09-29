@@ -21,49 +21,32 @@ const Project = ({ project, handleClick }) => {
           </p>
           <p style={{ fontSize: 13 }}>{project.description}</p>
         </div>
+
         <div
           style={{
+            width: "20%",
             display: "flex",
             flexDirection: "row",
-            alignItems: "flex-end",
-            textAlign: "left",
+            justifyContent: "flex-end",
+            paddingBottom: 20,
           }}
         >
-          <div style={{ width: "80%", margin: "20px 0" }}>
-            <p style={{ fontSize: 24, fontWeight: "bold", lineHeight: 0 }}>
-              {project.name}{" "}
-              <span style={{ fontSize: 13 }}>
-                Last edited {elapsedDays} day{elapsedDays === 1 ? "" : "s"} ago
-              </span>
-            </p>
-            <p style={{ fontSize: 13 }}>{project.description}</p>
-          </div>
-          <div
+          <Button
             style={{
-              width: "20%",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              paddingBottom: 20,
+              textTransform: "none",
+              fontSize: 13,
+              width: "80px",
+              height: "25px",
+              borderRadius: 8,
+              backgroundColor: "antiquewhite",
             }}
+            onClick={() => handleClick(project.id)}
           >
-            <Button
-              style={{
-                textTransform: "none",
-                fontSize: 13,
-                width: "80px",
-                height: "25px",
-                borderRadius: 8,
-                backgroundColor: "antiquewhite",
-              }}
-              onClick={() => handleClick(project.id)}
-            >
-              Edit
-            </Button>
-          </div>
+            Edit
+          </Button>
         </div>
-        <hr />
       </div>
+      <hr />
     </Card>
   );
 };
