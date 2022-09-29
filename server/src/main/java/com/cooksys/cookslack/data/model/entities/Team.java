@@ -1,7 +1,6 @@
 package com.cooksys.cookslack.data.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,5 +28,4 @@ public class Team {
     @OneToMany(mappedBy = "team")
     @JsonIgnoreProperties("team")
     private List<User> users = new LinkedList<>();
-
 }

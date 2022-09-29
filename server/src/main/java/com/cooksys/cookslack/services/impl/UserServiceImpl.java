@@ -1,21 +1,17 @@
 package com.cooksys.cookslack.services.impl;
 
-import com.cooksys.cookslack.data.dtos.UserRequestDto;
-import com.cooksys.cookslack.data.dtos.UserResponseDto;
+import com.cooksys.cookslack.data.dtos.*;
 import com.cooksys.cookslack.data.model.entities.Team;
-import com.cooksys.cookslack.data.model.exceptions.BadRequestException;
-import com.cooksys.cookslack.data.model.exceptions.NotFoundException;
+import com.cooksys.cookslack.data.model.exceptions.*;
 import com.cooksys.cookslack.data.repositories.TeamRepository;
-import com.cooksys.cookslack.services.ValidationService;
+import com.cooksys.cookslack.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.cooksys.cookslack.services.UserService;
 import com.cooksys.cookslack.data.repositories.UserRepository;
 import com.cooksys.cookslack.data.mappers.UserMapper;
 import com.cooksys.cookslack.data.model.entities.User;
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 @AllArgsConstructor
@@ -24,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final ValidationService validationService;
     private final TeamRepository teamRepository;
+    private final UpdateService updateService;
 
     //==================================================================
     // =================== GET ENDPOINTS ===============================
@@ -44,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponseDto> getAllUsersByTeam(long teamID) {
+    public List<UserResponseDto> getAllUsersByTeam(Long teamID) {
         Team team = checkIfTeamExistsThenGet(teamID);
         List<User> userList = userRepository.findAllByTeamAndDeletedFalse(team);
         return userMapper.entitiesToResponseDtos(userList);
@@ -66,11 +63,8 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(newUser);
 
         // Get user from database, this will include the user id with it, and return
-        Optional<User> returnUser = userRepository.findByCredentialsUsername(newUser.getCredentials().getUsername());
-        if (returnUser.isEmpty())
-            throw new NotFoundException("Error: New user not found.");
-        else
-        return userMapper.entityToResponseDto(newUser);
+        User returnUser = checkIfUserExistsThenGet(newUser.getCredentials().getUsername());
+        return userMapper.entityToResponseDto(returnUser);
     }
 
 
@@ -79,8 +73,26 @@ public class UserServiceImpl implements UserService {
     //==================================================================
 
     @Override
-    public UserResponseDto updateUser(String username, UserRequestDto userRequestDto) {
-        return null;
+    public UserResponseDto updateUser(String username, UserPatchRequestDto userPatchRequestDto) {
+        User updateUser = checkIfUserExistsThenGet(username);
+
+        // Update necessary fields and save updated user to database
+        updateUser = updateService.makeUpdatedUser(updateUser, userPatchRequestDto);
+        userRepository.saveAndFlush(updateUser);
+
+        return userMapper.entityToResponseDto(updateUser);
+    }
+
+    @Override
+    public UserResponseDto addUserToTeam(String username, Long teamID) {
+        User user = checkIfUserExistsThenGet(username);
+        Team team = checkIfTeamExistsThenGet(teamID);
+
+        // Put user on team and save
+        user.setTeam(team);
+        userRepository.saveAndFlush(user);
+
+        return userMapper.entityToResponseDto(user);
     }
 
     //==================================================================
@@ -101,7 +113,6 @@ public class UserServiceImpl implements UserService {
 
 
     // =================== HELPER METHODS ============================
-
     /**
      *         Method checks to see if we get a user back from the database
      *         If we don't then a NotFoundException is thrown, otherwise
