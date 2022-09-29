@@ -9,11 +9,9 @@ const TeamCard = ({team}) => {
 
     const [teams, setTeams] = useState([]);
     
-
-    const getTeams = async () => {
-        let company = localStorage.getItem("company")
-        const response = await fetchFromCompany({
-            endpoint: `companies/${company}/teams`,
+  console.log("teams", teams);
+  console.log("projects", projects);
+  console.log("users", users);
 
         })
         console.log(response)
@@ -79,7 +77,6 @@ const TeamCard = ({team}) => {
 }
 
 export default TeamCard;
-
 
 //TO DO:
 //Set modal to return a team
