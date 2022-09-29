@@ -62,8 +62,8 @@ public class Seeder implements CommandLineRunner {
 
         User user1 = new User();
         user1.setCredentials(user1Cred);
-        user1.setFirstName("First");
-        user1.setLastName("last");
+        user1.setFirstName("Cleetus");
+        user1.setLastName("McBumble");
         user1.setEmail("email@test.com");
         user1.setPhoneNumber("1234567890");
         user1.setActive(true);
@@ -91,13 +91,13 @@ public class Seeder implements CommandLineRunner {
         // --- User 3 ---
         Credentials user3Cred = new Credentials();
         // Credentials
-        user3Cred.setUsername("Luigi");
+        user3Cred.setUsername("username3");
         user3Cred.setPassword("zpQUv5$96!@dDn");
 
         User user3 = new User();
         user3.setCredentials(user3Cred);
         user3.setFirstName("Luigi");
-        user3.setLastName("Mario");
+        user3.setLastName("Pizzaiolo");
         user3.setEmail("luigi@email.com");
         user3.setPhoneNumber("1234567890");
         user3.setActive(false);
@@ -108,7 +108,7 @@ public class Seeder implements CommandLineRunner {
         // --- User 4 ---
         // Credentials
         Credentials user4Cred = new Credentials();
-        user4Cred.setUsername("Nathan");
+        user4Cred.setUsername("username4");
         user4Cred.setPassword("^4a3L8VM4N5eRd");
 
         User user4 = new User();
@@ -124,20 +124,52 @@ public class Seeder implements CommandLineRunner {
         // --- User 5 ---
         // Credentials
         Credentials user5Cred = new Credentials();
-        user5Cred.setUsername("Tarnished");
+        user5Cred.setUsername("username5");
         user5Cred.setPassword("1R37#wo9JP3of^");
 
         User user5 = new User();
         user5.setCredentials(user5Cred);
-        user5.setFirstName("The");
-        user5.setLastName("Tarnished");
-        user5.setEmail("willibecometheeldenlord@email.com");
+        user5.setFirstName("Daemon");
+        user5.setLastName("Targaryen");
+        user5.setEmail("ikissedmysisandilikedit@email.com");
         user5.setPhoneNumber("1234567890");
         user5.setActive(true);
         user5.setStatus("Working");
         user5.setCompany(company3);
 
-        userRepository.saveAllAndFlush(Arrays.asList(user1, user2, user3, user4, user5));
+        // --- User 6 ---
+        // Credentials
+        Credentials user6Cred = new Credentials();
+        user6Cred.setUsername("username6");
+        user6Cred.setPassword("1r27&wo5Jp3of^");
+
+        User user6 = new User();
+        user6.setCredentials(user6Cred);
+        user6.setFirstName("BillyBob");
+        user6.setLastName("Thornton");
+        user6.setEmail("bleh@email.com");
+        user6.setPhoneNumber("1234567890");
+        user6.setActive(true);
+        user6.setStatus("Working");
+        user6.setCompany(company1);
+
+        // --- User 7 ---
+        // Credentials
+        Credentials user7Cred = new Credentials();
+        user7Cred.setUsername("username7");
+        user7Cred.setPassword("65RsdWEe*34fFS");
+
+        User user7 = new User();
+        user7.setCredentials(user7Cred);
+        user7.setFirstName("Brian");
+        user7.setLastName("Owen");
+        user7.setEmail("bowen@email.com");
+        user7.setPhoneNumber("1234567890");
+        user7.setActive(true);
+        user7.setStatus("Working");
+        user7.setCompany(company1);
+
+        userRepository.saveAllAndFlush(Arrays.asList(user1, user2, user3, user4, user5, user6, user7));
 
         // --- Project 1 ---
         Project project1 = new Project();
