@@ -23,11 +23,18 @@ const NavBar = () => {
   const open = Boolean(anchorEl);
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
-    console.log("navbar", anchorEl);
+    
   };
   const handleClose = e => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    navigate("/")
+    localStorage.removeItem("userData")
+    localStorage.removeItem("admin")
+    localStorage.removeItem("company")
+  }
 
   return (
     <Box>
@@ -69,8 +76,8 @@ const NavBar = () => {
                 <MenuItem>
                   <Link to="/users">users</Link>
                 </MenuItem>
-                <MenuItem>
-                  <Link onClick={handleClick}>Logout</Link>
+                <MenuItem onClick={handleLogout}>
+                  Logout
                 </MenuItem>
               </>
             ) : (
@@ -82,8 +89,8 @@ const NavBar = () => {
                   <Link to="/projects">projects</Link>
                 </MenuItem>
                 
-                <MenuItem>
-                  <Link onClick={handleClick}>Logout</Link>
+                <MenuItem onClick={handleLogout}>
+                  Logout
                 </MenuItem>
               </>
             )}
