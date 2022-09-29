@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -15,81 +15,164 @@ import {
   TextField,
   Select,
   MenuItem,
+  CircularProgress,
 } from "@mui/material";
+import fetchFromCompany from "../services/api";
+import NavBar from "./NavBar";
 
 const usersArray = [
   {
     id: 0,
-    name: "HAL",
+    firstName: "",
+    lastName: "HAL",
+    credentials: {
+      username: "HAL",
+      admin: true,
+    },
     email: "hal@ibm.com",
-    team: "Discovery 1",
-    isActive: false,
-    isAdmin: true,
-    status: "dead",
+    phone: "000-000-0000",
+    active: false,
+    team: {
+      id: 0,
+      name: "Jupiter Mission",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
   },
   {
     id: 1,
-    name: "Dave Bowman",
-    email: "dave@nca.com",
-    team: "Discovery 1",
-    isActive: true,
-    isAdmin: false,
-    status: "unknown",
+    firstName: "Dave",
+    lastName: "Bowman",
+    credentials: {
+      username: "DaveBowman",
+      admin: true,
+    },
+    email: "dave@nca.gov",
+    phone: "000-000-0000",
+    active: true,
+    team: {
+      id: 0,
+      name: "Jupiter Mission",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
   },
   {
     id: 2,
-    name: "Frank Poole",
-    email: "frank@nca.com",
-    team: "Discovery 1",
-    isActive: false,
-    isAdmin: false,
-    status: "dead",
+    firstName: "Frank",
+    lastName: "Poole",
+    credentials: {
+      username: "FrankPool",
+      admin: true,
+    },
+    email: "frank@nca.gov",
+    phone: "000-000-0000",
+    active: false,
+    team: {
+      id: 0,
+      name: "Jupiter Mission",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
   },
   {
     id: 3,
-    name: "Haywood Floyd",
-    email: "haywood@nca.com",
-    team: "National Council of Astronautics",
-    isActive: true,
-    isAdmin: true,
-    status: "Earth",
+    firstName: "Haywood",
+    lastName: "Floyd",
+    credentials: {
+      username: "HaywoodFloyd",
+      admin: true,
+    },
+    email: "haywood@nca.gov",
+    phone: "000-000-0000",
+    active: true,
+    team: {
+      id: 1,
+      name: "Headquarters",
+      description: "",
+    },
+    company: {
+      id: 0,
+      name: "NCA",
+      description: "",
+    },
   },
   {
     id: 4,
-    name: "Aliens",
-    email: "ljdlfljskl@dfdase.cdfdasfewom",
-    team: "Super Beings",
-    isActive: true,
-    isAdmin: false,
-    status: "unknown",
+    firstName: "Nasty",
+    lastName: "Aliens",
+    credentials: {
+      username: "NastyAliens",
+      isAdmin: false,
+    },
+    email: "a@a.a",
+    phone: "000-000-0000",
+    active: true,
+    team: {
+      id: 2,
+      name: "Space",
+      description: "",
+    },
+    company: {
+      id: 1,
+      name: "Unknown",
+      description: "",
+    },
   },
 ];
 
-// const emptyUser = {
-//   name: "",
-//   email: "",
-//   team: "unknown",
-//   isAdmin: false,
-//   isActive: false,
-//   status: "unknown",
-// };
-
-/**
- *
- * the individual pieces of the user will all be eventually moved into the "user" object
- */
+const emptyUserObject = {
+  firstName: "",
+  lastName: "",
+  credentials: {
+    username: "",
+    password: "",
+    admin: false,
+  },
+  status: "Unknown",
+  email: "",
+  phoneNumber: "0000000000",
+  team: {
+    id: 0,
+    name: "",
+    description: "",
+  },
+  company: {
+    id: 0,
+    name: "",
+    description: "",
+  },
+};
 
 const Users = props => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [userAdmin, setUserAdmin] = useState(false);
-  const [error, setError] = useState(false);
-  const [users, setUsers] = useState(usersArray);
-  const [user, setUser] = useState({}); // all items below will be moved into this
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [users, setUsers] = useState(null);
+  const [newUser, setNewUser] = useState(emptyUserObject);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [isValidated, setIsValidated] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/users")
+      .then(response => response.json())
+      .then(data => setUsers(data));
+  }, []);
+
+  useEffect(() => {
+    if (validateForm()) setIsValidated(true);
+    else setIsValidated(false);
+  }, [newUser, passwordCheck]);
 
   const modalStyle = {
     position: "absolute",
@@ -104,219 +187,247 @@ const Users = props => {
   };
 
   const handleSubmit = e => {
+    console.log(newUser);
     e.preventDefault();
-    // setUser({
-    //   id: users.length,
-    //   name: `${firstName} ${lastName}`,
-    //   email,
-    //   team: "TBD",
-    //   isActive: false,
-    //   isAdmin: userAdmin,
-    //   status: "unknown",
-    // });
-
-    // error to be worked on since it's not working yet
-    if (password1 !== password2) {
-      setError(true);
-    }
-    setUsers([
-      ...users,
-      {
-        id: users.length,
-        name: `${firstName} ${lastName}`,
-        email,
-        team: "TBD",
-        isActive: false,
-        isAdmin: userAdmin,
-        status: "unknown",
+    setNewUser({
+      ...newUser,
+      credentials: {
+        username: newUser.firstName + newUser.lastName,
+        admin: newUser.credentials.admin,
+        password: newUser.credentials.password,
       },
-    ]);
-    // all this will be moved to the single "user" object
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword1("");
-    setPassword2("");
-    setModalOpen(false);
+    });
+    postNewUser();
+    setPasswordCheck("");
+    setIsModalOpen(false);
+    setIsValidated(false);
   };
 
+  const handleChange = e => {
+    if (e.target.name === "password") {
+      setNewUser({
+        ...newUser,
+        credentials: {
+          username: newUser.firstName + newUser.lastName,
+          admin: newUser.credentials.admin,
+          password: e.target.value,
+        },
+      });
+    } else if (e.target.name === "admin") {
+      setNewUser({
+        ...newUser,
+        credentials: {
+          username: newUser.firstName + newUser.lastName,
+          password: newUser.credentials.password,
+          admin: e.target.value,
+        },
+      });
+    } else {
+      setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    }
+  };
+
+  const cancelSubmit = newUser => {
+    setNewUser(emptyUserObject);
+    setPasswordCheck("");
+    setIsModalOpen(false);
+    setIsValidated(false);
+  };
+
+  const validateForm = () => {
+    return (
+      newUser.firstName.trim() &&
+      newUser.lastName.trim() &&
+      newUser.email.trim() &&
+      newUser.credentials.password.trim() &&
+      newUser.credentials.password.trim() === passwordCheck
+    );
+  };
+
+  const postNewUser = async () => {
+    const returnedUser = await fetchFromCompany({
+      method: "POST",
+      endpoint: "users",
+      body: newUser,
+    });
+    console.log("Added New User: ", returnedUser);
+    setNewUser(emptyUserObject);
+    window.location.reload(false);
+  };
+
+  /**
+   * const response = fetchFromCompany({
+      method: "POST",
+      endpoint: `companies/${company}/users/${userData.id}/announcements`,
+      body: {
+        title: "New announcement",
+        message: announcementToCreate,
+        userId: userData.id,
+        companyId: company 
+      }
+    })
+   */
+
   return (
-    <div style={{ textAlign: "center", width: "80%", margin: "0 auto" }}>
-      <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">
-        User Registry
-      </Typography>
-      <Typography style={{ marginBottom: 20 }} component="p">
-        A general view of all your members in your organization.
-      </Typography>
-      <TableContainer component={Paper} elevation={4}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
-                Name
-              </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
-                Email
-              </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
-                Team
-              </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
-                Active
-              </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
-                Admin
-              </TableCell>
-              <TableCell
-                style={{ fontSize: 16, fontWeight: "bold" }}
-                align="center"
-              >
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map(user => (
-              <TableRow
-                key={user.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row" align="center">
-                  {user.name}
-                </TableCell>
-                <TableCell align="center">
-                  <Link href={`mailto:${user.email}`}>{user.email}</Link>
-                </TableCell>
-                <TableCell align="center">{user.team}</TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    fontWeight: "bold",
-                    color: user.isActive ? "green" : "red",
-                  }}
-                >
-                  {user.isActive ? "YES" : "NO"}
-                </TableCell>
-                <TableCell
-                  align="center"
-                  style={{
-                    fontWeight: "bold",
-                    color: user.isAdmin ? "green" : "red",
-                  }}
-                >
-                  {user.isAdmin ? "YES" : "NO"}
-                </TableCell>
-                <TableCell align="center">{user.status}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <div style={{ textAlign: "left" }}>
-        <Button
-          onClick={() => setModalOpen(true)}
-          variant="contained"
-          size="small"
-          style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
-        >
-          Add User
-        </Button>
-      </div>
-      <div>
-        <Typography
-          style={{ visibility: error ? "visible" : "hidden" }}
-          component="h6"
-          color="error"
-        >
-          There was an error creating the user. Please try again.
-        </Typography>
-      </div>
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-        <Box sx={modalStyle} component="form">
-          <TextField
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            size="small"
-            required
-            label="First Name"
-            style={{ paddingRight: 10 }}
-          />
-          <TextField
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            size="small"
-            required
-            label="Last Name"
-          />
-          <TextField
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            fullWidth
-            size="small"
-            required
-            label="Email"
-            style={{ padding: "10px 0" }}
-          />
-          <TextField
-            size="small"
-            required
-            type="password"
-            label="Password"
-            style={{ paddingRight: 10 }}
-          />
-          <TextField
-            size="small"
-            required
-            type="password"
-            label="Confirm Password"
-          />
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Typography component="h6">Make user admin?</Typography>
-            <Select
+    <div>
+      <NavBar />
+      {users ? (
+        <div style={{ textAlign: "center", width: "80%", margin: "0 auto" }}>
+          <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">
+            User Registry
+          </Typography>
+          <Typography style={{ marginBottom: 20, color: "white" }} component="p">
+            A general view of all your members in your organization.
+          </Typography>
+          <TableContainer component={Paper} elevation={4}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+                    Name
+                  </TableCell>
+                  <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+                    Email
+                  </TableCell>
+                  <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+                    Team
+                  </TableCell>
+                  <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+                    Active
+                  </TableCell>
+                  <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+                    Admin
+                  </TableCell>
+                  <TableCell style={{ fontSize: 16, fontWeight: "bold" }} align="center">
+                    Status
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users.map(newUser => (
+                  <TableRow key={newUser.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row" align="center">
+                      {newUser.firstName + " " + newUser.lastName}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Link href={`mailto:${newUser.email}`}>{newUser.email}</Link>
+                    </TableCell>
+                    <TableCell align="center">{newUser.team?.name || "-"}</TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontWeight: "bold",
+                        color: newUser.active ? "green" : "red",
+                      }}
+                    >
+                      {newUser.active ? "YES" : "NO"}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        fontWeight: "bold",
+                        color: newUser.credentials.admin ? "green" : "red",
+                      }}
+                    >
+                      {newUser.credentials.admin ? "YES" : "NO"}
+                    </TableCell>
+                    <TableCell align="center">{newUser.status}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <div style={{ textAlign: "left" }}>
+            <Button
+              onClick={() => setIsModalOpen(true)}
+              variant="contained"
               size="small"
-              value={userAdmin}
-              onChange={() => setUserAdmin(prev => !prev)}
-              label="Pick an option"
+              style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
             >
-              <MenuItem value={true}>True</MenuItem>
-              <MenuItem value={false}>False</MenuItem>
-            </Select>
-          </div>
-          <div style={{ textAlign: "center", marginTop: 20 }}>
-            <Button
-              style={{ marginRight: 10 }}
-              variant="contained"
-              color="success"
-              onClick={handleSubmit}
-            >
-              {" "}
-              Submit
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setModalOpen(false)}
-            >
-              Cancel
+              Add User
             </Button>
           </div>
-        </Box>
-      </Modal>
+          <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <Box sx={modalStyle} component="form">
+              <TextField
+                value={newUser.firstName}
+                onChange={handleChange}
+                size="small"
+                required
+                label="First Name"
+                name="firstName"
+                style={{ paddingBottom: 20 }}
+              />
+              <TextField
+                value={newUser.lastName}
+                onChange={handleChange}
+                name="lastName"
+                size="small"
+                required
+                label="Last Name"
+              />
+              <TextField
+                value={newUser.email}
+                type="email"
+                onChange={handleChange}
+                fullWidth
+                size="small"
+                required
+                label="Email"
+                name="email"
+                style={{ paddingBottom: 20 }}
+              />
+              <TextField
+                value={newUser.credentials.password}
+                onChange={handleChange}
+                size="small"
+                required
+                type="password"
+                label="Password"
+                name="password"
+              />
+              <TextField
+                value={passwordCheck}
+                onChange={e => setPasswordCheck(e.target.value)}
+                size="small"
+                required
+                type="password"
+                label="Confirm Password"
+                error={newUser.credentials.password !== passwordCheck}
+              />
+              <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <Typography component="h6">Make User Admin?</Typography>
+                <Select
+                  size="small"
+                  value={newUser.credentials.admin}
+                  onChange={handleChange}
+                  label="Pick an option"
+                  name="admin"
+                >
+                  <MenuItem value={true}>True</MenuItem>
+                  <MenuItem value={false}>False</MenuItem>
+                </Select>
+              </div>
+              <div style={{ textAlign: "center", marginTop: 20 }}>
+                <Button
+                  style={{ marginRight: 10 }}
+                  variant="contained"
+                  color="success"
+                  disabled={!isValidated}
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </Button>
+                <Button variant="contained" color="secondary" onClick={cancelSubmit}>
+                  Cancel
+                </Button>
+              </div>
+            </Box>
+          </Modal>
+        </div>
+      ) : (
+        <CircularProgress />
+      )}
     </div>
   );
 };

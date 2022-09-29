@@ -1,67 +1,144 @@
-import React from 'react';
-import { useState, useEffects } from 'react';
-import {Box, Modal, Button, Card, CardActions, CardContent, Typography, TextField, Paper} from '@mui/material';
-import {Global, css } from '@emotion/react';
-import TeamCard from "../components/component-Helpers/TeamCard"
-
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Modal,
+  Button,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  Avatar,
+  Link,
+  Card,
+  Paper
+} from "@mui/material";
+// import {Global, css } from '@emotion/react';
+import TeamCard from "../components/component-Helpers/TeamCard";
+import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
+import Stack from "react-bootstrap/Stack";
 
-const TeamOverview = () =>{
 
-    //State Used for Modal
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    
+const TeamOverview = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [teamName, setTeamName] = useState("");
+  const [description, setDescription] = useState("");
+  const [users, setUsers] = useState([]);
+  const [teams, setTeams] = useState([]);
 
-    const container = {
-        display: "flex",
-        flexDirection: "row",
-        padding: 35,
-        justifyContent: "center",
-        alignItems: "center",
-        margin: "20% 20%",
-        //    background: "rgb(6, 22, 30)"
-    };
+  let userData = localStorage.getItem("userData")
+  let user = JSON.parse(userData)
+  
 
-    return(
-        <div>
-            <h1>Team</h1>
-            <div className={"body-content"}>
-                <TeamCard/>
-                <TeamCard/>
-                <Button onClick={handleOpen}>
-                    <TeamCard/>
-                </Button>
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
-                <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-NewTeam-title"
-                aria-describedby="modal-NewTeam-form">
-                    <Paper style={container}>
-                        <Box sx ={{ "& .MuiTextField-root": { m: 2, width: "25ch" }}} style={container}>
-                            <Typography id="modal-NewTeam-title">
-                                <h3>Create New Team</h3>
-                            </Typography>
-                            <Typography id="modal-NewTeam-form">
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    label="Team Name"
-                                />
+  const cardStyle = {
+    display: "flex",
+    flexDirection: "column",
+    padding: 25,
+    minWidth: "50%",
+    marginBottom: "5%",
+  };
 
-                                <TextField
-                                    id="outlined-password-input"
-                                    label="Description"
-                                />
-                            </Typography>
-                        </Box>
-                    </Paper>
-                </Modal>
-            </div>
-        </div>
-    );
+
+  const getTeams = async () => {
+    let company = localStorage.getItem("company");
+    const response = await fetchFromCompany({
+      endpoint: `companies/${company}/teams`,
+    });
+    setTeams(response);
+    return response;
+  };
+
+  useEffect(() => {
+    getTeams();
+  }, []);
+
+  const makeTeam = e => {
+    e.preventDefault();
+    setTeams([
+      ...teams,
+      {
+        id: teams.length,
+        name: `${teamName}`,
+        description: `${description}`,
+        members: `${users}`,
+      },
+    ]);
+    setTeamName(teamName);
+    setUsers(users);
+    setDescription(description);
+    setModalOpen(false);
+  };
+
+  const userAdd = e => {
+    e.preventDefault();
+  };
+
+  return  (
+   <>
+{/* {user.credentials.admin ? <Button onClick={setModalOpen(true)}>Create New Team</Button> : null} */}
+   {teams.map((team, idx) => 
+    (
+      <TeamCard team={team}/>  
+) 
+  )}
+<Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+                <Box sx={modalStyle} component="form" avatar={<Avatar>
+                    
+                </Avatar>}>
+                    <TextField
+                        value={teamName}
+                        onChange={e => setTeamName(e.target.value)}
+                        size="small"
+                        required
+                        label="team name"
+                        style={{ paddingRight: 10 }} />
+                    <TextField
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        size="small"
+                        required
+                        label="description"
+                        style={{ paddingRight: 10 }} />
+                    <div style={{ textAlign: "center", marginTop: "20px" }}>
+                        <Typography component="h6">Select Members</Typography>
+                        <Select
+                            size="small"
+                            value={users}
+                            onChange={userAdd}
+                            label="Pick an option"
+                        >
+                            {users.map((user) => (
+                                <MenuItem key={user} value={user}>{user}</MenuItem>
+                            ))}
+                        </Select>
+                    </div>
+                    <Button
+                        style={{ marginRight: 10 }}
+                        variant="contained"
+                        // color="#1BA098"
+                        onClick={makeTeam}
+                    >
+                        {" "}
+                        Submit
+                    </Button>
+                </Box>
+            </Modal>
+           
+  </>
+  )
+  
 };
 
 export default TeamOverview;
