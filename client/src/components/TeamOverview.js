@@ -25,7 +25,10 @@ const TeamOverview = () => {
   const [description, setDescription] = useState("");
   const [users, setUsers] = useState([]);
   const [teams, setTeams] = useState([]);
-  console.log("from team overview", teams);
+
+  let userData = localStorage.getItem("userData")
+  let user = JSON.parse(userData)
+  
 
   const modalStyle = {
     position: "absolute",
@@ -83,18 +86,11 @@ const TeamOverview = () => {
   };
 
   return  (
-   <Paper>
+   <>
+{/* {user.credentials.admin ? <Button onClick={setModalOpen(true)}>Create New Team</Button> : null} */}
    {teams.map((team, idx) => 
     (
-   <Card style={cardStyle}  key={idx}>
-     <h3>{team.name}</h3>
-     <h1>Members</h1>
-     {team.members.map((member, name) => (
-        <h3>{member}</h3>
-     )
-
-     )}
-   </Card>
+      <TeamCard team={team}/>  
 ) 
   )}
 <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
@@ -139,10 +135,10 @@ const TeamOverview = () => {
                     </Button>
                 </Box>
             </Modal>
-            </Paper>
-
-
+           
+  </>
   )
+  
 };
 
 export default TeamOverview;
