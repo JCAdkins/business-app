@@ -66,7 +66,7 @@ const Project = ({ project, handleClick }) => {
         </div>
         <hr />
       </Card>
-    </>
+    </div>
   );
 };
 
