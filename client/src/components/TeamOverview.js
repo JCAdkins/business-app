@@ -11,6 +11,9 @@ import {
   Link,
   Card,
   Paper,
+  FormControl,
+  ListItemText,
+  Checkbox
 } from "@mui/material";
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard";
@@ -18,6 +21,7 @@ import NavBar from "./NavBar"
 import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
 import Stack from "react-bootstrap/Stack";
+
 
 const TeamOverview = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,11 +31,12 @@ const TeamOverview = () => {
   const [teams, setTeams] = useState([]);
   const [userIds, setUserIds] = useState()
   const [newTeamId, setNewTeamId] = useState()
-
+  const [membersToAdd, setMembersToAdd] = useState([])
+console.log("memberstoadd>>>>", membersToAdd)
   let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
   let user = JSON.parse(userData);
-  console.log("users>>>", users);
+  
 
   const modalStyle = {
     position: "absolute",
@@ -70,16 +75,17 @@ const TeamOverview = () => {
     return response;
   };
 
-  const addNewMembers = async () => {
-    let username = 'newMemeber'
+  const addNewMembers = async (teamId, username) => {
+    
     const response = await fetchFromCompany({
       method: "PATCH",
-      enpoint: `users/${username}/${newTeamId}`
+      endpoint: `users/${username}/${teamId}`
     })
+
+    getTeams()
   }
 
   const createTeam = async () => {
-    // makeTeam()
     let company = localStorage.getItem("company");
     const response = await fetchFromCompany({
       method: "POST",
@@ -91,8 +97,11 @@ const TeamOverview = () => {
   })
   setModalOpen(false);
   setNewTeamId(response.id)
-  addNewMembers()
-  getTeams()
+  for(let i = 0; i < membersToAdd.length; i++){
+
+    addNewMembers(response.id, membersToAdd[i])
+  }
+  
   console.log("New team",response)
 }
 
@@ -104,32 +113,17 @@ const TeamOverview = () => {
     getTeams()
   }, [])
 
-  // const makeTeam = () => {
   
-  //   setTeams([
-  //     ...teams,
-  //     {
-  //       id: teams.length,
-  //       name: teamName,
-  //       description: description,
-  //       members: users,
-  //     },
-  //   ]);
-  //   setTeamName(teamName);
-  //   // setUsers(users);
-  //   setDescription(description);
-  //   setModalOpen(false);
-  // };
+  const handleChange = e => {
 
-  const userAdd = e => {
+    console.log('are you working', e)
     const {
-        target: { value },
-      } = e;
-      setUserIds(
-        // On autofill we get a stringified value.
+      target: { value }
+    } = e;
+    console.log("value",value)
+      setMembersToAdd(
         value
-      );
-      console.log("userids",userIds)
+      )
   };
 
   return teams ? (
@@ -161,17 +155,21 @@ const TeamOverview = () => {
           />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Typography component="h6">Select Members</Typography>
+            
             <Select
               size="small"
               multiple
               value={users}
-              onChange={userAdd}
+              onClick={(event) => handleChange(event.target.value)}
+              // renderValue={(selected) => selected.join(', ')}
               label="Pick an option"
             >
               {users.map(user => (
-                <MenuItem key={user.id} value={user.id}>{user.firstName}</MenuItem>
+                user.team ? null :
+                <MenuItem key={user.id}  value={user.userName}>{user.firstName}</MenuItem>
               ))}
             </Select>
+           
           </div>
           <Button
             style={{ marginRight: 10 }}
