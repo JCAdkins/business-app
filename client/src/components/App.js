@@ -8,9 +8,8 @@ import {
   // Navigate,
 } from "react-router-dom";
 import { ThemeProvider } from '@emotion/react';
-import {theme} from './component-Styles/mui-stylez'
+import {theme, container} from './component-Styles/mui-stylez'
 import {Paper} from "@mui/material";
-import {container} from './component-Styles/mui-stylez'
 // eslint-disable-next-line
 import fetchFromCompany, { request } from "../services/api";
 

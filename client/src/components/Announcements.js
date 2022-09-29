@@ -6,6 +6,8 @@ import { Box, Button, Paper, Card, Modal } from "@mui/material";
 // import { width } from "@mui/system";
 import NavBar from "./NavBar";
 import fetchFromCompany from "../services/api";
+import {container, card} from './component-Styles/mui-stylez'
+
 
 const Announcements = () => {
   //userData will need to be set in the app.js then passed to the components that need it.
@@ -33,25 +35,25 @@ const Announcements = () => {
     p: 4,
   };
 
-  const container = {
-    display: "flex",
-    flexDirection: "column",
-    padding: 35,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "20% 20%",
-    //    background: "rgb(6, 22, 30)"
-  };
+  // const container = {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   padding: 35,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   margin: "20% 20%",
+  //   //    background: "rgb(6, 22, 30)"
+  // };
 
   
 
-  const cardStyle = {
-    display: "flex",
-    flexDirection: "column",
-    padding: 25,
-    minWidth: "50%",
-    marginBottom: "5%",
-  };
+  // const cardStyle = {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   padding: 25,
+  //   minWidth: "50%",
+  //   marginBottom: "5%",
+  // };
 
   
   useEffect(() => {
@@ -92,27 +94,33 @@ const Announcements = () => {
 
   return announcementsToSet ? (
     <>
-    
       <NavBar />
       <Paper style={container}>
+      <h1>Announcements</h1>
         {user.credentials.admin ? (
           <Button
             onClick={() => setModalOpen(true)}
             variant="contained"
             size="small"
-            style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
+            style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
           >
-            New Announcement
+            New
           </Button>
         ) : null}
 
-        <h1>Announcements</h1>
         { announcementsToSet.map((announcement, idx) => 
           (
-         <Card style={cardStyle}  key={idx}>
-           <h3>{user.firstName}</h3>
-           <h1>{announcement.title}</h1>
-           <p>{announcement.message}</p>
+         <Card style={card}  
+         sx={{
+          borderRadius: 6,
+          background: "#0C2D48",
+          padding: "25%",
+          margin: "1%",
+        }}
+        key={idx}>
+           <h3 style={{ color: "#fff", align: "left" }}>{user.firstName}</h3>
+           <h2>{announcement.title}</h2>
+           <p style={{ padding: "10%" }}>{announcement.message}</p>
          </Card>
      ) 
         )}

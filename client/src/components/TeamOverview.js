@@ -8,12 +8,12 @@ import {
   Select,
   MenuItem,
   Avatar,
-//   Link,
-//   Card,
-//   Paper,
-//   FormControl,
-//   ListItemText,
-//   Checkbox,
+  Link,
+  Card,
+  Paper,
+  FormControl,
+  ListItemText,
+  Checkbox,
   SelectChangeEvent
 } from "@mui/material";
 // import {Global, css } from '@emotion/react';
@@ -21,7 +21,7 @@ import TeamCard from "../components/component-Helpers/TeamCard";
 import NavBar from "./NavBar"
 import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
-// import Stack from "react-bootstrap/Stack";
+import Stack from "react-bootstrap/Stack";
 
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 
@@ -130,13 +130,14 @@ console.log("memberstoadd>>>>", membersToAdd)
   //     )
   // };
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
+  const handleChange = () => {
+//   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+    // const {
+    //   target: { value },
+    // } = event;
     setMembersToAdd(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+    //   typeof value === 'string' ? value.split(',') : value,
     );
   };
 

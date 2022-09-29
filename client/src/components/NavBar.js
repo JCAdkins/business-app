@@ -12,8 +12,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import BusinessIcon from "@mui/icons-material/Business";
+import logo from '../Assets/logo.png'
 import { MenuItem } from "@mui/material";
+import {nav, menuIcon, modal} from './component-Styles/mui-stylez'
 
 const NavBar = () => {
   let userData = localStorage.getItem("userData");
@@ -45,13 +46,14 @@ const NavBar = () => {
 
 
   return (
-    <Box>
+    <Box style={nav}
+    sx={{ bgcolor: "primary" }}>
       <AppBar position="static">
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <BusinessIcon />
+        <img src={logo} className="img2" alt="files"/>
           <IconButton
               size="large"
-              color="inherit"
+              style={menuIcon}
               id="demo-positioned-button"
               aria-controls={open ? "demo-positioned-menu" : undefined}
               aria-haspopup="true"
@@ -80,7 +82,7 @@ const NavBar = () => {
 
 
             {user.credentials.admin ? (
-              <>
+              <div style={{modal}}>
                 <MenuItem>
                   <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
                 </MenuItem>
@@ -93,9 +95,9 @@ const NavBar = () => {
                 <MenuItem onClick={handleLogout}>
                   Logout
                 </MenuItem>
-              </>
+              </div>
             ) : (
-              <>
+              <div style={{modal}}>
                 <MenuItem>
                   <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
                 </MenuItem>
@@ -106,7 +108,7 @@ const NavBar = () => {
                 <MenuItem onClick={handleLogout}>
                   Logout
                 </MenuItem>
-              </>
+              </div>
             )}
           </Menu>
 

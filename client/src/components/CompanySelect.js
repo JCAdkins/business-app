@@ -7,7 +7,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { container, Card, select } from './component-Styles/mui-stylez'
+import { container, card, select } from './component-Styles/mui-stylez'
 // eslint-disable-next-line
 import fetchFromCompany, { request } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +45,7 @@ const CompanySelect = ({ userData, setCompany }) => {
   return (
     <Paper style={container}>
       {companies ?
-        <Box component="form" noValidate autoComplete="off" style={Card}>
+        <Box component="form" noValidate autoComplete="off" style={card}>
           <h1>Select Company</h1>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Company</InputLabel>

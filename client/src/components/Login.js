@@ -3,30 +3,30 @@ import TextField from "@mui/material/TextField";
 import { Box, Paper } from "@mui/material";
 import logo from '../Assets/logo.png'
 import './component-Styles/main.css'
-import {container, Card, Button, input} from './component-Styles/mui-stylez'
+import {container, card, Button, input} from './component-Styles/mui-stylez'
 
 const Login = ({ handleLogin, setUserName, setPassword }) => {
 
   return (
     <Paper style={container}>
-      <h1 className="welcome">
+      <h1>
         COOK SYSTEMS SLACK
       </h1>
-      <h3 className="welcome">Created by the best team <br/>to ever pass through...</h3>
+      <h3>Created by the best team <br/>to ever pass through...</h3>
        <Box
         component="form"
         noValidate
         autoComplete="off"
-        style={Card}
+        style={card}
         sx={{
           border: '5px solid #DEB992',
           boxShadow: "8px 8px 8px #DEB992",
           borderRadius: 6,
-          width: "25%",
-          height: "55%"
+          width: "75%",
+          height: "65%"
         }}
               >
-        <img src={logo} alt="files"/>
+        <img src={logo} className="img1" alt="files"/>
         <TextField
           required
           id="standard-required"

@@ -16,7 +16,7 @@ export const theme = createTheme({
             main: "#DEB992"
         },
         info: {
-            main: "#FFFFFF"
+            main: "#0F5583"
         }
     },
 });
@@ -41,17 +41,17 @@ export const container = {
     height: "100vh"
 };
 
-export const Card = {
+export const card = {
     // border: '5px solid #DEB992',
     // boxShadow: "8px 8px 8px #DEB992",
     // borderRadius: 6,
     display: "flex",
     flexDirection: "column",
-    padding: 5,
+    padding: 2,
     justifyContent: "center",
     alignItems: "center",
-    margin: "5% 20%",
-
+    margin: "5% 10%",
+    textAlign: "center"
 }
 
 export const input = {
@@ -66,3 +66,23 @@ export const select = {
     // background: "#FFFFFF",
     // color: "#1BA098"
 };
+
+export const nav = {
+    marginTop: 0,
+    marginRight: 0,
+    marginLeft: 0,
+    marginBottom: 5,
+    width: "100%",
+    background: "rgb(6, 22, 30)",
+    border: '2px solid #DEB992',
+}
+
+export const menuIcon = {
+    background: "#0C2D48",
+    borderRadius: 6,
+}
+
+export const modal = {
+    background: "#0F5583",
+    color: "#fff"
+}
