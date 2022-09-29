@@ -3,12 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import fetchFromCompany from '../../services/api';
 import { Link } from 'react-router-dom';
+import { Card } from '@mui/material';
 
-const TeamCard = props => {
+const TeamCard = ({team}) => {
 
     const [teams, setTeams] = useState([]);
-    const [projects, setProjects] = useState([]);
-    const [users, setUsers] = useState([]);
+    
 
     const getTeams = async () => {
         let company = localStorage.getItem("company")
@@ -20,35 +20,34 @@ const TeamCard = props => {
         setTeams(response)
         return response
     }
-    const getProjects = async () => {
-        let company = localStorage.getItem("company")
-        const response = await fetchFromCompany({
-            endpoint: `companies/${company}/projects`,
+    // const getProjects = async () => {
+    //     let company = localStorage.getItem("company")
+    //     const response = await fetchFromCompany({
+    //         endpoint: `companies/${company}/projects`,
 
-        })
-        console.log(response)
-        setProjects(response)
-        return response
-    }
-    const getUsers = async () => {
-        let teamId = 1
-        const response = await fetchFromCompany({
-            endpoint:     `users/team/${teamId}`,
+    //     })
+    //     console.log(response)
+    //     setProjects(response)
+    //     return response
+    // }
+    // const getUsers = async () => {
+    //     let teamId = 1
+    //     const response = await fetchFromCompany({
+    //         endpoint:     `users/team/${teamId}`,
 
-        })
-        console.log(response)
-        setUsers(response)
-        return response
-    }
+    //     })
+    //     console.log(response)
+    //     setUsers(response)
+    //     return response
+    // }
     useEffect(() => {
         getTeams();
-        getProjects();
-        getUsers()
+        
     }, [])
 
-    console.log("teams", teams)
-    console.log("projects", projects)
-    console.log("users", users)
+    // console.log("teams", teams)
+    // console.log("projects", projects)
+    // console.log("users", users)
     
 
     // let teamName = teams.teamName;
@@ -56,23 +55,27 @@ const TeamCard = props => {
     // let members = getUsers.username;
 
     return (
-        <div class="card">
-            <div class="card-header">
-                <Stack direction="horizontal" gap={2}>
-                    <h2>teamName</h2>
-                    <h3># of Projects: 5</h3>
-                </Stack>
-            </div>
-            ___________________________________________________________________________
-            <div class="card-body">
-                <h3>Members</h3>
-                {/* {members.map((user) => ( */}
-                    <Button><Link to={`users/?{user.username}`}>user</Link></Button>
-                {/* ))} */}
-            </div>
-        </div>
+        <Card sx={{margin: '20%'}}>
+            
+                <div className="card">
+                    <div className="card-header" key={team.id}>
+                        <Stack direction="horizontal" gap={2}>
+                            <h2>{team.name}</h2>
+                            <h3># of Projects: 5</h3>
+                        </Stack>
+                    </div>
+                    <div class="card-body">
+                        <h3>Members</h3>
+                        {console.log('line 68 teamcard',team)}
+                        {team.users.map((user) => (
+                            <Button key={user.id} value={user.id}>{user.firstName}</Button>
+                        ))}
+                    </div>
+                </div>
+            
+            
+        </Card>
     );
-
 }
 
 export default TeamCard;
