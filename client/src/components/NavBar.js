@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { useNavigate, Link } from "react-router-dom";
 
 import { useState } from "react";
@@ -19,11 +20,12 @@ const NavBar = () => {
 
   const navigate = useNavigate();
 
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
-    
+
   };
   const handleClose = e => {
     setAnchorEl(null);
@@ -50,7 +52,9 @@ const NavBar = () => {
           >
             <MenuIcon />
           </Button>
+
           <Menu
+
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
             anchorEl={anchorEl}
@@ -65,6 +69,7 @@ const NavBar = () => {
               horizontal: "left",
             }}
           >
+
             {user.credentials.admin ? (
               <>
                 <MenuItem>
@@ -95,10 +100,13 @@ const NavBar = () => {
               </>
             )}
           </Menu>
+
         </Toolbar>
       </AppBar>
     </Box>
   );
 };
 
+
 export default NavBar;
+
