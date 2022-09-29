@@ -4,7 +4,7 @@ import { Box, Button, Paper, Card, Modal } from "@mui/material";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
-import Menu from "./NavBar";
+import NavBar from "./NavBar";
 
 const Announcements = ({ userData, author }) => {
   //userData will need to be set in the app.js then passed to the components that need it.
@@ -182,8 +182,9 @@ const Announcements = ({ userData, author }) => {
 
   return (
     <>
-      <Menu />
+
       <Paper style={container}>
+        <NavBar />
         {admin ? (
           <Button
             onClick={() => setModalOpen(true)}

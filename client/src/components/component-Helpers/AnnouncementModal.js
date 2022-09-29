@@ -5,7 +5,7 @@ import { Modal, Paper, Box, Typography, Button, TextField} from '@mui/material'
 const BaseModal = (author) =>{
 
     //State Used for Modal
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -24,20 +24,20 @@ const BaseModal = (author) =>{
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-Announcement-Title"
-            aria-describedby="modal-Annoucement-Message">
+            aria-describedby="modal-Announcement-Message">
             <Paper style={container}>
                 <Box sx ={{ "& .MuiTextField-root": { m: 2, width: "25ch" }}} style={container}>
                     <Button onClick={handleClose}></Button>
                     <Typography id="modal-Announcement-Title">
                         <h3>{author}</h3>
                     </Typography>
-                    <Typography id="modal-Annoucement-Message">
+                    <Typography id="modal-Announcement-Message">
                         <TextField
                             required
                             id="outlined-required"
-                            label="Annoucement"
+                            label="Announcement"
                         />
-                        <Button>{submitText}</Button>
+                        <Button>Submit</Button>
                     </Typography>
                 </Box>
             </Paper>

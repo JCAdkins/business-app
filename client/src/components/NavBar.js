@@ -5,12 +5,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import BusinessIcon from '@mui/icons-material/Business';
 import { MenuItem } from '@mui/material';
 
-const Menu = () => {
+
+const NavBar = () => {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleClick = (e) => {
@@ -49,15 +51,16 @@ const Menu = () => {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Home</MenuItem>
+        <MenuItem onClick={handleClose}>Teams</MenuItem>
+
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
-          
+
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
 
-export default Menu
+export default NavBar;
