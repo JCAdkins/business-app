@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
         // Get user from database, this will include the user id with it, and return
         User returnUser = checkIfUserExistsThenGet(newUser.getCredentials().getUsername());
-        
+  
         return userMapper.entityToResponseDto(returnUser);
     }
 
@@ -85,7 +85,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+
     public UserResponseDto addUserToTeam(String username, Long teamID) {
+
         User user = checkIfUserExistsThenGet(username);
         Team team = checkIfTeamExistsThenGet(teamID);
 
