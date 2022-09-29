@@ -20,6 +20,8 @@ import {
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
 
+
+
 // const usersArray = [
 //   {
 //     id: 0,
@@ -254,6 +256,19 @@ const Users = props => {
     setNewUser(emptyUserObject);
     window.location.reload(false);
   };
+
+  /**
+   * const response = fetchFromCompany({
+      method: "POST",
+      endpoint: `companies/${company}/users/${userData.id}/announcements`,
+      body: {
+        title: "New announcement",
+        message: announcementToCreate,
+        userId: userData.id,
+        companyId: company 
+      }
+    })
+   */
 
   return (
     <div>

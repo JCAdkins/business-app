@@ -1,6 +1,8 @@
 import * as React from "react";
 
+
 import { useNavigate, Link } from "react-router-dom";
+
 
 import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
@@ -8,6 +10,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -21,15 +24,19 @@ const NavBar = () => {
   const navigate = useNavigate();
 
 
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = e => {
     setAnchorEl(e.currentTarget);
 
+
+
   };
   const handleClose = e => {
     setAnchorEl(null);
   };
+
 
   const handleLogout = () => {
     navigate("/")
@@ -37,6 +44,7 @@ const NavBar = () => {
     localStorage.removeItem("admin")
     localStorage.removeItem("company")
   }
+
 
   return (
     <Box>
@@ -53,7 +61,9 @@ const NavBar = () => {
             <MenuIcon />
           </Button>
 
+
           <Menu
+
 
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
@@ -69,6 +79,7 @@ const NavBar = () => {
               horizontal: "left",
             }}
           >
+
 
             {user.credentials.admin ? (
               <>
@@ -101,11 +112,13 @@ const NavBar = () => {
             )}
           </Menu>
 
+
         </Toolbar>
       </AppBar>
     </Box>
   );
 };
+
 
 
 export default NavBar;

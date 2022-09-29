@@ -11,6 +11,9 @@ import {
   Link,
   Card,
   Paper,
+  FormControl,
+  ListItemText,
+  Checkbox
 } from "@mui/material";
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard";
@@ -19,6 +22,7 @@ import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
 import Stack from "react-bootstrap/Stack";
 
+
 const TeamOverview = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [teamName, setTeamName] = useState("");
@@ -26,10 +30,13 @@ const TeamOverview = () => {
   const [users, setUsers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [userIds, setUserIds] = useState()
+  const [newTeamId, setNewTeamId] = useState()
+  const [membersToAdd, setMembersToAdd] = useState([])
+console.log("memberstoadd>>>>", membersToAdd)
   let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
   let user = JSON.parse(userData);
-  console.log("users>>>", users);
+  
 
   const modalStyle = {
     position: "absolute",
@@ -68,58 +75,58 @@ const TeamOverview = () => {
     return response;
   };
 
-  useEffect(() => {
-    getUsers();
-    getTeams();
-  }, []);
+  const addNewMembers = async (teamId, username) => {
+    
+    const response = await fetchFromCompany({
+      method: "PATCH",
+      endpoint: `users/${username}/${teamId}`
+    })
 
-  const makeTeam = e => {
-    e.preventDefault();
-    setTeams([
-      ...teams,
-      {
-        id: teams.length,
-        name: `${teamName}`,
-        description: `${description}`,
-        members: `${users}`,
-      },
-    ]);
-    setTeamName(teamName);
-    setUsers(users);
-    setDescription(description);
-    setModalOpen(false);
+    getTeams()
+  }
 
-    const response = fetchFromCompany({
+  const createTeam = async () => {
+    let company = localStorage.getItem("company");
+    const response = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/teams`,
       body: {
         name: teamName,
         description: description,
       },
-    });
-  };
+  })
+  setModalOpen(false);
+  setNewTeamId(response.id)
+  for(let i = 0; i < membersToAdd.length; i++){
 
-  let username = 'username1'
-  let teamId = 6
-  const response = fetchFromCompany({
-    method: "PATCH",
-    endpoint: `users/${username}/${teamId}`
-    
-  });
+    addNewMembers(response.id, membersToAdd[i])
+  }
+  
+  console.log("New team",response)
+}
 
+  useEffect(() => {
+    getUsers();
+  }, [teams]);
 
-  const userAdd = e => {
+  useEffect(() => {
+    getTeams()
+  }, [])
+
+  
+  const handleChange = e => {
+
+    console.log('are you working', e)
     const {
-        target: { value },
-      } = e;
-      setUserIds(
-        // On autofill we get a stringified value.
+      target: { value }
+    } = e;
+    console.log("value",value)
+      setMembersToAdd(
         value
-      );
-      console.log("userids",userIds)
+      )
   };
 
-  return (
+  return teams ? (
     <>
     <NavBar />
       {user.credentials.admin ? (
@@ -148,23 +155,27 @@ const TeamOverview = () => {
           />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Typography component="h6">Select Members</Typography>
+            
             <Select
               size="small"
               multiple
               value={users}
-              onChange={userAdd}
+              onClick={(event) => handleChange(event.target.value)}
+              // renderValue={(selected) => selected.join(', ')}
               label="Pick an option"
             >
               {users.map(user => (
-                <MenuItem key={user.id} value={user.id}>{user.firstName}</MenuItem>
+                user.team ? null :
+                <MenuItem key={user.id}  value={user.userName}>{user.firstName}</MenuItem>
               ))}
             </Select>
+           
           </div>
           <Button
             style={{ marginRight: 10 }}
             variant="contained"
             // color="#1BA098"
-            onClick={makeTeam}
+            onClick={createTeam}
           >
             {" "}
             Submit
@@ -172,7 +183,7 @@ const TeamOverview = () => {
         </Box>
       </Modal>
     </>
-  );
+  ) : null;
 };
 
 export default TeamOverview;

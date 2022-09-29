@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Project from "./Project";
-import { Typography, Button, Container, Modal, TextField, Box } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Container,
+  Modal,
+  TextField,
+  Box,
+} from "@mui/material";
 import fetchFromCompany from "../services/api";
 import NavBar from "./NavBar";
 
@@ -205,6 +212,7 @@ const Projects = props => {
                 Submit
               </Button>
               <Button variant="contained" color="secondary" onClick={cancelSubmit}>
+
                 Cancel
               </Button>
             </div>
@@ -212,6 +220,7 @@ const Projects = props => {
         </Modal>
       </Container>
     </div>
+
   );
 };
 
