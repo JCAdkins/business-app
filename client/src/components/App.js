@@ -34,24 +34,31 @@ const App = () => {
 
 
   const loginAuth = async () => {
-    const response = await fetchFromCompany({
-      endpoint: "auth/login",
-      method: "POST",
-      body: {
-        username: userName,
-        password: password,
-      },
-    })
-    console.log(response)
-    setUserData(response)
-    localStorage.setItem("userData", JSON.stringify(userData))
-    //this seems to be trying to read credentials before it's there. That's why you have to clcik twice
-    userData.credentials.admin
-      ? navigate("/company")
-      : navigate("/announcements");
-    return response
+    try {
+      const response = await fetchFromCompany({
+        endpoint: "auth/login",
+        method: "POST",
+        body: {
+          username: userName,
+          password: password,
+        },
+      })
+      setUserData(response)
+      localStorage.setItem("userData", JSON.stringify(userData))
+      //this seems to be trying to read credentials before it's there. That's why you have to clcik twice
+      if(userData){
+        userData.credentials.admin
+        ? navigate("/company")
+        : navigate("/announcements");
+      }
+      return response
+    } catch (error) {
+      console.log('from error',error.message)
+      
+    }
+    
+   
   }
-
 
   const handleLogin = () => {
     loginAuth()

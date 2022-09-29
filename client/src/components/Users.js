@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import NavBar from "./NavBar"
 import {
   Table,
   TableBody,
@@ -269,6 +270,7 @@ const Users = props => {
    */
 
   return (
+
     <div>
       <NavBar />
       {users ? (
@@ -429,6 +431,7 @@ const Users = props => {
         <CircularProgress />
       )}
     </div>
+
   );
 };
 
