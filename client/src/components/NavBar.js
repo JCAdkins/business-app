@@ -90,6 +90,9 @@ const NavBar = () => {
                 <MenuItem>
                   <Link to="/users" style={{ textDecoration: 'none' }}>Users</Link>
                 </MenuItem>
+                <MenuItem>
+                  <Link to="/projects" style={{ textDecoration: 'none' }}>Projects</Link>
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   Logout
                 </MenuItem>
@@ -100,7 +103,7 @@ const NavBar = () => {
                   <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/projects" style={{ textDecoration: 'none' }}>projects</Link>
+                  <Link to="/projects" style={{ textDecoration: 'none' }}>Projects</Link>
                 </MenuItem>
                 
                 <MenuItem onClick={handleLogout}>
