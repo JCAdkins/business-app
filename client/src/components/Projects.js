@@ -149,7 +149,7 @@ const Projects = props => {
 
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
       <Container sx={{ width: "75%", textAlign: "center" }}>
         <Typography style={{ margin: "20px 0", color: "white" }} variant="h3" component="h1">
           {user ? user.team.name : "Team"} Projects
