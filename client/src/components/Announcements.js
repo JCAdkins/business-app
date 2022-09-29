@@ -4,10 +4,10 @@ import { Box, Button, Paper, Card, Modal } from "@mui/material";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
-import Menu from "./NavBar";
+import NavBar from "./NavBar";
 import fetchFromCompany from "../services/api";
 
-const Announcements = ({ }) => {
+const Announcements = () => {
   //userData will need to be set in the app.js then passed to the components that need it.
   let userData = localStorage.getItem("userData")
   let user = JSON.parse(userData)
@@ -97,7 +97,7 @@ const Announcements = ({ }) => {
   return announcementsToSet ? (
     <>
     
-      {/* <Menu /> */}
+      <NavBar />
       <Paper style={container}>
         {user.credentials.admin ? (
           <Button

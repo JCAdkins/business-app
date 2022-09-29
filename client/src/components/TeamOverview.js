@@ -1,160 +1,189 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Modal, Button, Typography, TextField, Select, MenuItem, Avatar } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Modal,
+  Button,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  Avatar,
+  Link,
+  Card,
+  Paper,
+  FormControl,
+  ListItemText,
+  Checkbox
+} from "@mui/material";
 // import {Global, css } from '@emotion/react';
-import TeamCard from "../components/component-Helpers/TeamCard"
+import TeamCard from "../components/component-Helpers/TeamCard";
+import NavBar from "./NavBar"
 import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
+import Stack from "react-bootstrap/Stack";
 
-//bring in users once the component is complete
-//import teams based on backend data
-// const teamsArray = [
-//     {
-//         id: 0,
-//         name: "TEAM HAL",
-//         description: "dead",
-//         members: {}
-//     },
-//     {
-//         id: 1,
-//         name: "Dave Bowman?",
-//         description: "unknown",
-//     },
-//     {
-//         id: 2,
-//         name: "Team Poole",
-//         description: "Earth",
-//     }
-// ];
 
 const TeamOverview = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [teamName, setTeamName] = useState("");
+  const [description, setDescription] = useState("");
+  const [users, setUsers] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [userIds, setUserIds] = useState()
+  const [newTeamId, setNewTeamId] = useState()
+  const [membersToAdd, setMembersToAdd] = useState([])
+console.log("memberstoadd>>>>", membersToAdd)
+  let company = localStorage.getItem("company");
+  let userData = localStorage.getItem("userData");
+  let user = JSON.parse(userData);
+  
 
-    const [modalOpen, setModalOpen] = useState(false);
-    const [teamName, setTeamName] = useState("");
-    const [description, setDescription] = useState("");
-    const [users, setUsers] = useState([]);
-    const [teams, setTeams] = useState([]);
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
-    const modalStyle = {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: 400,
-        bgcolor: "background.paper",
-        border: "2px solid #000",
-        boxShadow: 24,
-        p: 4,
-    };
+  const cardStyle = {
+    display: "flex",
+    flexDirection: "column",
+    padding: 25,
+    minWidth: "50%",
+    marginBottom: "5%",
+  };
 
-    const getTeams = async () => {
-        const response = await fetchFromCompany({
-          endpoint: "/{companyId}/teams",
-          
-        })
-        setTeams(response)
-        return response
-      }
+  const getUsers = async () => {
+    const response = await fetchFromCompany({
+      endpoint: `users`,
+    });
+    setUsers(response);
+    return response;
+  };
+
+  const getTeams = async () => {
+    let company = localStorage.getItem("company");
+    const response = await fetchFromCompany({
+      endpoint: `companies/${company}/teams`,
+    });
+    setTeams(response);
+    return response;
+  };
+
+  const addNewMembers = async (teamId, username) => {
     
-      useEffect(() => {
-        getTeams();
-      }, [])
+    const response = await fetchFromCompany({
+      method: "PATCH",
+      endpoint: `users/${username}/${teamId}`
+    })
 
-    const makeTeam = e => {
-        e.preventDefault();
-        setTeams([
-            ...teams,
-            {
-                id: teams.length,
-                name: `${teamName}`,
-                description: `${description}`,
-                members: `${users}`
-            }
-        ])
-        setTeamName(teamName);
-        setUsers(users);
-        setDescription(description);
-        setModalOpen(false);
-    }
+    getTeams()
+  }
 
-    const userAdd = e => {
-        e.preventDefault();
+  const createTeam = async () => {
+    let company = localStorage.getItem("company");
+    const response = await fetchFromCompany({
+      method: "POST",
+      endpoint: `companies/${company}/teams`,
+      body: {
+        name: teamName,
+        description: description,
+      },
+  })
+  setModalOpen(false);
+  setNewTeamId(response.id)
+  for(let i = 0; i < membersToAdd.length; i++){
 
-    }
+    addNewMembers(response.id, membersToAdd[i])
+  }
+  
+  console.log("New team",response)
+}
 
-    return (
-        <div>
-            <h1>Teams</h1>
-            <div className="body-content">
-                {teams.length > 0 && teams.map((team) => (
-            <TeamCard key={team.id}>{team.name}</TeamCard>
-        ))}
-                <Button
-                    onClick={() => setModalOpen(true)}
-                    variant="outlined"
-                    // size="small"
-                    style={{ backgroundColor: "##B3B3B3", color: "#DEB992", marginTop: 20 }}
-                >+<br />
-                    New Team
-                </Button>
-                <div>
-                    {/* <Typography
-                        style={{ visibility: error ? "visible" : "hidden" }}
-                        component="h6"
-                        color="error"
-                    >
-                        There was an error creating the team. Please try again.
-                    </Typography> */}
+  useEffect(() => {
+    getUsers();
+  }, [teams]);
 
-                    <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-                        <Box sx={modalStyle} component="form" avatar={
-                            <Avatar>
-                                X
-                            </Avatar>
-                        }>
-                            <TextField
-                                value={teamName}
-                                onChange={e => setTeamName(e.target.value)}
-                                size="small"
-                                required
-                                label="team name"
-                                style={{ paddingRight: 10 }}
-                            />
-                            <TextField
-                                value={description}
-                                onChange={e => setDescription(e.target.value)}
-                                size="small"
-                                required
-                                label="description"
-                                style={{ paddingRight: 10 }}
-                            />
-                            <div style={{ textAlign: "center", marginTop: "20px" }}>
-                                <Typography component="h6">Select Members</Typography>
-                                <Select
-                                    size="small"
-                                    value={users}
-                                    onChange={userAdd}
-                                    label="Pick an option"
-                                >
-                                    {users.map((user) => (
-                                        <MenuItem key={user} value={user}>{user}</MenuItem>
-                                    ))}
-                                </Select>
-                            </div>
-                            <Button
-                                style={{ marginRight: 10 }}
-                                variant="contained"
-                                // color="#1BA098"
-                                onClick={makeTeam}
-                            >
-                                {" "}
-                                Submit
-                            </Button>
-                        </Box>
-                    </Modal>
-                </div>
-            </div>
-        </div>
-    );
+  useEffect(() => {
+    getTeams()
+  }, [])
+
+  
+  const handleChange = e => {
+
+    console.log('are you working', e)
+    const {
+      target: { value }
+    } = e;
+    console.log("value",value)
+      setMembersToAdd(
+        value
+      )
+  };
+
+  return teams ? (
+    <>
+    <NavBar />
+      {user.credentials.admin ? (
+        <Button onClick={() => setModalOpen(true)}>Create New Team</Button>
+      ) : null}
+      {teams.map((team, idx) => (
+        <TeamCard team={team} />
+      ))}
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <Box sx={modalStyle} component="form" avatar={<Avatar></Avatar>}>
+          <TextField
+            value={teamName}
+            onChange={e => setTeamName(e.target.value)}
+            size="small"
+            required
+            label="team name"
+            style={{ paddingRight: 10 }}
+          />
+          <TextField
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            size="small"
+            required
+            label="description"
+            style={{ paddingRight: 10 }}
+          />
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <Typography component="h6">Select Members</Typography>
+            
+            <Select
+              size="small"
+              multiple
+              value={users}
+              onClick={(event) => handleChange(event.target.value)}
+              // renderValue={(selected) => selected.join(', ')}
+              label="Pick an option"
+            >
+              {users.map(user => (
+                user.team ? null :
+                <MenuItem key={user.id}  value={user.userName}>{user.firstName}</MenuItem>
+              ))}
+            </Select>
+           
+          </div>
+          <Button
+            style={{ marginRight: 10 }}
+            variant="contained"
+            // color="#1BA098"
+            onClick={createTeam}
+          >
+            {" "}
+            Submit
+          </Button>
+        </Box>
+      </Modal>
+    </>
+  ) : null;
 };
 
 export default TeamOverview;
