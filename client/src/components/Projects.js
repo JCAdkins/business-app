@@ -156,7 +156,7 @@ const Projects = props => {
         </Typography>
 
         <div style={{ textAlign: "right" }}>
-          <Button
+         {user.credentials.admin ? <Button
             style={{
               textTransform: "none",
               fontSize: 13,
@@ -170,7 +170,7 @@ const Projects = props => {
             onClick={() => setIsModalOpen(true)}
           >
             New
-          </Button>
+          </Button> : null}
         </div>
         <div>
           <hr />

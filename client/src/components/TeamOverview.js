@@ -90,6 +90,8 @@ console.log("memberstoadd>>>>", membersToAdd)
 
   const createTeam = async () => {
     let company = localStorage.getItem("company");
+    
+    console.log(">>>>",company)
     const response = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/teams`,
@@ -97,13 +99,15 @@ console.log("memberstoadd>>>>", membersToAdd)
         name: teamName,
         description: description,
       },
+  }).then(newTeam => {
+    setTeams([...teams, newTeam])
+    setModalOpen(false);
   })
-  setModalOpen(false);
-  setNewTeamId(response.id)
+  getTeams()
   for(let i = 0; i < membersToAdd.length; i++){
     addNewMembers(response.id, membersToAdd[i])
   }
-  
+  getTeams()
   console.log("New team",response)
 }
 
@@ -136,7 +140,7 @@ console.log("memberstoadd>>>>", membersToAdd)
         <Box sx={modalStyle} component="form" avatar={<Avatar></Avatar>}>
           <TextField
             value={teamName}
-            onChange={e => setTeamName()}
+            onChange={e => setTeamName(e.target.value)}
             size="small"
             required
             label="team name"
