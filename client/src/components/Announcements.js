@@ -4,14 +4,15 @@ import { Box, Button, Paper, Card, Modal } from "@mui/material";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { width } from "@mui/system";
-import Menu from "./NavBar";
-import fetchFromCompany, { request } from "../services/api";
+import NavBar from "./NavBar";
+import fetchFromCompany from "../services/api";
 
-const Announcements = ({ userData, author }) => {
+const Announcements = () => {
   //userData will need to be set in the app.js then passed to the components that need it.
-  console.log('from announcements',userData)
-
+  let userData = localStorage.getItem("userData")
+  let user = JSON.parse(userData)
   
+  console.log('from announcements', user)
 
  
   
@@ -19,7 +20,7 @@ const Announcements = ({ userData, author }) => {
   const [announcementToCreate, setAnnouncementToCreate] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   
-  console.log("announcements to set", announcementsToSet)
+  // console.log("announcements to set", announcementsToSet)
 
   const modalStyle = {
     position: "absolute",
@@ -43,7 +44,7 @@ const Announcements = ({ userData, author }) => {
     //    background: "rgb(6, 22, 30)"
   };
 
-  let admin = true;
+  
 
   const cardStyle = {
     display: "flex",
@@ -55,18 +56,18 @@ const Announcements = ({ userData, author }) => {
 
   
   useEffect(() => {
-    const getAnnouncements = () => {
-      let company = localStorage.getItem("company")
-      console.log("from get announcmements",company)
-      const response = fetchFromCompany({
-        endpoint: `companies/${company}/announcements`,
-        
-      }).then((data) => {
-        console.log(data)
-        setAnnouncementsToSet(data)
-      })
-  
-    }
+  const getAnnouncements = () => {
+    let company = localStorage.getItem("company")
+    console.log("from get announcmements",company)
+    const response = fetchFromCompany({
+      endpoint: `companies/${company}/announcements`,
+      
+    }).then((data) => {
+      console.log(data)
+      setAnnouncementsToSet(data)
+    })
+    
+  }
     getAnnouncements()
   }, [])
    
@@ -78,7 +79,7 @@ const Announcements = ({ userData, author }) => {
     let company = localStorage.getItem("company")
     const response = fetchFromCompany({
       method: "POST",
-      endpoint: `companies/${company}/users/${userData.id}/announcements`,
+      endpoint: `companies/${company}/users/${user.id}/announcements`,
       body: {
         title: "New announcement",
         message: announcementToCreate,
@@ -86,18 +87,19 @@ const Announcements = ({ userData, author }) => {
         companyId: company 
       }
     })
-  
+   
     setAnnouncementToCreate('')
     setModalOpen(false);
-    // window.location.reload();
+    window.location.reload();
+    
   };
 
   return announcementsToSet ? (
     <>
     
-      {/* <Menu /> */}
+      <NavBar />
       <Paper style={container}>
-        {admin ? (
+        {user.credentials.admin ? (
           <Button
             onClick={() => setModalOpen(true)}
             variant="contained"
@@ -109,9 +111,9 @@ const Announcements = ({ userData, author }) => {
         ) : null}
 
         <h1>Announcements</h1>
-        { announcementsToSet.map(announcement => 
+        { announcementsToSet.map((announcement, idx) => 
           (
-         <Card style={cardStyle}>
+         <Card style={cardStyle}  key={idx}>
            <h3>{announcement.author.firstName}</h3>
            <h1>{announcement.title}</h1>
            <p>{announcement.message}</p>

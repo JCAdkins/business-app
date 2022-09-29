@@ -14,9 +14,9 @@ public interface UserService {
 
     UserResponseDto deleteUser(String username);
 
-    List<UserResponseDto> getAllUsersByTeam(long teamID);
+    List<UserResponseDto> getAllUsersByTeam(Long teamID);
 
     UserResponseDto updateUser(String username, UserPatchRequestDto userPatchRequestDto);
 
-    UserResponseDto addUserToTeam(String username, long teamID);
+    UserResponseDto addUserToTeam(String username, Long teamID);
 }

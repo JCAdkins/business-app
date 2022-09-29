@@ -1,5 +1,5 @@
 import React from "react";
-
+import NavBar from "./NavBar";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 
 const Project = ({ project, handleClick }) => {
@@ -15,12 +15,13 @@ const Project = ({ project, handleClick }) => {
         <div style={{ width: "80%", margin: "20px 0" }}>
           <p style={{ fontSize: 24, fontWeight: "bold", lineHeight: 0 }}>
             {project.name}{" "}
-            <span style={{ fontSize: 13 }}>
+            {/* <span style={{ fontSize: 13 }}>
               Last edited {elapsedDays} day{elapsedDays === 1 ? "" : "s"} ago
-            </span>
+            </span> */}
           </p>
           <p style={{ fontSize: 13 }}>{project.description}</p>
         </div>
+
         <div
           style={{
             width: "20%",
