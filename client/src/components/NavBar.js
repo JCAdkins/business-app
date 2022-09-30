@@ -46,9 +46,8 @@ const NavBar = () => {
 
 
   return (
-    <Box style={nav}
-    sx={{ bgcolor: "primary" }}>
-      <AppBar position="static">
+    <Box>
+      <AppBar style={nav} position="static">
         <Toolbar sx={{ justifyContent: "space-between" }}>
         <img src={logo} className="img2" alt="files"/>
         {user.credentials.admin ? (<h2 style={{ color: "rgb(255, 0, 0)", marginRight: "65%"}}>Acting as Admin</h2>) : (<></>)}

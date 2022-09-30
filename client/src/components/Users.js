@@ -19,7 +19,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
-import {card} from './component-Styles/mui-stylez'
+import {table, card, modal, input} from './component-Styles/mui-stylez';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const emptyUserObject = {
   firstName: "",
@@ -156,12 +157,7 @@ const Users = props => {
             A general view of all your members in your organization.
           </Typography>
           <TableContainer component={Paper} elevation={4}
-                  style={card}
-                  sx={{
-                    border: '2px solid #DEB992',
-                    borderRadius: 3,
-                    align: "center"
-                  }}>
+                  style={table}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -187,14 +183,14 @@ const Users = props => {
               </TableHead>
               <TableBody>
                 {users.map(newUser => (
-                  <TableRow key={newUser.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row" align="center">
+                  <TableRow key={newUser.id} sx={{ color: "DEB992", "&:last-child td, &:last-child th": { borderTop: '2px solid #DEB992' } }}>
+                    <TableCell style={{color: "#DEB992"}} component="th" scope="row" align="center">
                       {newUser.firstName + " " + newUser.lastName}
                     </TableCell>
-                    <TableCell align="center">
-                      <Link href={`mailto:${newUser.email}`}>{newUser.email}</Link>
+                    <TableCell style={{color: "#DEB992"}} align="center">
+                      <Link style={{textDecoration: 'none'}} color="inherit" href={`mailto:${newUser.email}`}>{newUser.email}</Link>
                     </TableCell>
-                    <TableCell align="center">{newUser.team?.name || "-"}</TableCell>
+                    <TableCell style={{color: "#DEB992"}} align="center">{newUser.team?.name || "-"}</TableCell>
                     <TableCell
                       align="center"
                       style={{
@@ -213,7 +209,7 @@ const Users = props => {
                     >
                       {newUser.credentials.admin ? "YES" : "NO"}
                     </TableCell>
-                    <TableCell align="center">{newUser.status}</TableCell>
+                    <TableCell style={{color: "#DEB992"}} align="center">{newUser.status}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -229,16 +225,26 @@ const Users = props => {
               Add User
             </Button>
           </div>
-          <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-            <Box sx={modalStyle} component="form">
+          <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} style={card}>
+          <Box component="form" style={modal} sx={{
+            boxShadow: "2px 2px 2px",
+            borderRadius: 6,
+            padding: "10%",
+          }}>
+                        <HighlightOffIcon
+              onClick={cancelSubmit}
+              sx={{ color: "rgb(255, 0, 0)", marginLeft: "80%", marginBottom: "10%" }}
+            />
               <TextField
                 value={newUser.firstName}
                 onChange={handleChange}
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 label="First Name"
                 name="firstName"
-                style={{ paddingBottom: 20 }}
+                style={input}
               />
               <TextField
                 value={newUser.lastName}
@@ -246,7 +252,10 @@ const Users = props => {
                 name="lastName"
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 label="Last Name"
+                style={input}
               />
               <TextField
                 value={newUser.email}
@@ -255,24 +264,32 @@ const Users = props => {
                 fullWidth
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 label="Email"
                 name="email"
-                style={{ paddingBottom: 20 }}
+                style={input}
               />
               <TextField
                 value={newUser.credentials.password}
                 onChange={handleChange}
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 type="password"
                 label="Password"
                 name="password"
+                style={input}
               />
               <TextField
                 value={passwordCheck}
                 onChange={e => setPasswordCheck(e.target.value)}
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
+                style={input}
                 type="password"
                 label="Confirm Password"
                 error={newUser.credentials.password !== passwordCheck}
@@ -292,16 +309,13 @@ const Users = props => {
               </div>
               <div style={{ textAlign: "center", marginTop: 20 }}>
                 <Button
-                  style={{ marginRight: 10 }}
-                  variant="contained"
-                  color="success"
+                variant="contained"
+                size="small"
+                style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
                   disabled={!isValidated}
                   onClick={handleSubmit}
                 >
                   Submit
-                </Button>
-                <Button variant="contained" color="secondary" onClick={cancelSubmit}>
-                  Cancel
                 </Button>
               </div>
             </Box>

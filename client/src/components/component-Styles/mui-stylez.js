@@ -72,7 +72,7 @@ export const nav = {
     marginTop: 0,
     marginRight: 0,
     marginLeft: 0,
-    marginBottom: 5,
+    marginBottom: "5%",
     width: "100%",
     background: "rgb(6, 22, 30)",
     border: '2px solid #DEB992',
@@ -92,5 +92,19 @@ export const modal = {
     transform: "translate(-50%, -50%)",
     // width: 400,
     boxShadow: 24,
-    p: 2
+    padding: "3%"
+}
+
+export const table = {
+    display: "flex",
+    flexDirection: "column",
+    padding: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    wordWrap: 'break-word',
+    border: '2px solid #DEB992',
+    borderRadius: 6,
+    background: "rgb(6, 22, 30)",
+    align: "center"
 }
