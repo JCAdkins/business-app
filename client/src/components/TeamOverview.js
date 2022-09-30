@@ -32,13 +32,11 @@ const TeamOverview = () => {
   const [users, setUsers] = useState([]);
   const [teams, setTeams] = useState([]);
   // const [userIds, setUserIds] = useState()
-   // eslint-disable-next-line 
-  const [newTeamId, setNewTeamId] = useState()
+  // const [newTeamId, setNewTeamId] = useState()
   // const [membersToAdd, setMembersToAdd] = useState([])
   const [membersToAdd, setMembersToAdd] = useState([]);
 console.log("memberstoadd>>>>", membersToAdd)
- // eslint-disable-next-line 
-  let company = localStorage.getItem("company");
+  // let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
   let user = JSON.parse(userData);
   
@@ -55,13 +53,7 @@ console.log("memberstoadd>>>>", membersToAdd)
     p: 4,
   };
 
-//   const cardStyle = {
-//     display: "flex",
-//     flexDirection: "column",
-//     padding: 25,
-//     minWidth: "50%",
-//     marginBottom: "5%",
-//   };
+
 
   const getUsers = async () => {
     const response = await fetchFromCompany({
@@ -81,7 +73,7 @@ console.log("memberstoadd>>>>", membersToAdd)
   };
 
   const addNewMembers = async (teamId, username) => {
-     // eslint-disable-next-line 
+    console.log("addingnew members")
     const response = await fetchFromCompany({
       method: "PATCH",
       endpoint: `users/${username}/${teamId}`
@@ -92,6 +84,8 @@ console.log("memberstoadd>>>>", membersToAdd)
 
   const createTeam = async () => {
     let company = localStorage.getItem("company");
+    
+    console.log(">>>>",company)
     const response = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/teams`,
@@ -100,11 +94,17 @@ console.log("memberstoadd>>>>", membersToAdd)
         description: description,
       },
   })
-  setModalOpen(false);
-  setNewTeamId(response.id)
-  for(let i = 0; i < membersToAdd.length; i++){
-    addNewMembers(response.id, membersToAdd[i])
-  }
+  setMembersToAdd([])
+    for(let i = 0; i < membersToAdd.length; i++){
+      addNewMembers(response.id, membersToAdd[i])
+    }
+    setTeamName('')
+    setDescription('')
+    setModalOpen(false);
+    getTeams()
+    
+ 
+  
   
   console.log("New team",response)
 }
@@ -138,7 +138,7 @@ console.log("memberstoadd>>>>", membersToAdd)
         <Box sx={modalStyle} component="form" avatar={<Avatar></Avatar>}>
           <TextField
             value={teamName}
-            onChange={e => setTeamName()}
+            onChange={e => setTeamName(e.target.value)}
             size="small"
             required
             label="team name"

@@ -51,6 +51,8 @@ const Users = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isValidated, setIsValidated] = useState(false);
+//
+  let user = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
     fetch("http://localhost:8080/users")
@@ -77,6 +79,7 @@ const Users = props => {
   };
 
   const handleSubmit = e => {
+    console.log("working")
     console.log(newUser);
     e.preventDefault();
     setNewUser({
@@ -135,14 +138,17 @@ const Users = props => {
   };
 
   const postNewUser = async () => {
+    console.log("posting new user")
     const returnedUser = await fetchFromCompany({
       method: "POST",
       endpoint: "users",
       body: newUser,
-    });
-    console.log("Added New User: ", returnedUser);
-    setNewUser(emptyUserObject);
-    window.location.reload(false);
+    }).then(newUser => {
+      setUsers([...users, newUser])
+      setNewUser(emptyUserObject);
+    })
+    
+    // window.location.reload(false);
   };
 
   return (
@@ -216,14 +222,14 @@ const Users = props => {
             </Table>
           </TableContainer>
           <div style={{ textAlign: "left" }}>
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              variant="contained"
-              size="small"
-              style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
-            >
-              Add User
-            </Button>
+          { user.credentials.admin ? <Button
+            onClick={() => setIsModalOpen(true)}
+            variant="contained"
+            size="small"
+            style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
+          >
+            Add User
+          </Button> : null}
           </div>
           <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} style={card}>
           <Box component="form" style={modal} sx={{
