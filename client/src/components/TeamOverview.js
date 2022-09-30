@@ -12,9 +12,10 @@ import {
   Card,
   Paper,
   FormControl,
-  ListItemText,
-  Checkbox
+  InputLabel,
+  Input,
 } from "@mui/material";
+// import MultipleSelect from 'material-ui-multiple-select'
 // import {Global, css } from '@emotion/react';
 import TeamCard from "../components/component-Helpers/TeamCard";
 import NavBar from "./NavBar"
@@ -22,6 +23,7 @@ import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
 import Stack from "react-bootstrap/Stack";
 
+// import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const TeamOverview = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,7 +33,8 @@ const TeamOverview = () => {
   const [teams, setTeams] = useState([]);
   const [userIds, setUserIds] = useState()
   const [newTeamId, setNewTeamId] = useState()
-  const [membersToAdd, setMembersToAdd] = useState([])
+  // const [membersToAdd, setMembersToAdd] = useState([])
+  const [membersToAdd, setMembersToAdd] = useState([]);
 console.log("memberstoadd>>>>", membersToAdd)
   let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
@@ -76,7 +79,7 @@ console.log("memberstoadd>>>>", membersToAdd)
   };
 
   const addNewMembers = async (teamId, username) => {
-    
+    console.log("addingnew members")
     const response = await fetchFromCompany({
       method: "PATCH",
       endpoint: `users/${username}/${teamId}`
@@ -87,6 +90,8 @@ console.log("memberstoadd>>>>", membersToAdd)
 
   const createTeam = async () => {
     let company = localStorage.getItem("company");
+    
+    console.log(">>>>",company)
     const response = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/teams`,
@@ -95,15 +100,21 @@ console.log("memberstoadd>>>>", membersToAdd)
         description: description,
       },
   })
-  setModalOpen(false);
-  setNewTeamId(response.id)
-  for(let i = 0; i < membersToAdd.length; i++){
-
-    addNewMembers(response.id, membersToAdd[i])
-  }
+  setMembersToAdd([])
+    for(let i = 0; i < membersToAdd.length; i++){
+      addNewMembers(response.id, membersToAdd[i])
+    }
+    setTeamName('')
+    setDescription('')
+    setModalOpen(false);
+    getTeams()
+    
+ 
+  
   
   console.log("New team",response)
 }
+
 
   useEffect(() => {
     getUsers();
@@ -113,18 +124,12 @@ console.log("memberstoadd>>>>", membersToAdd)
     getTeams()
   }, [])
 
-  
   const handleChange = e => {
+    setMembersToAdd(e.target.value);
+  }
 
-    console.log('are you working', e)
-    const {
-      target: { value }
-    } = e;
-    console.log("value",value)
-      setMembersToAdd(
-        value
-      )
-  };
+  const members = users.filter(user => user.team == null);
+  console.log("these are memebers", members)
 
   return teams ? (
     <>
@@ -154,22 +159,21 @@ console.log("memberstoadd>>>>", membersToAdd)
             style={{ paddingRight: 10 }}
           />
           <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Typography component="h6">Select Members</Typography>
-            
-            <Select
-              size="small"
-              multiple
-              value={users}
-              onClick={(event) => handleChange(event.target.value)}
-              // renderValue={(selected) => selected.join(', ')}
-              label="Pick an option"
-            >
-              {users.map(user => (
-                user.team ? null :
-                <MenuItem key={user.id}  value={user.userName}>{user.firstName}</MenuItem>
-              ))}
-            </Select>
-           
+            <FormControl>
+                  <InputLabel htmlFor="multi"><Typography component="h6">Select Members</Typography></InputLabel>
+                  <Select
+                    multiple
+                    value={membersToAdd}
+                    onChange={handleChange}
+                    input={<Input id="multi" />}
+                  >
+                    {members.map(option => (
+                      <MenuItem key={option.id} value={option.credentials.username}>
+                        {option.firstName}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>           
           </div>
           <Button
             style={{ marginRight: 10 }}

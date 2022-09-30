@@ -1,6 +1,7 @@
 package com.cooksys.cookslack.controllers;
 import com.cooksys.cookslack.data.dtos.UserPatchRequestDto;
 import com.cooksys.cookslack.data.dtos.UserRequestDto;
+import com.cooksys.cookslack.data.dtos.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import com.cooksys.cookslack.services.UserService;
 import org.springframework.web.bind.annotation.*;

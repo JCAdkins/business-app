@@ -165,6 +165,8 @@ const Users = props => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isValidated, setIsValidated] = useState(false);
 
+  let user = JSON.parse(localStorage.getItem("userData"));
+
   useEffect(() => {
     fetch("http://localhost:8080/users")
       .then(response => response.json())
@@ -340,14 +342,14 @@ const Users = props => {
             </Table>
           </TableContainer>
           <div style={{ textAlign: "left" }}>
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              variant="contained"
-              size="small"
-              style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
-            >
-              Add User
-            </Button>
+          { user.credentials.admin ? <Button
+            onClick={() => setIsModalOpen(true)}
+            variant="contained"
+            size="small"
+            style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
+          >
+            Add User
+          </Button> : null}
           </div>
           <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <Box sx={modalStyle} component="form">
