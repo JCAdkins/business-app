@@ -79,7 +79,7 @@ console.log("memberstoadd>>>>", membersToAdd)
   };
 
   const addNewMembers = async (teamId, username) => {
-    
+    console.log("addingnew members")
     const response = await fetchFromCompany({
       method: "PATCH",
       endpoint: `users/${username}/${teamId}`
@@ -99,15 +99,19 @@ console.log("memberstoadd>>>>", membersToAdd)
         name: teamName,
         description: description,
       },
-  }).then(newTeam => {
-    setTeams([...teams, newTeam])
-    setModalOpen(false);
   })
-  getTeams()
-  for(let i = 0; i < membersToAdd.length; i++){
-    addNewMembers(response.id, membersToAdd[i])
-  }
-  getTeams()
+  setMembersToAdd([])
+    for(let i = 0; i < membersToAdd.length; i++){
+      addNewMembers(response.id, membersToAdd[i])
+    }
+    setTeamName('')
+    setDescription('')
+    setModalOpen(false);
+    getTeams()
+    
+ 
+  
+  
   console.log("New team",response)
 }
 
