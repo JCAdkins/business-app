@@ -63,11 +63,7 @@ const TeamCard = ({team}) => {
         <h3>Members</h3>
         {team.users.map((user) => (
         <Button>
-<<<<<<< HEAD
-          <Link to={`users/${user.credentials.username}`}>{user.firstName}</Link>
-=======
           <Link >{user.firstName}</Link>
->>>>>>> e0bc4256a389440282fe698babd1f48207ce1d1a
         </Button>
         ))}
       </div>
