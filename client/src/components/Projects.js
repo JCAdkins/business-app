@@ -120,14 +120,15 @@ const Projects = props => {
       method: "POST",
       endpoint: `companies/${user.company.id}/teams/${user.team.id}/projects`,
       body: project,
-    });
-    console.log("Added New Project: ", returnedProject);
-    setProject(emptyProjectObject);
-    window.location.reload(false);
+    }).then(newProject => {
+      setProjects([...projects, newProject])
+      setProject(emptyProjectObject);
+    })
+    
   };
 
   const patchProject = async () => {
-    console.log(project);
+    
     const returnedProject = await fetchFromCompany({
       method: "PATCH",
       endpoint: `companies/${user.company.id}/teams/${user.team.id}/projects/${project.id}`,

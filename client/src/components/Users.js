@@ -164,7 +164,7 @@ const Users = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isValidated, setIsValidated] = useState(false);
-
+//
   let user = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
@@ -191,6 +191,7 @@ const Users = props => {
   };
 
   const handleSubmit = e => {
+    console.log("working")
     console.log(newUser);
     e.preventDefault();
     setNewUser({
@@ -249,14 +250,17 @@ const Users = props => {
   };
 
   const postNewUser = async () => {
+    console.log("posting new user")
     const returnedUser = await fetchFromCompany({
       method: "POST",
       endpoint: "users",
       body: newUser,
-    });
-    console.log("Added New User: ", returnedUser);
-    setNewUser(emptyUserObject);
-    window.location.reload(false);
+    }).then(newUser => {
+      setUsers([...users, newUser])
+      setNewUser(emptyUserObject);
+    })
+    
+    // window.location.reload(false);
   };
 
   /**
