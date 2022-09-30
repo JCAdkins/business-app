@@ -79,7 +79,7 @@ console.log("memberstoadd>>>>", membersToAdd)
   };
 
   const addNewMembers = async (teamId, username) => {
-    
+    console.log("addingnew members")
     const response = await fetchFromCompany({
       method: "PATCH",
       endpoint: `users/${username}/${teamId}`
@@ -90,6 +90,8 @@ console.log("memberstoadd>>>>", membersToAdd)
 
   const createTeam = async () => {
     let company = localStorage.getItem("company");
+    
+    console.log(">>>>",company)
     const response = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${company}/teams`,
@@ -98,11 +100,17 @@ console.log("memberstoadd>>>>", membersToAdd)
         description: description,
       },
   })
-  setModalOpen(false);
-  setNewTeamId(response.id)
-  for(let i = 0; i < membersToAdd.length; i++){
-    addNewMembers(response.id, membersToAdd[i])
-  }
+  setMembersToAdd([])
+    for(let i = 0; i < membersToAdd.length; i++){
+      addNewMembers(response.id, membersToAdd[i])
+    }
+    setTeamName('')
+    setDescription('')
+    setModalOpen(false);
+    getTeams()
+    
+ 
+  
   
   console.log("New team",response)
 }
@@ -136,7 +144,7 @@ console.log("memberstoadd>>>>", membersToAdd)
         <Box sx={modalStyle} component="form" avatar={<Avatar></Avatar>}>
           <TextField
             value={teamName}
-            onChange={e => setTeamName()}
+            onChange={e => setTeamName(e.target.value)}
             size="small"
             required
             label="team name"

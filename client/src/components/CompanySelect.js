@@ -19,7 +19,7 @@ const CompanySelect = ({ userData, setCompany}) => {
   const navigate = useNavigate();
  
   const [companies, setCompanies] = useState()
-
+console.log(companies)
   const container = {
     display: "flex",
     flexDirection: "column",
