@@ -40,6 +40,7 @@ const Login = ({ handleLogin, setUserName, setPassword }) => {
           id="standard-password-input"
           variant="standard"
           style={input}
+          sx={{background: "rgb(6, 22, 30)"}}
           label="Password"
           type="password"
           onChange={e => setPassword(e.target.value)}

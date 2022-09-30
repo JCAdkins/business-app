@@ -51,14 +51,15 @@ export const card = {
     justifyContent: "center",
     alignItems: "center",
     margin: "5% 10%",
-    textAlign: "center"
+    textAlign: "center",
+    wordWrap: 'break-word'
 }
 
 export const input = {
     borderBottom: "white solid",
     color: "#1BA098",
     margin: "2%",
-    background: "rgb(6, 22, 30)",
+    // background: "rgb(6, 22, 30)",
 };
 
 export const select = {
@@ -83,6 +84,13 @@ export const menuIcon = {
 }
 
 export const modal = {
-    background: "#0F5583",
-    color: "#fff"
+    background: "#0C2D48",
+    color: "#fff",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    // width: 400,
+    boxShadow: 24,
+    p: 2
 }

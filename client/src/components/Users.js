@@ -19,121 +19,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
-
-
-
-// const usersArray = [
-//   {
-//     id: 0,
-//     firstName: "",
-//     lastName: "HAL",
-//     credentials: {
-//       username: "HAL",
-//       admin: true,
-//     },
-//     email: "hal@ibm.com",
-//     phone: "000-000-0000",
-//     active: false,
-//     team: {
-//       id: 0,
-//       name: "Jupiter Mission",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 1,
-//     firstName: "Dave",
-//     lastName: "Bowman",
-//     credentials: {
-//       username: "DaveBowman",
-//       admin: true,
-//     },
-//     email: "dave@nca.gov",
-//     phone: "000-000-0000",
-//     active: true,
-//     team: {
-//       id: 0,
-//       name: "Jupiter Mission",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 2,
-//     firstName: "Frank",
-//     lastName: "Poole",
-//     credentials: {
-//       username: "FrankPool",
-//       admin: true,
-//     },
-//     email: "frank@nca.gov",
-//     phone: "000-000-0000",
-//     active: false,
-//     team: {
-//       id: 0,
-//       name: "Jupiter Mission",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 3,
-//     firstName: "Haywood",
-//     lastName: "Floyd",
-//     credentials: {
-//       username: "HaywoodFloyd",
-//       admin: true,
-//     },
-//     email: "haywood@nca.gov",
-//     phone: "000-000-0000",
-//     active: true,
-//     team: {
-//       id: 1,
-//       name: "Headquarters",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 4,
-//     firstName: "Nasty",
-//     lastName: "Aliens",
-//     credentials: {
-//       username: "NastyAliens",
-//       isAdmin: false,
-//     },
-//     email: "a@a.a",
-//     phone: "000-000-0000",
-//     active: true,
-//     team: {
-//       id: 2,
-//       name: "Space",
-//       description: "",
-//     },
-//     company: {
-//       id: 1,
-//       name: "Unknown",
-//       description: "",
-//     },
-//   },
-// ];
+import {card} from './component-Styles/mui-stylez'
 
 const emptyUserObject = {
   firstName: "",
@@ -174,6 +60,7 @@ const Users = props => {
   useEffect(() => {
     if (validateForm()) setIsValidated(true);
     else setIsValidated(false);
+    // eslint-disable-next-line
   }, [newUser, passwordCheck]);
 
   const modalStyle = {
@@ -257,19 +144,6 @@ const Users = props => {
     window.location.reload(false);
   };
 
-  /**
-   * const response = fetchFromCompany({
-      method: "POST",
-      endpoint: `companies/${company}/users/${userData.id}/announcements`,
-      body: {
-        title: "New announcement",
-        message: announcementToCreate,
-        userId: userData.id,
-        companyId: company 
-      }
-    })
-   */
-
   return (
     <div>
       <NavBar />
@@ -278,10 +152,16 @@ const Users = props => {
           <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">
             User Registry
           </Typography>
-          <Typography style={{ marginBottom: 20, color: "white" }} component="p">
+          <Typography style={{ marginBottom: 20, color: "#1BA098" }} component="p">
             A general view of all your members in your organization.
           </Typography>
-          <TableContainer component={Paper} elevation={4}>
+          <TableContainer component={Paper} elevation={4}
+                  style={card}
+                  sx={{
+                    border: '2px solid #DEB992',
+                    borderRadius: 3,
+                    align: "center"
+                  }}>
             <Table>
               <TableHead>
                 <TableRow>

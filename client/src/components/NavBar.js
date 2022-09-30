@@ -51,6 +51,7 @@ const NavBar = () => {
       <AppBar position="static">
         <Toolbar sx={{ justifyContent: "space-between" }}>
         <img src={logo} className="img2" alt="files"/>
+        {user.credentials.admin ? (<h2 style={{ color: "rgb(255, 0, 0)", marginRight: "65%"}}>Acting as Admin</h2>) : (<></>)}
           <IconButton
               size="large"
               style={menuIcon}
@@ -82,7 +83,7 @@ const NavBar = () => {
 
 
             {user.credentials.admin ? (
-              <div style={{modal}}>
+              <div style={modal} sx={{background: "#0F5583"}}>
                 <MenuItem>
                   <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
                 </MenuItem>
@@ -97,7 +98,7 @@ const NavBar = () => {
                 </MenuItem>
               </div>
             ) : (
-              <div style={{modal}}>
+              <div style={modal} sx={{background: "#0F5583"}}>
                 <MenuItem>
                   <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
                 </MenuItem>
