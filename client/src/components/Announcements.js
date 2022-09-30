@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
-import { Box, Button, Paper, Card, Modal } from "@mui/material";
+import { Box, Button, Paper, Card, Modal, Grid, Typography, Tooltip } from "@mui/material";
 // import styled from "@emotion/styled";
 // import { useNavigate } from "react-router-dom";
 // import { width } from "@mui/system";
 import NavBar from "./NavBar";
 import fetchFromCompany from "../services/api";
-import { container, card, modal, input } from './component-Styles/mui-stylez'
+import { container, card, modal, input, ex } from './component-Styles/mui-stylez'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const Announcements = () => {
@@ -61,35 +61,39 @@ const Announcements = () => {
     <>
       <NavBar />
       <Paper style={container}>
-        <h1>Announcements</h1>
+        <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">
+          Announcements
+        </Typography>
         {user.credentials.admin ? (
-          <div style={{justifyContent: "flex-end"}}><Button
+          <div style={{ justifyContent: "flex-end" }}><Button
             onClick={() => setModalOpen(true)}
             variant="contained"
             size="small"
-            style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
+            style={{ backgroundColor: "teal", color: "white", marginLeft: "500%" }}
           >
             New
           </Button></div>
         ) : null}
         _________________________________________________________________________________________________
+        <br />
         {announcementsToSet.map((announcement, idx) =>
-        (
-          <Card style={card}
+        (<Grid container sx={{ flexDirection: "row", margin: 0, justifyContent: "space-around" }}>
+          <Card style={card} xs={10}
             sx={{
               borderRadius: 6,
               background: "#0C2D48",
-              padding: "10%",
-              margin: "1%",
-              height: "30%",
+              // padding: "10%",
+              marginTop: 3,
+              // height: "20%",
               width: "75%"
             }}
             key={idx}>
             <h3 style={{ color: "#fff", marginRight: "60%", marginBottom: 0 }}>{user.firstName}</h3>
             <h4 style={{ color: "#fff", marginLeft: "60%", marginTop: ".5em" }}>30 September 2022</h4>
             <h2>{announcement.title}</h2>
-            <p style={{ padding: "10%", paddingTop: 0 }}>{announcement.message}</p>
+            <p style={{ padding: "1%", paddingTop: 0 }}>{announcement.message}</p>
           </Card>
+        </Grid>
         )
         )}
 
@@ -101,10 +105,10 @@ const Announcements = () => {
             borderRadius: 6,
             padding: "10%",
           }}>
-            <HighlightOffIcon
+              <Tooltip title="Close"><HighlightOffIcon
               onClick={() => setModalOpen(false)}
-              sx={{ color: "rgb(255, 0, 0)", marginLeft: "80%", marginBottom: "10%" }}
-            />
+              style={ex}
+              /></Tooltip>
             <TextField
               value={announcementToCreate}
               onChange={e => setAnnouncementToCreate(e.target.value)}

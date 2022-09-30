@@ -7,20 +7,20 @@ import {
   TextField,
   Select,
   MenuItem,
-  Avatar,
+  Tooltip,
   Card,
   Paper,
   FormControl,
   InputLabel,
-  Input,
+  // Input,
+  Grid
 } from "@mui/material";
 // import MultipleSelect from 'material-ui-multiple-select'
-// import {Global, css } from '@emotion/react';
-import TeamCard from "../components/component-Helpers/TeamCard";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import NavBar from "./NavBar"
 import fetchFromCompany from "../services/api";
 import "../components/component-Styles/main.css";
-import { container, card, modal, input } from './component-Styles/mui-stylez';
+import { container, card, modal, input, ex, select } from './component-Styles/mui-stylez';
 
 const TeamOverview = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -36,21 +36,6 @@ const TeamOverview = () => {
   // let company = localStorage.getItem("company");
   let userData = localStorage.getItem("userData");
   let user = JSON.parse(userData);
-
-
-  const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
-
 
   const getUsers = async () => {
     const response = await fetchFromCompany({
@@ -100,12 +85,8 @@ const TeamOverview = () => {
     setModalOpen(false);
     getTeams()
 
-
-
-
     console.log("New team", response)
   }
-
 
   useEffect(() => {
     getUsers();
@@ -126,75 +107,95 @@ const TeamOverview = () => {
     <>
       <NavBar />
       <Paper style={container}
-      sx={{width: "100%"}}>
-      <h1>Teams</h1>
-      <div style={{ display: "flex", flexDirection: "row", flexWrap: 'wrap', width: "100%"}}>
-      {user.credentials.admin ? (
-          <Button
-            variant="outlined"
-            style={{border: '3px solid #DEB992',
-            borderRadius: 20, 
-            width: "20%",
-            height: "40%",
-            padding: "8%",
-            margin: "5% 5%",
-            color: '#DEB992',
-          fontSize: '25px'}} 
-            onClick={() => setModalOpen(true)}>+<br/>New Team</Button>
-        ) : null}
-        {teams.map((team, idx) => (
-          <Card style={card}
-            sx={{
-              borderRadius: 6,
-              background: "#0C2D48",
-              width: "18%",
-              height: "35%",
-              padding: "3%"
-            }} team={team} >
-            <div style={{ display: "flex", flexDirection: "row", borderBottom: '2px solid #DEB992'}}>
-              <h2 style={{ color: "#fff", margin: 0, justifyContent: "flex-start" }}>{team.name}</h2>
-              <h3 style={{ color: "#fff", marginBottom: "2%", justifyContent: "flex-end" }}># of Projects: 5</h3>
-            </div>
-            <div>
-              <h3 style={{ color: "#fff" }}>Members</h3>
-              <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                {team.users.map((user) => (
-                  <Button variant="contained"
-                    size="small"
-                    style={{ backgroundColor: "teal", color: "white", margin: "5%", boxShadow: "3px 3px 3px black" }}>
-                    {user.firstName}
-                  </Button>
-                ))}
+        sx={{ width: "100%", marginTop: 0 }}>
+        <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">
+          Teams
+        </Typography>
+        <Grid container sx={{ flexDirection: "row", margin: 0, justifyContent: "space-around", flexWrap: 'wrap', width: "100%" }}>
+          {user.credentials.admin ? (
+            <Button xs={2} onClick={() => setModalOpen(true)}
+              variant="outlined"
+              style={{
+                border: '3px solid #DEB992',
+                borderRadius: 20,
+                width: "20%",
+                height: "0%",
+                padding: "8%",
+                // margin: "5% 5%",
+                color: '#DEB992',
+                fontSize: 25
+              }}
+            >+<br />New Team</Button>
+          ) : null}
+          {teams.map((team, idx) => (
+            <Card style={card} xs={2}
+              sx={{
+                borderRadius: 6,
+                background: "#0C2D48",
+                width: "18%",
+                height: "35%",
+                padding: "3%"
+              }} team={team} >
+              <div style={{ display: "flex", flexDirection: "row", borderBottom: '2px solid #DEB992' }}>
+                <h2 style={{ color: "#fff", margin: 0, justifyContent: "flex-start" }}>{team.name}</h2>
+                <h3 style={{ color: "#fff", marginBottom: "2%", justifyContent: "flex-end" }}># of Projects: 5</h3>
               </div>
-            </div>
-          </Card>
-        ))}
-        <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-          <Box sx={modalStyle} component="form" avatar={<Avatar></Avatar>}>
+              <div>
+                <h3 style={{ color: "#fff" }}>Members</h3>
+                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+                  {team.users.map((user) => (
+                    <Button variant="contained"
+                      size="small"
+                      style={{ backgroundColor: "teal", color: "white", margin: "5%", boxShadow: "3px 3px 3px black" }}>
+                      {user.firstName}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          ))}
+        </Grid>
+        <Modal open={modalOpen} onClose={() => modalOpen(false)} style={card}>
+          <Box component="form" style={modal} sx={{
+            boxShadow: "2px 2px 2px",
+            borderRadius: 6,
+            padding: "10%",
+          }}>
+            <Tooltip title="Close"><HighlightOffIcon
+              onClick={() => setModalOpen(false)}
+              style={ex}
+            /></Tooltip>
             <TextField
               value={teamName}
               onChange={e => setTeamName(e.target.value)}
               size="small"
               required
               label="team name"
-              style={{ paddingRight: 10 }}
+              id="standard-required"
+              variant="standard"
+              style={input}
             />
             <TextField
               value={description}
               onChange={e => setDescription(e.target.value)}
               size="small"
               required
+              id="standard-required"
+              variant="standard"
+              style={input}
               label="description"
-              style={{ paddingRight: 10 }}
             />
             <div style={{ textAlign: "center", marginTop: "20px" }}>
-              <FormControl>
-                <InputLabel htmlFor="multi"><Typography component="h6">Select Members</Typography></InputLabel>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Select Members</InputLabel>
+                {/* <InputLabel htmlFor="multi"><Typography component="h6">Select Members</Typography></InputLabel> */}
                 <Select
-                  multiple
+                  // multiple
+                  labelId="members-to-select"
                   value={membersToAdd}
+                  style={select}
+                  label="Pick an option"
                   onChange={handleChange}
-                  input={<Input id="multi" />}
                 >
                   {members.map(option => (
                     <MenuItem key={option.id} value={option.credentials.username}>
@@ -205,17 +206,15 @@ const TeamOverview = () => {
               </FormControl>
             </div>
             <Button
-              style={{ marginRight: 10 }}
               variant="contained"
-              color="#1BA098"
+              size="small"
+              style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
               onClick={createTeam}
             >
-              {" "}
               Submit
             </Button>
           </Box>
         </Modal>
-        </div>
       </Paper>
     </>
   ) : null;

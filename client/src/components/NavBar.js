@@ -14,7 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from '../Assets/logo.png'
 import { MenuItem } from "@mui/material";
-import {nav, menuIcon, modal} from './component-Styles/mui-stylez'
+import {nav, menuIcon, menuModal, menu} from './component-Styles/mui-stylez'
 
 const NavBar = () => {
   let userData = localStorage.getItem("userData");
@@ -46,7 +46,7 @@ const NavBar = () => {
 
 
   return (
-    <Box>
+    <Box  sx={{flexGrow: 1}}>
       <AppBar style={nav} position="static">
         <Toolbar sx={{ justifyContent: "space-between" }}>
         <img src={logo} className="img2" alt="files"/>
@@ -82,30 +82,30 @@ const NavBar = () => {
 
 
             {user.credentials.admin ? (
-              <div style={modal} sx={{background: "#0F5583"}}>
+              <div style={menuModal}>
                 <MenuItem>
-                  <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
+                  <Link to="/" style={menu}>Home</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/teamoverview" style={{ textDecoration: 'none' }}>Teams</Link>
+                  <Link to="/teamoverview" style={menu}>Teams</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/users" style={{ textDecoration: 'none' }}>Users</Link>
+                  <Link to="/users" style={menu}>Users</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/projects" style={{ textDecoration: 'none' }}>Projects</Link>
+                  <Link to="/projects" style={menu}>Projects</Link>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   Logout
                 </MenuItem>
               </div>
             ) : (
-              <div style={modal} sx={{background: "#0F5583"}}>
+              <div style={menuModal}>
                 <MenuItem>
-                  <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
+                  <Link to="/" style={menu}>Home</Link>
                 </MenuItem>
                 <MenuItem>
-                  <Link to="/projects" style={{ textDecoration: 'none' }}>Projects</Link>
+                  <Link to="/projects" style={menu}>Projects</Link>
                 </MenuItem>
                 
                 <MenuItem onClick={handleLogout}>

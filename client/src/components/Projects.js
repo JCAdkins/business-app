@@ -7,10 +7,11 @@ import {
   Modal,
   TextField,
   Box,
+  Tooltip
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
 import NavBar from "./NavBar";
-import { card, input, modal } from './component-Styles/mui-stylez';
+import { card, input, modal, ex } from './component-Styles/mui-stylez';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const emptyProjectObject = {
@@ -74,6 +75,7 @@ const Projects = props => {
   };
 
   const postProject = async () => {
+    // eslint-disable-next-line
     const returnedProject = await fetchFromCompany({
       method: "POST",
       endpoint: `companies/${user.company.id}/teams/${user.team.id}/projects`,
@@ -145,10 +147,10 @@ const Projects = props => {
             borderRadius: 6,
             padding: "10%",
           }}>
-            <HighlightOffIcon
-              onClick={cancelSubmit}
-              sx={{ color: "rgb(255, 0, 0)", marginLeft: "80%", marginBottom: "10%" }}
-            />
+              <Tooltip title="Close"><HighlightOffIcon
+                onClick={cancelSubmit}
+                style={ex}
+              /></Tooltip>
             <TextField
               value={project.name}
               onChange={handleChange}
