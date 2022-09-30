@@ -1,51 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
-import { Box, Button, Paper } from "@mui/material";
-import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
-import { width } from "@mui/system";
-import fetchFromCompany, { request } from "../services/api";
+import { Box, Paper } from "@mui/material";
+import logo from '../Assets/logo.png'
+import './component-Styles/main.css'
+import {container, card, Button, input} from './component-Styles/mui-stylez'
 
-const Login = ({setUserName, setPassword, handleLogin}) => {
-
-  
-  const container = {
-    display: "flex",
-    flexDirection: "column",
-    padding: 35,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "20% 20%",
-    //    background: "rgb(6, 22, 30)"
-  };
-
+const Login = ({ handleLogin, setUserName, setPassword }) => {
 
   return (
     <Paper style={container}>
-      <Box
+      <h1>
+        COOK SYSTEMS SLACK
+      </h1>
+      <h3>Created by the best team <br/>to ever pass through...</h3>
+       <Box
         component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "25ch" },
-        }}
         noValidate
         autoComplete="off"
-        style={container}
-      >
+        style={card}
+        sx={{
+          border: '5px solid #DEB992',
+          boxShadow: "8px 8px 8px #DEB992",
+          borderRadius: 6,
+          width: "75%",
+          height: "65%"
+        }}
+              >
+        <img src={logo} className="img1" alt="files"/>
         <TextField
           required
-          id="outlined-required"
-          label="userName"
+          id="standard-required"
+          variant="standard"
+          style={input}
+          label="username"
           //sets username
           onChange={e => setUserName(e.target.value)}
         />
         <TextField
-          id="outlined-password-input"
+          id="standard-password-input"
+          variant="standard"
+          style={input}
+          sx={{background: "rgb(6, 22, 30)"}}
           label="Password"
           type="password"
           onChange={e => setPassword(e.target.value)}
         />
 
-        <Button variant="contained" onClick={() => handleLogin()}>
+        <Button 
+        variant="outline"
+        pill="true"
+        onClick={() => handleLogin()}>
           Login
         </Button>
       </Box>

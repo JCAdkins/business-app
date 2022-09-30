@@ -10,39 +10,8 @@ import {
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
 import NavBar from "./NavBar";
-
-const projectsArray = [
-  {
-    id: 0,
-    name: "Project 1",
-    "last-edited": new Date("2022-09-15"),
-    description: "This is a description of project 1. Not much to see yet. Check back later.",
-  },
-  {
-    id: 1,
-    name: "Project 2",
-    "last-edited": new Date("2022-09-05"),
-    description: "This is a description of project 2. Not much to see yet. Check back later.",
-  },
-  {
-    id: 2,
-    name: "Project 3",
-    "last-edited": new Date("2022-09-20"),
-    description: "This is a description of project 3. Not much to see yet. Check back later.",
-  },
-  {
-    id: 3,
-    name: "Project 4",
-    "last-edited": new Date("2022-09-08"),
-    description: "This is a description of project 4. Not much to see yet. Check back later. I mean, really later.",
-  },
-  {
-    id: 4,
-    name: "Project 5",
-    "last-edited": new Date("2022-09-23"),
-    description: "This is a description of project 5. Not much to see yet. Check back later.",
-  },
-];
+import { card, input, modal } from './component-Styles/mui-stylez';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const emptyProjectObject = {
   id: null,
@@ -75,17 +44,6 @@ const Projects = props => {
     else setIsValidated(false);
   }, [project]);
 
-  const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
 
   const handleChange = e => {
     setProject({
@@ -124,11 +82,11 @@ const Projects = props => {
       setProjects([...projects, newProject])
       setProject(emptyProjectObject);
     })
-    
+
   };
 
   const patchProject = async () => {
-    
+
     const returnedProject = await fetchFromCompany({
       method: "PATCH",
       endpoint: `companies/${user.company.id}/teams/${user.team.id}/projects/${project.id}`,
@@ -150,14 +108,14 @@ const Projects = props => {
 
   return (
     <div>
-      {/* <NavBar /> */}
-      <Container sx={{ width: "75%", textAlign: "center" }}>
-        <Typography style={{ margin: "20px 0", color: "white" }} variant="h3" component="h1">
+      <NavBar />
+      <Container sx={{ width: "80%", textAlign: "center" }}>
+        <Typography style={{ margin: "20px 0", color: "#1BA098" }} variant="h3" component="h1">
           {user ? user.team.name : "Team"} Projects
         </Typography>
 
         <div style={{ textAlign: "right" }}>
-         {user.credentials.admin ? <Button
+          {user.credentials.admin ? <Button
             style={{
               textTransform: "none",
               fontSize: 13,
@@ -181,40 +139,49 @@ const Projects = props => {
             ) : null
           )}
         </div>
-        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <Box sx={modalStyle} component="form">
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} style={card}>
+          <Box component="form" style={modal} sx={{
+            boxShadow: "2px 2px 2px",
+            borderRadius: 6,
+            padding: "10%",
+          }}>
+            <HighlightOffIcon
+              onClick={cancelSubmit}
+              sx={{ color: "rgb(255, 0, 0)", marginLeft: "80%", marginBottom: "10%" }}
+            />
             <TextField
               value={project.name}
               onChange={handleChange}
               size="small"
               required
+              id="standard-required"
+              variant="standard"
               name="name"
               label="Project Name"
               fullWidth
-              style={{ paddingBottom: 20 }}
+              style={input}
             />
             <TextField
               value={project.description}
               onChange={handleChange}
               size="small"
               required
+              id="standard-required"
+              variant="standard"
               name="description"
               label="description"
               fullWidth
+              style={input}
             />
             <div style={{ textAlign: "center", marginTop: 20 }}>
               <Button
-                style={{ marginRight: 10 }}
                 variant="contained"
-                color="success"
+                size="small"
+                style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
                 disabled={!isValidated}
                 onClick={handleSubmitProject}
               >
                 Submit
-              </Button>
-              <Button variant="contained" color="secondary" onClick={cancelSubmit}>
-
-                Cancel
               </Button>
             </div>
           </Box>

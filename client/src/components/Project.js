@@ -1,17 +1,17 @@
 import React from "react";
-import NavBar from "./NavBar";
-import { Card, CardContent, Typography, Button } from "@mui/material";
+// import NavBar from "./NavBar";
+import { Card, Button } from "@mui/material";
 
 const Project = ({ project, handleClick }) => {
-  const millisecondsInDay = 86400000;
-  const elapsedDays = Math.floor((Date.now() - project["last-edited"]) / millisecondsInDay);
+  // const millisecondsInDay = 86400000;
+  // const elapsedDays = Math.floor((Date.now() - project["last-edited"]) / millisecondsInDay);
 
   return (
     <Card
-      style={{ color: "white", backgroundColor: "transparent", fontFamily: "helvetica" }}
+      style={{ color: "white", fontFamily: "helvetica" }}
       sx={{ boxShadow: 0, borderRadius: 0 }}
     >
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", textAlign: "left" }}>
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", textAlign: "left", backgroundColor: "rgb(6, 22, 30)"}}>
         <div style={{ width: "80%", margin: "20px 0" }}>
           <p style={{ fontSize: 24, fontWeight: "bold", lineHeight: 0 }}>
             {project.name}{" "}
@@ -38,7 +38,7 @@ const Project = ({ project, handleClick }) => {
               width: "80px",
               height: "25px",
               borderRadius: 8,
-              backgroundColor: "antiquewhite",
+              backgroundColor: "#DEB992",
             }}
             onClick={() => handleClick(project.id)}
           >

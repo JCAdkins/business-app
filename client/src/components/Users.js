@@ -19,121 +19,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
-
-
-
-// const usersArray = [
-//   {
-//     id: 0,
-//     firstName: "",
-//     lastName: "HAL",
-//     credentials: {
-//       username: "HAL",
-//       admin: true,
-//     },
-//     email: "hal@ibm.com",
-//     phone: "000-000-0000",
-//     active: false,
-//     team: {
-//       id: 0,
-//       name: "Jupiter Mission",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 1,
-//     firstName: "Dave",
-//     lastName: "Bowman",
-//     credentials: {
-//       username: "DaveBowman",
-//       admin: true,
-//     },
-//     email: "dave@nca.gov",
-//     phone: "000-000-0000",
-//     active: true,
-//     team: {
-//       id: 0,
-//       name: "Jupiter Mission",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 2,
-//     firstName: "Frank",
-//     lastName: "Poole",
-//     credentials: {
-//       username: "FrankPool",
-//       admin: true,
-//     },
-//     email: "frank@nca.gov",
-//     phone: "000-000-0000",
-//     active: false,
-//     team: {
-//       id: 0,
-//       name: "Jupiter Mission",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 3,
-//     firstName: "Haywood",
-//     lastName: "Floyd",
-//     credentials: {
-//       username: "HaywoodFloyd",
-//       admin: true,
-//     },
-//     email: "haywood@nca.gov",
-//     phone: "000-000-0000",
-//     active: true,
-//     team: {
-//       id: 1,
-//       name: "Headquarters",
-//       description: "",
-//     },
-//     company: {
-//       id: 0,
-//       name: "NCA",
-//       description: "",
-//     },
-//   },
-//   {
-//     id: 4,
-//     firstName: "Nasty",
-//     lastName: "Aliens",
-//     credentials: {
-//       username: "NastyAliens",
-//       isAdmin: false,
-//     },
-//     email: "a@a.a",
-//     phone: "000-000-0000",
-//     active: true,
-//     team: {
-//       id: 2,
-//       name: "Space",
-//       description: "",
-//     },
-//     company: {
-//       id: 1,
-//       name: "Unknown",
-//       description: "",
-//     },
-//   },
-// ];
+import {table, card, modal, input} from './component-Styles/mui-stylez';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const emptyUserObject = {
   firstName: "",
@@ -176,6 +63,7 @@ const Users = props => {
   useEffect(() => {
     if (validateForm()) setIsValidated(true);
     else setIsValidated(false);
+    // eslint-disable-next-line
   }, [newUser, passwordCheck]);
 
   const modalStyle = {
@@ -263,19 +151,6 @@ const Users = props => {
     // window.location.reload(false);
   };
 
-  /**
-   * const response = fetchFromCompany({
-      method: "POST",
-      endpoint: `companies/${company}/users/${userData.id}/announcements`,
-      body: {
-        title: "New announcement",
-        message: announcementToCreate,
-        userId: userData.id,
-        companyId: company 
-      }
-    })
-   */
-
   return (
     <div>
       <NavBar />
@@ -284,10 +159,11 @@ const Users = props => {
           <Typography style={{ margin: "20px 0" }} variant="h3" component="h1">
             User Registry
           </Typography>
-          <Typography style={{ marginBottom: 20, color: "white" }} component="p">
+          <Typography style={{ marginBottom: 20, color: "#1BA098" }} component="p">
             A general view of all your members in your organization.
           </Typography>
-          <TableContainer component={Paper} elevation={4}>
+          <TableContainer component={Paper} elevation={4}
+                  style={table}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -313,14 +189,14 @@ const Users = props => {
               </TableHead>
               <TableBody>
                 {users.map(newUser => (
-                  <TableRow key={newUser.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row" align="center">
+                  <TableRow key={newUser.id} sx={{ color: "DEB992", "&:last-child td, &:last-child th": { borderTop: '2px solid #DEB992' } }}>
+                    <TableCell style={{color: "#DEB992"}} component="th" scope="row" align="center">
                       {newUser.firstName + " " + newUser.lastName}
                     </TableCell>
-                    <TableCell align="center">
-                      <Link href={`mailto:${newUser.email}`}>{newUser.email}</Link>
+                    <TableCell style={{color: "#DEB992"}} align="center">
+                      <Link style={{textDecoration: 'none'}} color="inherit" href={`mailto:${newUser.email}`}>{newUser.email}</Link>
                     </TableCell>
-                    <TableCell align="center">{newUser.team?.name || "-"}</TableCell>
+                    <TableCell style={{color: "#DEB992"}} align="center">{newUser.team?.name || "-"}</TableCell>
                     <TableCell
                       align="center"
                       style={{
@@ -339,7 +215,7 @@ const Users = props => {
                     >
                       {newUser.credentials.admin ? "YES" : "NO"}
                     </TableCell>
-                    <TableCell align="center">{newUser.status}</TableCell>
+                    <TableCell style={{color: "#DEB992"}} align="center">{newUser.status}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -355,16 +231,26 @@ const Users = props => {
             Add User
           </Button> : null}
           </div>
-          <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-            <Box sx={modalStyle} component="form">
+          <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} style={card}>
+          <Box component="form" style={modal} sx={{
+            boxShadow: "2px 2px 2px",
+            borderRadius: 6,
+            padding: "10%",
+          }}>
+                        <HighlightOffIcon
+              onClick={cancelSubmit}
+              sx={{ color: "rgb(255, 0, 0)", marginLeft: "80%", marginBottom: "10%" }}
+            />
               <TextField
                 value={newUser.firstName}
                 onChange={handleChange}
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 label="First Name"
                 name="firstName"
-                style={{ paddingBottom: 20 }}
+                style={input}
               />
               <TextField
                 value={newUser.lastName}
@@ -372,7 +258,10 @@ const Users = props => {
                 name="lastName"
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 label="Last Name"
+                style={input}
               />
               <TextField
                 value={newUser.email}
@@ -381,24 +270,32 @@ const Users = props => {
                 fullWidth
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 label="Email"
                 name="email"
-                style={{ paddingBottom: 20 }}
+                style={input}
               />
               <TextField
                 value={newUser.credentials.password}
                 onChange={handleChange}
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
                 type="password"
                 label="Password"
                 name="password"
+                style={input}
               />
               <TextField
                 value={passwordCheck}
                 onChange={e => setPasswordCheck(e.target.value)}
                 size="small"
                 required
+                id="standard-required"
+                variant="standard"
+                style={input}
                 type="password"
                 label="Confirm Password"
                 error={newUser.credentials.password !== passwordCheck}
@@ -418,16 +315,13 @@ const Users = props => {
               </div>
               <div style={{ textAlign: "center", marginTop: 20 }}>
                 <Button
-                  style={{ marginRight: 10 }}
-                  variant="contained"
-                  color="success"
+                variant="contained"
+                size="small"
+                style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
                   disabled={!isValidated}
                   onClick={handleSubmit}
                 >
                   Submit
-                </Button>
-                <Button variant="contained" color="secondary" onClick={cancelSubmit}>
-                  Cancel
                 </Button>
               </div>
             </Box>

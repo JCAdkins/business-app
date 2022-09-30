@@ -6,19 +6,20 @@ import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+// import Typography from "@mui/material/Typography";
+// import Button from "@mui/material/Button";
 
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import BusinessIcon from "@mui/icons-material/Business";
+import logo from '../Assets/logo.png'
 import { MenuItem } from "@mui/material";
+import {nav, menuIcon, modal} from './component-Styles/mui-stylez'
 
 const NavBar = () => {
   let userData = localStorage.getItem("userData");
   let user = JSON.parse(userData);
-
+// eslint-disable-next-line
   const navigate = useNavigate();
 
 
@@ -46,12 +47,13 @@ const NavBar = () => {
 
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar style={nav} position="static">
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <BusinessIcon />
+        <img src={logo} className="img2" alt="files"/>
+        {user.credentials.admin ? (<h2 style={{ color: "rgb(255, 0, 0)", marginRight: "65%"}}>Acting as Admin</h2>) : (<></>)}
           <IconButton
               size="large"
-              color="inherit"
+              style={menuIcon}
               id="demo-positioned-button"
               aria-controls={open ? "demo-positioned-menu" : undefined}
               aria-haspopup="true"
@@ -80,7 +82,7 @@ const NavBar = () => {
 
 
             {user.credentials.admin ? (
-              <>
+              <div style={modal} sx={{background: "#0F5583"}}>
                 <MenuItem>
                   <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
                 </MenuItem>
@@ -96,9 +98,9 @@ const NavBar = () => {
                 <MenuItem onClick={handleLogout}>
                   Logout
                 </MenuItem>
-              </>
+              </div>
             ) : (
-              <>
+              <div style={modal} sx={{background: "#0F5583"}}>
                 <MenuItem>
                   <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
                 </MenuItem>
@@ -109,7 +111,7 @@ const NavBar = () => {
                 <MenuItem onClick={handleLogout}>
                   Logout
                 </MenuItem>
-              </>
+              </div>
             )}
           </Menu>
 

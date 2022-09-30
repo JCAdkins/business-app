@@ -1,13 +1,16 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
-  Navigate,
+  // Navigate,
 } from "react-router-dom";
-
+import { ThemeProvider } from '@emotion/react';
+import {theme, container} from './component-Styles/mui-stylez'
+import {Paper} from "@mui/material";
+// eslint-disable-next-line
 import fetchFromCompany, { request } from "../services/api";
 
 import CompanySelect from "./CompanySelect";
@@ -66,7 +69,10 @@ const App = () => {
   };
 
   return (
-    <Routes>
+      <React.Fragment>
+      <ThemeProvider theme={theme}>
+      <Paper style={container}>
+      <Routes>
       <Route
         path="/"
         element={<Login handleLogin={handleLogin} setUserName={setUserName} setPassword={setPassword} />}
@@ -81,8 +87,10 @@ const App = () => {
 
       <Route path="/projects" element={<Projects />} />
       <Route path="/users" element={<Users />} />
-
-    </Routes>
+      </Routes>
+      </Paper>
+      </ThemeProvider>
+      </React.Fragment>
   );
 };
 
