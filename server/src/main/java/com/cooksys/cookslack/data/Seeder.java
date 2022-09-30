@@ -62,8 +62,8 @@ public class Seeder implements CommandLineRunner {
 
         User user1 = new User();
         user1.setCredentials(user1Cred);
-        user1.setFirstName("Cleetus");
-        user1.setLastName("McBumble");
+        user1.setFirstName("Jefferson");
+        user1.setLastName("Smith");
         user1.setEmail("email@test.com");
         user1.setPhoneNumber("1234567890");
         user1.setActive(true);
@@ -80,7 +80,7 @@ public class Seeder implements CommandLineRunner {
         User user2 = new User();
         user2.setCredentials(user2Cred);
         user2.setFirstName("John");
-        user2.setLastName("Smith");
+        user2.setLastName("Brady");
         user2.setEmail("example@test.com");
         user2.setPhoneNumber("1234567890");
         user2.setActive(true);
@@ -97,7 +97,7 @@ public class Seeder implements CommandLineRunner {
         User user3 = new User();
         user3.setCredentials(user3Cred);
         user3.setFirstName("Luigi");
-        user3.setLastName("Pizzaiolo");
+        user3.setLastName("Piazza");
         user3.setEmail("luigi@email.com");
         user3.setPhoneNumber("1234567890");
         user3.setActive(false);
@@ -114,7 +114,7 @@ public class Seeder implements CommandLineRunner {
         User user4 = new User();
         user4.setCredentials(user4Cred);
         user4.setFirstName("Nathan");
-        user4.setLastName("Drake");
+        user4.setLastName("Johnson");
         user4.setEmail("nathan@email.com");
         user4.setPhoneNumber("1234567890");
         user4.setActive(true);
@@ -131,7 +131,7 @@ public class Seeder implements CommandLineRunner {
         user5.setCredentials(user5Cred);
         user5.setFirstName("Daemon");
         user5.setLastName("Targaryen");
-        user5.setEmail("ikissedmysisandilikedit@email.com");
+        user5.setEmail("dragons@email.com");
         user5.setPhoneNumber("1234567890");
         user5.setActive(true);
         user5.setStatus("Working");
@@ -145,9 +145,9 @@ public class Seeder implements CommandLineRunner {
 
         User user6 = new User();
         user6.setCredentials(user6Cred);
-        user6.setFirstName("BillyBob");
-        user6.setLastName("Thornton");
-        user6.setEmail("bleh@email.com");
+        user6.setFirstName("William");
+        user6.setLastName("Jameson");
+        user6.setEmail("bbt@email.com");
         user6.setPhoneNumber("1234567890");
         user6.setActive(true);
         user6.setStatus("Working");
