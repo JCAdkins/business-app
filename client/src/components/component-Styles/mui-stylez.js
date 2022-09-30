@@ -22,7 +22,7 @@ export const theme = createTheme({
 });
 
 export const Button = styled(MuiButton)(({ pill }) => ({
-    color: "info",
+    color: "#0F5583",
     borderRadius: pill ? 50 : 4,
     border: '2px solid',
     borderColor: "#1BA098",
@@ -33,7 +33,7 @@ export const Button = styled(MuiButton)(({ pill }) => ({
 export const container = {
     display: "flex",
     flexDirection: "column",
-    padding: 45,
+    // padding: 45,
     justifyContent: "center",
     alignItems: "center",
     background: "rgb(6, 22, 30)",
@@ -47,10 +47,10 @@ export const card = {
     // borderRadius: 6,
     display: "flex",
     flexDirection: "column",
-    padding: 2,
+    // padding: 2,
     justifyContent: "center",
     alignItems: "center",
-    margin: "5% 10%",
+    margin: "5% 5%",
     textAlign: "center",
     wordWrap: 'break-word'
 }
@@ -72,7 +72,7 @@ export const nav = {
     marginTop: 0,
     marginRight: 0,
     marginLeft: 0,
-    marginBottom: "5%",
+    marginBottom: "3%",
     width: "100%",
     background: "rgb(6, 22, 30)",
     border: '2px solid #DEB992',

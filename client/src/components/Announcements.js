@@ -63,14 +63,14 @@ const Announcements = () => {
       <Paper style={container}>
         <h1>Announcements</h1>
         {user.credentials.admin ? (
-          <Button
+          <div style={{justifyContent: "flex-end"}}><Button
             onClick={() => setModalOpen(true)}
             variant="contained"
             size="small"
-            style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
+            style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
           >
             New
-          </Button>
+          </Button></div>
         ) : null}
         _________________________________________________________________________________________________
         {announcementsToSet.map((announcement, idx) =>
@@ -79,12 +79,14 @@ const Announcements = () => {
             sx={{
               borderRadius: 6,
               background: "#0C2D48",
-              padding: "25%",
+              padding: "10%",
               margin: "1%",
+              height: "30%",
+              width: "75%"
             }}
             key={idx}>
             <h3 style={{ color: "#fff", marginRight: "60%", marginBottom: 0 }}>{user.firstName}</h3>
-            <h4 style={{ color: "#fff", marginLeft: "50%", marginTop: 0 }}>30 September 2022</h4>
+            <h4 style={{ color: "#fff", marginLeft: "60%", marginTop: ".5em" }}>30 September 2022</h4>
             <h2>{announcement.title}</h2>
             <p style={{ padding: "10%", paddingTop: 0 }}>{announcement.message}</p>
           </Card>
