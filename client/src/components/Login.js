@@ -22,8 +22,9 @@ const Login = ({ handleLogin, setUserName, setPassword }) => {
           border: '5px solid #DEB992',
           boxShadow: "8px 8px 8px #DEB992",
           borderRadius: 6,
-          width: "75%",
-          height: "65%"
+          width: "100%",
+          height: "70%",
+          padding: 0
         }}
               >
         <img src={logo} className="img1" alt="files"/>

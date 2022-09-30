@@ -17,9 +17,10 @@ import {
   Select,
   MenuItem,
   CircularProgress,
+  Tooltip
 } from "@mui/material";
 import fetchFromCompany from "../services/api";
-import {table, card, modal, input} from './component-Styles/mui-stylez';
+import { table, card, modal, input, ex } from './component-Styles/mui-stylez';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const emptyUserObject = {
@@ -51,7 +52,7 @@ const Users = props => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isValidated, setIsValidated] = useState(false);
-//
+  //
   let user = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
@@ -65,18 +66,6 @@ const Users = props => {
     else setIsValidated(false);
     // eslint-disable-next-line
   }, [newUser, passwordCheck]);
-
-  const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
 
   const handleSubmit = e => {
     console.log("working")
@@ -147,7 +136,7 @@ const Users = props => {
       setUsers([...users, newUser])
       setNewUser(emptyUserObject);
     })
-    
+
     // window.location.reload(false);
   };
 
@@ -163,7 +152,7 @@ const Users = props => {
             A general view of all your members in your organization.
           </Typography>
           <TableContainer component={Paper} elevation={4}
-                  style={table}>
+            style={table}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -189,14 +178,14 @@ const Users = props => {
               </TableHead>
               <TableBody>
                 {users.map(newUser => (
-                  <TableRow key={newUser.id} sx={{ color: "DEB992", "&:last-child td, &:last-child th": { borderTop: '2px solid #DEB992' } }}>
-                    <TableCell style={{color: "#DEB992"}} component="th" scope="row" align="center">
+                  <TableRow key={newUser.id} sx={{ color: "DEB992", borderTop: '2px solid #DEB992' }}>
+                    <TableCell style={{ color: "#DEB992" }} component="th" scope="row" align="center">
                       {newUser.firstName + " " + newUser.lastName}
                     </TableCell>
-                    <TableCell style={{color: "#DEB992"}} align="center">
-                      <Link style={{textDecoration: 'none'}} color="inherit" href={`mailto:${newUser.email}`}>{newUser.email}</Link>
+                    <TableCell style={{ color: "#DEB992" }} align="center">
+                      <Link style={{ textDecoration: 'none' }} color="inherit" href={`mailto:${newUser.email}`}>{newUser.email}</Link>
                     </TableCell>
-                    <TableCell style={{color: "#DEB992"}} align="center">{newUser.team?.name || "-"}</TableCell>
+                    <TableCell style={{ color: "#DEB992" }} align="center">{newUser.team?.name || "-"}</TableCell>
                     <TableCell
                       align="center"
                       style={{
@@ -215,32 +204,32 @@ const Users = props => {
                     >
                       {newUser.credentials.admin ? "YES" : "NO"}
                     </TableCell>
-                    <TableCell style={{color: "#DEB992"}} align="center">{newUser.status}</TableCell>
+                    <TableCell style={{ color: "#DEB992" }} align="center">{newUser.status}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
           <div style={{ textAlign: "left" }}>
-          { user.credentials.admin ? <Button
-            onClick={() => setIsModalOpen(true)}
-            variant="contained"
-            size="small"
-            style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
-          >
-            Add User
-          </Button> : null}
+            {user.credentials.admin ? <Button
+              onClick={() => setIsModalOpen(true)}
+              variant="contained"
+              size="small"
+              style={{ backgroundColor: "teal", color: "white", marginTop: 20 }}
+            >
+              Add User
+            </Button> : null}
           </div>
           <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} style={card}>
-          <Box component="form" style={modal} sx={{
-            boxShadow: "2px 2px 2px",
-            borderRadius: 6,
-            padding: "10%",
-          }}>
-                        <HighlightOffIcon
-              onClick={cancelSubmit}
-              sx={{ color: "rgb(255, 0, 0)", marginLeft: "80%", marginBottom: "10%" }}
-            />
+            <Box component="form" style={modal} sx={{
+              boxShadow: "2px 2px 2px",
+              borderRadius: 6,
+              padding: "10%",
+            }}>
+              <Tooltip title="Close"><HighlightOffIcon
+                onClick={cancelSubmit}
+                style={ex}
+              /></Tooltip>
               <TextField
                 value={newUser.firstName}
                 onChange={handleChange}
@@ -315,9 +304,9 @@ const Users = props => {
               </div>
               <div style={{ textAlign: "center", marginTop: 20 }}>
                 <Button
-                variant="contained"
-                size="small"
-                style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
+                  variant="contained"
+                  size="small"
+                  style={{ backgroundColor: "teal", color: "white", marginTop: 20, marginRight: 0 }}
                   disabled={!isValidated}
                   onClick={handleSubmit}
                 >

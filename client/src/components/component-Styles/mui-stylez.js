@@ -22,11 +22,11 @@ export const theme = createTheme({
 });
 
 export const Button = styled(MuiButton)(({ pill }) => ({
-    color: "#0F5583",
+    color: "#fff",
     borderRadius: pill ? 50 : 4,
     border: '2px solid',
     borderColor: "#1BA098",
-    margin: '5%',
+    marginTop: '10%',
     padding: '.5em 2.5em'
 }));
 
@@ -38,7 +38,7 @@ export const container = {
     alignItems: "center",
     background: "rgb(6, 22, 30)",
     width: "100vhw",
-    height: "100vh"
+    height: "100vh",
 };
 
 export const card = {
@@ -50,7 +50,7 @@ export const card = {
     // padding: 2,
     justifyContent: "center",
     alignItems: "center",
-    margin: "5% 5%",
+    // margin: "5% 5%",
     textAlign: "center",
     wordWrap: 'break-word'
 }
@@ -72,7 +72,7 @@ export const nav = {
     marginTop: 0,
     marginRight: 0,
     marginLeft: 0,
-    marginBottom: "3%",
+    marginBottom: "2%",
     width: "100%",
     background: "rgb(6, 22, 30)",
     border: '2px solid #DEB992',
@@ -107,4 +107,23 @@ export const table = {
     borderRadius: 6,
     background: "rgb(6, 22, 30)",
     align: "center"
+}
+
+export const menuModal = {
+    background: "#0C2D48",
+    color: "#1BA098",
+    borderRadius: 6,
+}
+
+export const menu = {
+    borderBottom: '2px solid #1BA098',
+    textDecoration: 'none',
+    color: "#1BA098"
+}
+
+export const ex = {
+    color: "rgb(255, 0, 0)", 
+    marginLeft: "80%", 
+    marginBottom: "10%",
+    cursor: "pointer"
 }
